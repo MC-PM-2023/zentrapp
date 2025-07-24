@@ -1,0 +1,109 @@
+import express from "express";
+import pool from "../config/database.js";
+
+export const createuser = async (username, email, password,otp) => {
+
+    const [result] = await pool.execute(
+
+        `INSERT into users(username,email,password,otp,status,role) values(?,?,?,?,?,?)`,
+        [username, email, password,otp, "unverified", "User"]
+    )
+    return result;
+}
+
+export const verifyotp=async(email,otp)=>{
+
+    const [result]=await pool.execute(
+        `select * from  users where email=? and otp =?`,[email,otp]
+        
+    )
+    return result[0]
+}
+
+export const approveuserafterotp=async(email)=>{
+
+    const [result]=await pool.execute (
+        `update users set otp=null ,status="pending" where email=?`,[email]
+    )
+    return result;
+}
+
+export const getUserByEmail = async (email) => {
+    const [result] = await pool.execute(
+        `select * from users where email=?`, [email])
+    return result[0]
+}
+
+export const approveuser = async (userid, role) => {
+    const [result] = await pool.execute(
+        `update users set status=?, role=? where id=?`, ['Approved', role ,userid])
+    return result;
+}
+
+export const getuserbyId=async(id)=>{
+    const [result]=await pool.execute(
+        `select username,email from users where id=?`,[id])
+        return result[0];
+    
+}
+export const getapproveusers=async()=>{
+    const [result]=await pool.execute(
+        `select id,username ,email, role from users where status="approved"`
+    )
+    return result;
+
+}
+
+export const getpendinguser = async () => {
+    const [result] = await pool.execute(
+        `select * from users where status="pending"`
+    )
+    return result;
+}
+
+export const rejectuser=async(userid)=>{
+    const[result]=await pool.execute(
+        `update users set status =? where id=?`,["Rejected",userid]
+    )
+    return result;
+}
+
+
+export const getrejectuser=async()=>{
+    const [result]=await pool.execute(
+        `select username,email,status from users where status ="rejected"`
+    )
+    return result;
+}
+
+
+//show roles in dropdown
+
+export const getRoles = async () => {
+    try {
+        const [result] = await pool.execute(
+            `SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS 
+             WHERE TABLE_NAME = 'users' AND COLUMN_NAME = 'role'`
+        );
+
+        if (result.length > 0) {
+            const columnType = result[0].COLUMN_TYPE; // e.g., "enum('Admin','User','IP Team','MC Team')"
+            return columnType.match(/'([^']+)'/g).map(role => role.replace(/'/g, ""));
+        }
+        return [];
+    } catch (error) {
+        console.error("Error fetching roles:", error);
+        throw error;
+    }
+};
+
+
+//update approvedusers into rejected user
+
+
+export const updateapproveduser=async(id)=>{
+
+    const [result]=await pool.execute(`update users set status="rejected" where id=?`,[id])
+    return result;
+
+}
