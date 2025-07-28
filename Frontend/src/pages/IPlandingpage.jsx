@@ -118,7 +118,7 @@ const handlelogout=()=>{
     <div className="col-md-4 mb-5">
       <div className="card h-100 position-relative">
         <img src={dsfilesharelogo} alt="dsfilsharelogo" style={{ height: 105 }} className="card-img-top" />
-        <a href="http://34.47.164.153:8000" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+        <a href="http://35.207.199.234:8000" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
       </div> 
     </div>
 
