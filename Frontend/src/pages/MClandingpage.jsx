@@ -409,9 +409,11 @@ const [username,setusername]=useState("")
                 <div className="col-md-4 mb-5">
   <div className="card h-100 position-relative" onClick={() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    const username=localStorage.getItem("username")
+    
+    if (token && username) {
       //jas version
-       window.location.href = `http://35.207.215.48:7070/?token=${token}`;
+       window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`;
       //apps admin version
       // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
     } else {

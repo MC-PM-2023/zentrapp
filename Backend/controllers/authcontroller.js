@@ -84,7 +84,7 @@ const ispasswordvalid=await bcrypt.compare(password,user.password)
         if(!ispasswordvalid){
             return res.status(401).json({message:"Invalid credentials",error:error.message})
         }
-        const token=jwt.sign({userid:user.id, role:user.role},process.env.JWT_SECRET,{expiresIn:"1h"})
+        const token=jwt.sign({userid:user.id, role:user.role,username: user.username,email:user.email},process.env.JWT_SECRET,{expiresIn:"1h"})
         return res.status(200).json({message:"Login successful",token,role:user.role,username:user.username,email:user.email})
     }
     catch(error){
