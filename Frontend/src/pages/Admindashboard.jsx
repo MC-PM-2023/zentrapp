@@ -288,22 +288,6 @@ const Admindashboard = ({ title }) => {
                     <th>Approval</th>
                   </tr>
                 </thead>
-                {/* <tbody>
-   <tr>
-     <td>user@example.com</td>
-     <td>
-       <button className="btn btn-success btn-sm me-2">Approve</button>
-       <button className="btn btn-danger btn-sm">Reject</button>
-     </td>
-   </tr>
-   <tr>
-     <td>john.doe@example.com</td>
-     <td>
-       <button className="btn btn-success btn-sm me-2">Approve</button>
-       <button className="btn btn-danger btn-sm">Reject</button>
-     </td>
-   </tr>
- </tbody> */}
                 <tbody>
                   {getpendingusers?.length > 0 && getpendingusers.map((pendinguser, index) => (
                     <tr key={index}>

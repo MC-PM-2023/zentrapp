@@ -1,34 +1,105 @@
-.slider{
-    background-image: url("../assets/slider1.jpg");
-    background-size:cover;
-  background-position: top;
-    background-repeat: no-repeat;
-    
+
+ .navbar {
+
+  transition: background-color 0.3s ease-in-out;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar .navbar-brand span {
+  font-size: 1.25rem;
+}
+
+.navbar-nav .btn {
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .btn:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .navbar-brand {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-toggler {
+    margin-top: 5px;
+  }
+}
+
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  height:300px;
+  font-family:"Raleway";
+}
+
+.welcome-text {
+  font-size: 2em;
+  font-weight: 600;
+  letter-spacing:0.10em;
+ color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 
 }
-.about{
-    background-image: url("../assets/wallpaper4.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;  
-    
-}
-.containers{
-    
-        background-image: url("../assets/wallpaper14.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height:200px;
-        width:100%;
-       
-        
-      
-}
- .username{
-  font-size: 65px;
-  font-family:'Times New Roman', Times, serif;
-  letter-spacing: 1rem;
-  text-transform:capitalize;
 
- }
+
+.username {
+ 
+  font-family: "Poppins";
+  color: #212529;
+  font-weight: 700;
+  margin-top: 0.5rem;
+
+}
+
+
+
+
+
+
+/* project section */
+
+.project-section {
+  background-color: #121212; /* Dark background */
+}
+
+.project-section h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-card {
+  background-color: #1e1e1e;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+
+
+
+}
+
+.app-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+.app-logo {
+  object-fit: contain;
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff; /* Optional: to give white background to logos */
+  border-bottom: 1px solid #ddd;
+}

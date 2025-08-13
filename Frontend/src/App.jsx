@@ -34,7 +34,6 @@ function App() {
         <Route element={<ProtectedRoute allowedroles={["MC Team"]} />}>
           <Route path="/mclandingpage" element={<MClandingpage title="MC LandingPage" />} />
         </Route>
-
       </Routes>
     </>
   )

@@ -1,20 +1,8 @@
 
 
-.teams {
-    background-image: url("../assets/Wallpaper_17.jpg");
-    opacity: 0.9;
-    background-size: cover;
-    background-position: center;
+   
+   .teammembers{
+    background: url("../assets/Zentra6.jpg");
     background-repeat: no-repeat;
-    min-height: 100vh;
- 
-  }
-.teammembers{
-    background-image: url("../assets/wallpaper11.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color:black;
-    font-weight: bold;
-}
-  
+    padding: 2%;
+   }

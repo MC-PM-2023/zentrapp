@@ -34,6 +34,16 @@ export const getUserByEmail = async (email) => {
     return result[0]
 }
 
+
+export const getUserProfileByEmail = async (email) => {
+    const [result] = await pool.execute(
+        `SELECT Image_URL FROM User_Profiles WHERE Email_ID = ?`, 
+        [email]
+    );
+    return result[0] ? result[0].Image_URL : null;
+};
+
+
 export const approveuser = async (userid, role) => {
     const [result] = await pool.execute(
         `update users set status=?, role=? where id=?`, ['Approved', role ,userid])

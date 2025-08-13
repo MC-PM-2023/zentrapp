@@ -1,39 +1,3 @@
-
-// Example Using Gmail
-
-// import express from 'express';
-// import nodemailer from 'nodemailer'
-
-
-
-// const transporter=nodemailer.createTransport({
-//     service:"gmail",
-//     auth:{
-//      user:process.env.GEMAIL,
-//      pass:process.env.GEMAILPASS,
-//     }
-     
-//  })
- 
- 
-//  const mailOptions={
-//      from:process.env.GEMAIL,
-//      to:"sundarbalaji068@gmail.com",
-//      text:"nodemail text is written",
-//      subject:"Nodemail using Express js nodejs",
-    
-//  }
- 
-//  transporter.sendMail(mailOptions,(error,info)=>{
-//      if(error){
-//  console.log("Error in email sent:",error.message)
-//      }
-//      else{
-//          console.log("Email sent:",info.response)
-//      }
-//  })
- 
-
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 // import { Welcome_Email_Template,Verification_Email_Template,Approved_Email_Template} from './emailTemplate.js';

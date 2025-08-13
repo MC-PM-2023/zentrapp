@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs'
-import { approveuserafterotp, createuser,getUserByEmail, verifyotp } from '../models/authmodel.js';
+import { approveuserafterotp, createuser,getUserByEmail, getUserProfileByEmail, verifyotp } from '../models/authmodel.js';
 import jwt from 'jsonwebtoken'
 import { generateotp, isvaliddomain, sendotpmail } from '../utils/email.js';
 export const signup=async (req,res)=>{
@@ -84,8 +84,12 @@ const ispasswordvalid=await bcrypt.compare(password,user.password)
         if(!ispasswordvalid){
             return res.status(401).json({message:"Invalid credentials",error:error.message})
         }
-        const token=jwt.sign({userid:user.id, role:user.role,username: user.username,email:user.email},process.env.JWT_SECRET,{expiresIn:"1h"})
-        return res.status(200).json({message:"Login successful",token,role:user.role,username:user.username,email:user.email})
+
+          const profilelink = await getUserProfileByEmail(email);
+
+        const token=jwt.sign({userid:user.id, role:user.role,username: user.username,email:user.email,profilelink:profilelink},process.env.JWT_SECRET,{expiresIn:"1h"})
+      
+        return res.status(200).json({message:"Login successful",token,role:user.role,username:user.username,email:user.email,profilelink:profilelink})
     }
     catch(error){
 //console.log("Error in Login controller:",error)

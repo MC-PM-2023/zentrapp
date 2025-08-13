@@ -1,0 +1,39 @@
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: "poppins";
+  font-size: 10px;
+}
+
+.login-left {
+  flex: 1;
+  background-color: #000;
+  font-size: small;
+}
+
+.login-right {
+  flex: 1;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-placeholder {
+  width: 80%;
+  height: 80%;
+
+  border-radius: 8px;
+  font-size: small;
+}
+
+.form-control {
+  border-radius: 8px;
+  font-size: small;
+
+}
+
+.btn {
+  border-radius: 8px;
+}
+

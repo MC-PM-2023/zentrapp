@@ -9,7 +9,8 @@ import zentra from '../assets/Zentra.gif'
 import elicitalogo from '../assets/Elicita_Logo.jpg'
 import analyticalogo from '../assets/Analytica_Logo.gif'
 import dsfilesharelogo from '../assets/dsfilesharelogo.gif'
-// import '../css/iplandingpage.css'
+import '../css/iplandingpage.css'
+import Footer from "../components/Footer";
 function IPlandingpage({title}) {
 
 
@@ -21,6 +22,8 @@ function IPlandingpage({title}) {
 
   const token=localStorage.getItem("token")
 const username=localStorage.getItem("username")
+const email=localStorage.getItem("email")
+const profilelink=localStorage.getItem("profilelink")
 
 
 
@@ -29,6 +32,7 @@ const handlelogout=()=>{
   localStorage.removeItem("username")
   localStorage.removeItem("email")
   localStorage.removeItem("role")
+  localStorage.removeItem('profilelink')
   alert(`Are you sure you want to Logout ${username} ?`)
   toast.success(`${username} Logged out successfully !`)
   navigate("/login")
@@ -37,105 +41,249 @@ const handlelogout=()=>{
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div className="container-fluid">
-    
+  <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top" id="home">
+  <div className="container-fluid px-3">
+    {/* Logo */}
+    <a className="navbar-brand d-flex align-items-center" href="/">
       <img
         src={datasolve}
         alt="Datasolve Analytics"
-        height="60"
+        height="30"
         className="d-inline-block align-text-top me-2"
       />
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <div className="ms-3">
-              {token && username ?(
-                <div className="d-flex align-items-center">
-                 <img src={zentra} alt="Datasolve Analytics" height="60" className="me-2" />
-                  <button className="btn btn-danger me-2" onClick={handlelogout}>
-                    Logout
-                  </button>
-                  </div>
+     
+    </a>
 
-              ):(
-                <span className="btn btn-primary">Login User</span>
-              )}
-            </div>   </ul>
-      
+    {/* Toggler for mobile */}
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon"></span>
+    </button>
 
-           
+    {/* Nav items */}
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav ms-auto align-items-lg-center gap-3">
+        {token && username && profilelink ? (
+          <li className="nav-item d-flex align-items-center gap-2">
+            <img
+              src={zentra}
+              alt="User Icon"
+              height="35"
+              className="rounded border"
+            />
           
-          </div>
-        </div>
-      </nav>
+            
 
-      {/* Hero Section */}
-     <div className="bg-light text-center p-5 slider">
-        <div className="d-flex flex-column align-items-center justify-content-center">
-            {/* <div className="d-flex align-items-center"> */}
-  <p className="text-dark fs-6 fw-bold mb-0 me-2" style={{letterSpacing:5}}>Welcome</p>
-  <span className="fw-bold username">{username || "Guest"}</span>
-        </div>
-      
 
+<div className="dropdown ">
+  <img
+    src={profilelink}
+    alt="Profile"
+    className="rounded-circle border border-2 shadow-sm"
+    height={45}
+    width={45}
+    role="button"
+    id="profileDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    style={{ objectFit: 'cover', cursor: 'pointer' }}
+  />
+
+  <ul
+    className="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3"
+    aria-labelledby="profileDropdown"
+    style={{ minWidth: '250px', borderRadius: '10px', marginTop:9 }}
+  >
+    {/* User Info Header */}
+    <li className="d-flex align-items-center mb-2">
+      <img
+        src={profilelink}
+        alt="Profile"
+        className="rounded-circle border border-2 me-3"
+        height={50}
+        width={50}
+        style={{ objectFit: 'cover' }}
+      />
+      <div>
+        <strong style={{ fontSize: '14px' }}>{username}</strong>
+        <p className="text-muted mb-0" style={{ fontSize: '12px' }}>
+          {email}
+        </p>
       </div>
+    </li>
+    <hr className="dropdown-divider" />
+
+    {/* Actions */}
+    {/* <li>
+      <button
+        className="dropdown-item d-flex align-items-center gap-2"
+        onClick={() => navigate('/profile')}
+      >
+        <i className="bi bi-person"></i>
+        View Profile
+      </button>
+    </li>
+    <li>
+      <button
+        className="dropdown-item d-flex align-items-center gap-2"
+        onClick={() => navigate('/settings')}
+      >
+        <i className="bi bi-gear"></i>
+        Settings
+      </button>
+    </li> */}
+    <li>
+      <button
+        className="dropdown-item text-dark d-flex align-items-center gap-2"
+        onClick={handlelogout}
+      >
+        <i className="bi bi-box-arrow-right"></i>
+        Logout
+      </button>
+    </li>
+  </ul>
+</div>
+          </li>
+        ) : (
+          <li className="nav-item">
+            <span className="btn btn-outline-primary btn-sm">Login User</span>
+          </li>
+        )}
+      </ul>
+    </div>
+  </div>
+</nav>
+    
+      {/* Hero Section */}
+      <div className="background">
+<div className="welcomesection container my-3 px-5 px-md-5 py-5 text-center">
+ 
+
+    <h3 className="welcome-text mb-2">
+  Welcome to <span className=" fs-2" style={{color:"#FAF3AA"}}>Zentra</span>, {username}
+</h3>
+
+<h6 className="username " style={{color:"#C9C1B6"}}>The center of everything that drives your work.</h6>
+    <h6 className="mt-2  " style={{color:"#C9C1B6"}}>
+<em className="description">Centralize. Simplify. Succeed.</em>
+  </h6>
+
+ 
+</div>
+</div>
     <hr/>
 
-{/* Projects Section */}
-<div className="container-fluid containers">
-  <h2 className="text-center text-white mb-4">Our Apps</h2>
-  <div className="row">
+
+
+<div className="container-fluid project-section py-3">
+  <h4 className="text-center text-dark mb-5 fw-bold"  id="apps">Our Apps</h4>
+  <div className="row justify-content-center g-4">
 
     {/* Elicita App */}
-    <div className="col-md-4 mb-5">
-      <div className="card h-100 position-relative">
-        <img src={elicitalogo} alt="elicitalogo" style={{ height: 105 }} className="card-img-top" />
-        <a href='http://34.93.187.164/' className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
-      </div>
+    
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+       <img
+          src={elicitalogo} // replace with your image
+          className="card-img-top p-2 rounded-4"
+          alt="Elicita App"
+        />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">Elicita</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"><strong> Elicita</strong> brings all your project information into one place — making it easy to access, explore, and extract insights that drive smarter decisions.</p>
+  <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Seek and shall find&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.93.187.164/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
     </div>
+  </div>
+</div>
+
+
 
     {/* Analytica App */}
-    <div className="col-md-4 mb-5">
-      <div className="card h-100 position-relative">
-        <img src={analyticalogo} alt="elicitalogo" style={{ height: 105 }} className="card-img-top" />
-        <a href=" http://34.100.254.133/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
-      </div>
-    </div>
-   
+    
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+      {/* Card Image */}
+        <img
+          src={analyticalogo} // replace with your image
+          className="card-img-top p-2 rounded-4"
+          alt="Analytica App"
+        />
+    
+    <div className="card-body text-center d-flex flex-column">
+      
+      <p className="card-text text-muted text-start flex-grow-1"><strong>Analytica</strong> brings together a suite of automation tools to help you process, analyze, and learn from data faster and smarter.</p>
 
-     {/* DSfileshare App */}
-    <div className="col-md-4 mb-5">
-      <div className="card h-100 position-relative">
-        <img src={dsfilesharelogo} alt="dsfilsharelogo" style={{ height: 105 }} className="card-img-top" />
-        <a href="http://35.207.199.234:8000" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
-      </div> 
-    </div>
+       <p className="text-center  fw-bold"  style={{color:"#bfbfbf"}}>
+        <em> &apos;Analyze & Learn&apos;</em>
+      </p>
 
-  </div>  {/* <-- row ends here */}
-</div>     {/* <-- container for apps ends here */}
+      {/* Stretched link */}
+      <a
+        href="http://34.100.254.133/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
+
+    {/* DSfileshare App */}
+
+    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={dsfilesharelogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="Dsfileshare App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>DS FileShare</strong> enables your teams to exchange files safely, seamlessly, and at speed — ensuring security and accessibility at every step.</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos; Safe Seamless Shared &apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://35.207.199.234:8000/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
 
 <hr/>
 <OurIPTeam />
+<Footer/>
 
 
 
-      {/* Footer */}
-      {/* <footer className="bg-dark text-white text-center p-3">
-        Copyrights &copy; {new Date().getFullYear()} Datasolve Analytics All Rights Reserved.
-      </footer> */}
     </>
   );
 }
 
 export default IPlandingpage;
+
+
+
+
+
