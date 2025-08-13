@@ -1,5 +1,5 @@
 import datasolvelogo from '../assets/datasolve-icon.png'
-import '../css/footer.css'
+
 const Footer = () => {
   return (
     <footer className=" text-dark py-4 mt-auto bg-body-tertiary">

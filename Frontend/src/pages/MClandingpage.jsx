@@ -227,8 +227,8 @@ Logout</button>
         <div className="row justify-content-center g-4">
           {allowedUsers.includes(email) ? (
             <>
-              {/* Trove App */}
-              <div className="col-sm-6 col-md-4 col-lg-3 mb-5 ">
+              {/* Trove App  corrected code using for token */}
+              {/* <div className="col-sm-6 col-md-4 col-lg-3 mb-5 ">
             
    <div className="card app-card shadow-sm border-0 position-relative h-100"     onClick={() => {
     const token = localStorage.getItem("token");
@@ -241,7 +241,7 @@ Logout</button>
   }} style={{cursor:"pointer"}}>
    
 
-    {/* <h5 className="card-title text-dark">Trove App</h5> */}
+    
       <img
       src={trovelogo} // replace with your image
       className="card-img-top p-2 rounded-4"
@@ -253,11 +253,34 @@ Logout</button>
      <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Hunt the treasure&apos;</em></p>
    </p>
    </div>
-    {/* <img src={trovelogo} alt="trovelogo"  className="card-img-top app-logo" />
-      <a href="http://34.93.185.11:9090/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a> */}
+   
       <span className="stretched-link"></span>
     </div>
+  </div> */}
+
+   {/* Trove App */}
+   <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={trovelogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="Trove App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start"><strong>Trove</strong> is a powerful database platform that centralizes and organizes project-related information, helping you uncover insights and make informed decisions. </p>
+     <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Hunt the treasure&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.180.5.89:9090/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
   </div>
+</div>
 
 
 
@@ -267,9 +290,9 @@ Logout</button>
   <div className="card app-card shadow-sm border-0 position-relative h-100" onClick={() => {
     const token = localStorage.getItem("token");
     const username=localStorage.getItem("username")
+    const profilelink=localStorage.getItem("profilelink")
     
-    
-    if (token && username) {
+    if (token && username && profilelink) {
       //jas version
       //  window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`; //it doesnt work
   window.location.href = `http://35.207.215.48:7070/?token=${token}`;
