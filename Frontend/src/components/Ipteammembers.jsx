@@ -52,7 +52,7 @@ const allowedNames=['M Megha','L Auxcilia Mary','P Janaki','S Brito Raj','P Sath
                 <img
                   src={member.Image_URL}
                   alt={member.Name}
-                  className="card-img-top img-fluid object-fit-cover w-100 h-100"
+                  className="card-img-top img-fluid object-fit-contain w-100 "
                 />
               </div>
 

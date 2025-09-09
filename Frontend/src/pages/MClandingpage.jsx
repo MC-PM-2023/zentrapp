@@ -12,6 +12,8 @@ import trovelogo from '../assets/Trovelogo.gif'
 import refsolvelogo from '../assets/refsolve.gif'
 import Footer from "../components/Footer";
 import kaizenlogo from '../assets/Kaizen_Logo.gif'
+import logsylogo from '../assets/Logsy.gif'
+
 function MClandingpage({ title }) {
   // const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
@@ -119,7 +121,7 @@ Logout</button>
   <img
     src={profileLink}
     alt="Profile"
-    className="rounded-circle border border-2 shadow-sm"
+    className="rounded-circle border border-2 shadow-sm object-fit-cover"
     height={45}
     width={45}
     role="button"
@@ -139,9 +141,9 @@ Logout</button>
       <img
         src={profileLink}
         alt="Profile"
-        className="rounded-circle border border-2 me-3"
-        height={50}
-        width={50}
+        className="rounded-circle border border-2 me-3 object-fit-cover"
+        height={45}
+        width={60}
         style={{ objectFit: 'cover' }}
       />
       <div>
@@ -224,7 +226,7 @@ Logout</button>
     
         {/* <h4 className="text-center  text-dark mb-5 fw-semibold" style={{fontFamily:"Poppins"}}>Our Apps</h4> */}
           <h4 className="text-center mb-4 text-dark mb-4 my-2 fw-bold" id="teams">Our Apps </h4>
-        <div className="row justify-content-center g-4">
+        <div className="row  g-4">
           {allowedUsers.includes(email) ? (
             <>
               {/* Trove App  corrected code using for token */}
@@ -345,6 +347,7 @@ Logout</button>
 </div>
 
 
+{/* kaizen app */}
 
 <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
@@ -372,7 +375,7 @@ Logout</button>
 
       {/* Stretched Link (no button) */}
       <a
-        href="https://script.google.com/macros/s/AKfycbwJPX7AmTtrBHbj05O4A4wMJ67jh0OQdMXPHlkUnofEAcMu8pjVftO9yVn7iQQIlcyg/exec"
+        href="https://script.google.com/macros/s/AKfycbz46D1iIvLP5xKNhLQp1SS3WrdSKcoGhaMC7uhVs9kwAKNs1_MTwdpkQT4yCxok8GBJ/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -380,6 +383,35 @@ Logout</button>
     </div>
   </div>
 </div>
+
+
+{/* timesheet app */}
+
+ <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={logsylogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="logsy App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Logsy</strong>is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos; Simplify Timesheets, Amplify Productivity &apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.14.201.236:8003/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+ 
+
+
           
             </>
             
@@ -449,7 +481,7 @@ Logout</button>
   </div>
 </div>
 
-
+{/* kaizen app */}
    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
       <img
@@ -465,7 +497,7 @@ Logout</button>
       </p>
       {/* Stretched link */}
       <a
-        href="https://script.google.com/macros/s/AKfycbwJPX7AmTtrBHbj05O4A4wMJ67jh0OQdMXPHlkUnofEAcMu8pjVftO9yVn7iQQIlcyg/exec"
+        href="https://script.google.com/macros/s/AKfycbz46D1iIvLP5xKNhLQp1SS3WrdSKcoGhaMC7uhVs9kwAKNs1_MTwdpkQT4yCxok8GBJ/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -473,7 +505,33 @@ Logout</button>
     </div>
   </div>
 </div>
-            
+
+{/* timesheet app */}
+
+    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={logsylogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="logsy App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Logsy</strong> is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos; Simplify Timesheets, Amplify Productivity &apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.14.201.236:8003/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+         
+
             </>
           )}
             

@@ -9,6 +9,7 @@ import zentra from '../assets/Zentra.gif'
 import elicitalogo from '../assets/Elicita_Logo.jpg'
 import analyticalogo from '../assets/Analytica_Logo.gif'
 import dsfilesharelogo from '../assets/dsfilesharelogo.gif'
+import logsylogo from '../assets/Logsy.gif'
 import '../css/iplandingpage.css'
 import Footer from "../components/Footer";
 function IPlandingpage({title}) {
@@ -93,7 +94,7 @@ const handlelogout=()=>{
     id="profileDropdown"
     data-bs-toggle="dropdown"
     aria-expanded="false"
-    style={{ objectFit: 'cover', cursor: 'pointer' }}
+    style={{ objectFit: 'contain', cursor: 'pointer'  }}
   />
 
   <ul
@@ -106,9 +107,9 @@ const handlelogout=()=>{
       <img
         src={profilelink}
         alt="Profile"
-        className="rounded-circle border border-2 me-3"
+        className="rounded-circle border border-2 me-3 object-fit-contain"
         height={50}
-        width={50}
+        width={60}
         style={{ objectFit: 'cover' }}
       />
       <div>
@@ -268,8 +269,43 @@ const handlelogout=()=>{
     </div>
   </div>
 </div>
+
+
+
+
+    {/* Timesheet App */}
+
+    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={logsylogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="logsy App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Logsy</strong> is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos; Simplify Timesheets, Amplify Productivity &apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.14.201.236:8003/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
   </div>
 </div>
+ 
+
+  </div>
+</div>
+
+
+
+
+
 
 <hr/>
 <OurIPTeam />

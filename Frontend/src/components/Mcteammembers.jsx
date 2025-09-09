@@ -56,7 +56,8 @@ const allowedNames=['A Vinithra','S Dhanush','T Revathy','M Micheal Raj','K Brun
                 <img
                   src={member.Image_URL}
                   alt={member.Name}
-                  className="card-img-top object-fit-cover"
+                  className="card-img-top object-fit-contain"
+                 
                 />
               </div>
 
