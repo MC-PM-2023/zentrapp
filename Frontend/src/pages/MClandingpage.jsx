@@ -13,6 +13,8 @@ import refsolvelogo from '../assets/refsolve.gif'
 import Footer from "../components/Footer";
 import kaizenlogo from '../assets/Kaizen_Logo.gif'
 import logsylogo from '../assets/Logsy.gif'
+import fynbacklogo from '../assets/Fynback.gif'
+
 
 function MClandingpage({ title }) {
   // const apiUrl = import.meta.env.VITE_API_URL;
@@ -396,7 +398,7 @@ Logout</button>
     />
     <div className="card-body text-center d-flex flex-column">
       {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
-      <p className="card-text text-muted text-start flex-grow-1"> <strong>Logsy</strong>is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.</p>
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Logsy</strong> is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.</p>
        <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos; Simplify Timesheets, Amplify Productivity &apos;</em></p>
 
       {/* Stretched link */}
@@ -411,6 +413,33 @@ Logout</button>
 </div>
  
 
+{/* Fynback app */}
+
+ <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={fynbacklogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="Fynback App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Fynback</strong> is a central hub for gathering ideas, suggestions, and feedback from users. It empowers everyone to share their voice and actively shape the direction of our apps and projects
+</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;  Your Feedback Drives Our Innovation &apos;</em></p>
+
+
+      {/* Stretched link */}
+      <a
+        href="https://script.google.com/macros/s/AKfycbweI-T_9hdJm8WNETaySbokvIRGTIFBRr1TR35ZMkAE4NwVHe8KNO5AtFl4sb3ovKHzXQ/exec"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+ 
 
           
             </>
@@ -523,6 +552,34 @@ Logout</button>
       {/* Stretched link */}
       <a
         href="http://34.14.201.236:8003/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
+
+{/* Fynback app */}
+
+ <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={fynbacklogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="Fynback App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Fynback</strong> is a central hub for gathering ideas, suggestions, and feedback from users. It empowers everyone to share their voice and actively shape the direction of our apps and projects
+</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;  Your Feedback Drives Our Innovation &apos;</em></p>
+
+
+      {/* Stretched link */}
+      <a
+        href="https://script.google.com/macros/s/AKfycbweI-T_9hdJm8WNETaySbokvIRGTIFBRr1TR35ZMkAE4NwVHe8KNO5AtFl4sb3ovKHzXQ/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"

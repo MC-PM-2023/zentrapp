@@ -10,6 +10,8 @@ import elicitalogo from '../assets/Elicita_Logo.jpg'
 import analyticalogo from '../assets/Analytica_Logo.gif'
 import dsfilesharelogo from '../assets/dsfilesharelogo.gif'
 import logsylogo from '../assets/Logsy.gif'
+import fynbacklogo from '../assets/Fynback.gif'
+
 import '../css/iplandingpage.css'
 import Footer from "../components/Footer";
 function IPlandingpage({title}) {
@@ -297,6 +299,35 @@ const handlelogout=()=>{
     </div>
   </div>
 </div>
+
+
+{/* Fynback app */}
+
+ <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={fynbacklogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="Fynback App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Fynback</strong> is a central hub for gathering ideas, suggestions, and feedback from users. It empowers everyone to share their voice and actively shape the direction of our apps and projects
+</p>
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;  Your Feedback Drives Our Innovation &apos;</em></p>
+
+
+      {/* Stretched link */}
+      <a
+        href="https://script.google.com/macros/s/AKfycbweI-T_9hdJm8WNETaySbokvIRGTIFBRr1TR35ZMkAE4NwVHe8KNO5AtFl4sb3ovKHzXQ/exec"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
  
 
   </div>
