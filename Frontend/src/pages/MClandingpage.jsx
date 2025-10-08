@@ -14,7 +14,8 @@ import Footer from "../components/Footer";
 import kaizenlogo from '../assets/Kaizen_Logo.gif'
 import logsylogo from '../assets/Logsy.gif'
 import fynbacklogo from '../assets/Fynback.gif'
-
+import insolvelitelogo from '../assets/insolvolite.gif'
+import pubdock from '../assets/publicationapp.gif'
 
 function MClandingpage({ title }) {
   // const apiUrl = import.meta.env.VITE_API_URL;
@@ -25,7 +26,8 @@ const [profileLink,setProfileLink]=useState("")
   // List of users who can access both Trove & RefSolve
   const allowedUsers = [
     "vinithra.a@datasolve-analytics.com",
-    "harish.k@datasolve-analytics.com"
+    "harish.k@datasolve-analytics.com",
+    "sagar.r@datasolve-analytics.com"
   ];
 
   useEffect(() => {
@@ -277,7 +279,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.180.5.89:9090/"
+        href="http://34.180.6.43:9090/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -299,7 +301,7 @@ Logout</button>
     if (token && username && profilelink) {
       //jas version
       //  window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`; //it doesnt work
-  window.location.href = `http://35.207.215.48:7070/?token=${token}`;
+  window.location.href = `http://34.180.7.64:7070/?token=${token}`;
       //apps admin version
       // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
     } else {
@@ -339,7 +341,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://35.207.199.234:8000/"
+        href="http://34.47.202.92:7090/"   
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -377,7 +379,7 @@ Logout</button>
 
       {/* Stretched Link (no button) */}
       <a
-        href="https://script.google.com/macros/s/AKfycbz46D1iIvLP5xKNhLQp1SS3WrdSKcoGhaMC7uhVs9kwAKNs1_MTwdpkQT4yCxok8GBJ/exec"
+        href="https://script.google.com/macros/s/AKfycbze28kowINbK4Pwlh0Oof3RgdSNTf9U5NHRnjDyMjqNBlLYACySusCuUaZsJU4qR-CizQ/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -403,7 +405,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.14.201.236:8003/"
+        href="http://34.180.23.199:7060/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -431,7 +433,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="https://script.google.com/macros/s/AKfycbzSwg5pkNOTT2l_iJAymvkaM7mTC6DSJfCtJDDxPYG022VdlgxWJavf9lfPt4v4X1QwZg/exec"
+        href="https://script.google.com/macros/s/AKfycbyudbNWG8WThN3okAhFRZxLi0UjiGzlRFopKosW3KJRRImFvB6CJqvU2Au06Ew2OtKo5w/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -441,7 +443,65 @@ Logout</button>
 </div>
  
 
-          
+{/* Personal mapping app */}
+
+ <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={insolvelitelogo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="personalmapping"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>InSolvo Lite</strong> is a package of process automation tools for Personnel Mapping projects. InSolvo Lite seamlessly prepares mapping reports with individual and overall scores for personnel in all types of orgs, including Advocacy, Patient, Professional and Government Orgs.
+</p>
+
+
+
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;  Lightweight Powerful &apos;</em></p>
+
+
+      {/* Stretched link */}
+      <a
+        href="http://34.180.23.199/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
+   {/* publication  app */}
+
+ <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={pubdock} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="pubdock"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>Pubdock</strong> A centralized platform for scientific publications, enabling quick referencing and seamless reuse of research data across projects.
+</p>
+
+
+
+       <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos; Dock Reference Repeat &apos;</em></p>
+
+
+      {/* Stretched link */}
+      <a
+        href="http://34.100.134.149:6060/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>       
             </>
             
           ) : (
@@ -455,9 +515,9 @@ Logout</button>
       const token = localStorage.getItem("token");
       if (token) {
         // JAS version
-        window.location.href = `http://35.207.215.48:7070/?token=${token}`;
+        window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
         // Appsadmin version
-        // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
+        // window.location.href = `http://35.207.199.234:7070/?token=${token}`;   
       } else {
         alert("Token missing. Please log in again.");
       }
@@ -501,7 +561,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://35.207.199.234:8000/"
+        href="http://34.47.202.92:7090/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -526,7 +586,7 @@ Logout</button>
       </p>
       {/* Stretched link */}
       <a
-        href="https://script.google.com/macros/s/AKfycbz46D1iIvLP5xKNhLQp1SS3WrdSKcoGhaMC7uhVs9kwAKNs1_MTwdpkQT4yCxok8GBJ/exec"
+        href="https://script.google.com/macros/s/AKfycbze28kowINbK4Pwlh0Oof3RgdSNTf9U5NHRnjDyMjqNBlLYACySusCuUaZsJU4qR-CizQ/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -551,7 +611,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.14.201.236:8003/"
+        href="http://34.180.23.199:7060/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -579,7 +639,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="https://script.google.com/macros/s/AKfycbzSwg5pkNOTT2l_iJAymvkaM7mTC6DSJfCtJDDxPYG022VdlgxWJavf9lfPt4v4X1QwZg/exec"
+        href="https://script.google.com/macros/s/AKfycbyudbNWG8WThN3okAhFRZxLi0UjiGzlRFopKosW3KJRRImFvB6CJqvU2Au06Ew2OtKo5w/exec"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -587,6 +647,9 @@ Logout</button>
     </div>
   </div>
 </div>
+
+
+
          
 
             </>

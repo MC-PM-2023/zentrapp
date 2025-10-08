@@ -205,7 +205,7 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.93.187.164/"
+        href=" http://34.100.248.141/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -237,7 +237,7 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.100.254.133/"
+        href="http://34.47.202.92/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -263,7 +263,7 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://35.207.199.234:8000/"
+        href="http://34.47.202.92:7090/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -291,7 +291,7 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.14.201.236:8003/"
+        href="http://34.180.23.199:7060/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -319,7 +319,7 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="https://script.google.com/macros/s/AKfycbzSwg5pkNOTT2l_iJAymvkaM7mTC6DSJfCtJDDxPYG022VdlgxWJavf9lfPt4v4X1QwZg/exec"
+        href="https://script.google.com/macros/s/AKfycbyudbNWG8WThN3okAhFRZxLi0UjiGzlRFopKosW3KJRRImFvB6CJqvU2Au06Ew2OtKo5w/exec"
         target="_blank"
         rel="noopener noreferrer"
         className="stretched-link"
