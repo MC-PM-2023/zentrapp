@@ -35,7 +35,7 @@ const [profileLink,setProfileLink]=useState("")
     const storedEmail = localStorage.getItem("email");
     const username=localStorage.getItem("username")
     const profilelink=localStorage.getItem("profilelink")
-
+    
     // console.log("Stored Email in Local Storage:", storedEmail); // Debugging
 
     if (storedEmail && storedEmail.trim() !== "null" && storedEmail.trim() !== "") {

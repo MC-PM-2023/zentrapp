@@ -11,9 +11,11 @@ import analyticalogo from '../assets/Analytica_Logo.gif'
 import dsfilesharelogo from '../assets/dsfilesharelogo.gif'
 import logsylogo from '../assets/Logsy.gif'
 import fynbacklogo from '../assets/Fynback.gif'
-
+import elicitanewversionlogo from '../assets/elicitanewversionlogo.gif'
+import prioriqlogo from "../assets/prioriqlogo.gif"
 import '../css/iplandingpage.css'
 import Footer from "../components/Footer";
+
 function IPlandingpage({title}) {
 
 
@@ -331,7 +333,61 @@ const handlelogout=()=>{
 
 
 
+
+
+    {/* Elicita 2.0 App */}
+    
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+       <img
+          src={elicitanewversionlogo} // replace with your image
+          className="card-img-top p-2 rounded-4"
+          alt="Elicita App"
+        />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">Elicita</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"><strong> Elicita 2.0</strong> centralizes and enriches all your project data in one dynamic workspace, making discovery effortless, insights sharper, and decision-making smarter than ever before.</p>
+  <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Seek and shall find&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href=" http://34.180.7.64:9000/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
  
+
+ 
+    {/* PriorIQ App */}
+    
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+       <img
+          src={prioriqlogo} // replace with your image
+          className="card-img-top p-2 rounded-4"
+          alt="priorIQApp"
+        />
+    <div className="card-body text-center d-flex flex-column">
+     
+      <p className="card-text text-muted text-start flex-grow-1"><strong>PriorIQ </strong>empowers innovation by intelligently analyzing datasets and ranking patents through our proprietary Patentrix and Prion algorithms.</p>
+  <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;The Priority of Innovation&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.59.65.120/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
 
   </div>
 </div>
