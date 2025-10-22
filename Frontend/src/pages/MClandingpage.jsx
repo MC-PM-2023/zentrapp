@@ -27,8 +27,14 @@ const [profileLink,setProfileLink]=useState("")
   const allowedUsers = [
     "vinithra.a@datasolve-analytics.com",
     "harish.k@datasolve-analytics.com",
-    "sagar.r@datasolve-analytics.com"
+    "sagar.r@datasolve-analytics.com",
   ];
+  const extendedUsers=[
+      "ramkumar.v@datasolve-analytics.com",
+    "dhanush.s@datasolve-analytics.com"
+  ]
+
+
 
   useEffect(() => {
     document.title = title;
@@ -505,6 +511,118 @@ Logout</button>
             </>
             
           ) : (
+
+extendedUsers.includes(email) ? (
+      <>
+        {/* ✅ For Ramkumar and Dhanush – show 6 apps only */}
+
+        {/* Refsolve */}
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+          <div className="card app-card shadow-sm border-0 position-relative h-100" onClick={() => {
+            const token = localStorage.getItem("token");
+            if (token) {
+              window.location.href = `http://34.180.7.64:7070/?token=${token}`;
+            } else {
+              alert("Token missing. Please log in again.");
+            }
+          }} style={{ cursor: "pointer" }}>
+            <img src={refsolvelogo} className="card-img-top p-2 rounded-4" alt="Refsolve App" />
+            <div className="card-body text-center d-flex flex-column">
+              <p className="card-text text-muted text-start flex-grow-1">
+                <strong>Refsolve</strong> is your go-to platform for reference libraries, checklists, and workflows, built to ensure consistency and clarity across tasks and teams.
+              </p>
+              <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                <em>'Smarter References Better Solutions'</em>
+              </p>
+            </div>
+            <span className="stretched-link"></span>
+          </div>
+        </div>
+
+        {/* DS FileShare */}
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+          <div className="card app-card shadow-sm border-0 position-relative h-100">
+            <img src={dsfilesharelogo} className="card-img-top p-2 rounded-4" alt="DS FileShare" />
+            <div className="card-body text-center d-flex flex-column">
+              <p className="card-text text-muted text-start flex-grow-1">
+                <strong>DS FileShare</strong> enables your teams to exchange files safely, seamlessly, and at speed — ensuring security and accessibility at every step.
+              </p>
+              <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                <em>'Safe Seamless Shared'</em>
+              </p>
+              <a href="http://34.47.202.92:7090/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+          </div>
+        </div>
+
+        {/* Kaizen */}
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+          <div className="card app-card shadow-sm border-0 position-relative h-100">
+            <img src={kaizenlogo} className="card-img-top p-2 rounded-4" alt="Kaizen App" />
+            <div className="card-body text-center d-flex flex-column">
+              <p className="card-text text-muted text-start flex-grow-1">
+                <strong>Kaizen</strong> is designed to conduct project-related quizzes, streamline
+        knowledge transfer, and reinforce continuous improvement practices.
+              </p>
+              <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                <em>'Continuous Improvement'</em>
+              </p>
+              <a href="https://script.google.com/macros/s/AKfycbze28kowINbK4Pwlh0Oof3RgdSNTf9U5NHRnjDyMjqNBlLYACySusCuUaZsJU4qR-CizQ/exec" 
+                 className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+          </div>
+        </div>
+
+        {/* Logsy */}
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+          <div className="card app-card shadow-sm border-0 position-relative h-100">
+            <img src={logsylogo} className="card-img-top p-2 rounded-4" alt="Logsy App" />
+            <div className="card-body text-center d-flex flex-column">
+              <p className="card-text text-muted text-start flex-grow-1">
+                <strong>Logsy</strong> is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.
+              </p>
+              <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                <em>'Simplify Timesheets, Amplify Productivity'</em>
+              </p>
+              <a href="http://34.180.23.199:7060/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+          </div>
+        </div>
+
+        {/* Fynback */}
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+          <div className="card app-card shadow-sm border-0 position-relative h-100">
+            <img src={fynbacklogo} className="card-img-top p-2 rounded-4" alt="Fynback App" />
+            <div className="card-body text-center d-flex flex-column">
+              <p className="card-text text-muted text-start flex-grow-1">
+                <strong>Fynback</strong> is a central hub for gathering ideas, suggestions, and feedback from users. It empowers everyone to share their voice and actively shape the direction of our apps and projects
+              </p>
+              <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                <em>'Your Feedback Drives Our Innovation'</em>
+              </p>
+              <a href="https://script.google.com/macros/s/AKfycbyudbNWG8WThN3okAhFRZxLi0UjiGzlRFopKosW3KJRRImFvB6CJqvU2Au06Ew2OtKo5w/exec" 
+                 className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+          </div>
+        </div>
+
+        {/* InSolvo Lite */}
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+          <div className="card app-card shadow-sm border-0 position-relative h-100">
+            <img src={insolvelitelogo} className="card-img-top p-2 rounded-4" alt="InSolvo Lite" />
+            <div className="card-body text-center d-flex flex-column">
+              <p className="card-text text-muted text-start flex-grow-1">
+                <strong>InSolvo Lite</strong> is a package of process automation tools for Personnel Mapping projects. InSolvo Lite seamlessly prepares mapping reports with individual and overall scores for personnel in all types of orgs, including Advocacy, Patient, Professional and Government Orgs.
+              </p>
+              <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                <em>'Lightweight Powerful'</em>
+              </p>
+              <a href="http://34.180.23.199/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+          </div>
+        </div>
+      </>):
+
             <>
               {/* If email is NOT in allowedUsers, show only RefSolve */}
 
@@ -656,6 +774,7 @@ Logout</button>
           )}
             
         </div>
+
        
       </div>
   
