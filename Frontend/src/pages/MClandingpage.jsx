@@ -15,6 +15,7 @@ import kaizenlogo from '../assets/Kaizen_Logo.gif'
 import logsylogo from '../assets/Logsy.gif'
 import fynbacklogo from '../assets/Fynback.gif'
 import insolvelitelogo from '../assets/insolvolite.gif'
+import insolvologo from '../assets/insolvologo.gif'
 import pubdock from '../assets/publicationapp.gif'
 
 function MClandingpage({ title }) {
@@ -295,6 +296,32 @@ Logout</button>
 </div>
 
 
+ {/* Insolvo App */}
+   <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+     <img
+      src={insolvologo} // replace with your image
+      className="card-img-top p-2 rounded-4"
+      alt="Insolvo App"
+    />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
+      <p className="card-text text-muted text-start"><strong>Insolvo</strong> is a unified automation platform that streamlines and standardizes workflows across projects like Stakeholder Mapping, Personnel Mapping, and Profiling. It integrates powerful tools to enhance efficiency, ensure consistency, and reduce manual effort across operations.
+ </p>
+     <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Speed Up. Smart Up&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://136.112.203.49/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
+
 
               {/* RefSolve App */}
 
@@ -411,7 +438,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.180.23.199:7060/"
+        href="http://34.14.182.209:7060/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -449,7 +476,7 @@ Logout</button>
 </div>
  
 
-{/* Personal mapping app */}
+{/* Insolvolite app */}
 
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
@@ -470,7 +497,7 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.180.23.199/"
+        href="http://34.14.182.209/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -584,7 +611,7 @@ extendedUsers.includes(email) ? (
               <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
                 <em>'Simplify Timesheets, Amplify Productivity'</em>
               </p>
-              <a href="http://34.180.23.199:7060/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+              <a href="http://34.14.182.209:7060/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
             </div>
           </div>
         </div>
@@ -617,7 +644,7 @@ extendedUsers.includes(email) ? (
               <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
                 <em>'Lightweight Powerful'</em>
               </p>
-              <a href="http://34.180.23.199/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+              <a href="http://34.14.182.209/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
             </div>
           </div>
         </div>
@@ -729,7 +756,7 @@ extendedUsers.includes(email) ? (
 
       {/* Stretched link */}
       <a
-        href="http://34.180.23.199:7060/"
+        href="http://34.14.182.209:7060/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"

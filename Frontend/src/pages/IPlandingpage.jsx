@@ -239,7 +239,8 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.47.202.92/"
+        // href="http://34.47.202.92/"
+            href="http://34.93.131.169/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -293,7 +294,7 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.180.23.199:7060/"
+        href="http://34.14.182.209:7060/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
