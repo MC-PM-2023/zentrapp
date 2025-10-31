@@ -196,7 +196,7 @@ const handlelogout=()=>{
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
        <img
-          src={elicitalogo} // replace with your image
+          src="https://storage.googleapis.com/my-react-image-bucket-123/Elicita.jpg" // replace with your image
           className="card-img-top p-2 rounded-4"
           alt="Elicita App"
         />
@@ -224,7 +224,7 @@ const handlelogout=()=>{
   <div className="card app-card shadow-sm border-0 position-relative h-100">
       {/* Card Image */}
         <img
-          src={analyticalogo} // replace with your image
+          src="https://storage.googleapis.com/my-react-image-bucket-123/Analytica.gif"// replace with your image
           className="card-img-top p-2 rounded-4"
           alt="Analytica App"
         />
@@ -255,7 +255,7 @@ const handlelogout=()=>{
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={dsfilesharelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Dsfileshare App"
     />
@@ -283,7 +283,7 @@ const handlelogout=()=>{
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={logsylogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif"// replace with your image
       className="card-img-top p-2 rounded-4"
       alt="logsy App"
     />
@@ -309,7 +309,7 @@ const handlelogout=()=>{
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={fynbacklogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Fynback App"
     />
@@ -341,7 +341,7 @@ const handlelogout=()=>{
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
        <img
-          src={elicitanewversionlogo} // replace with your image
+          src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Elicata2.0.gif" // replace with your image
           className="card-img-top p-2 rounded-4"
           alt="Elicita App"
         />
@@ -369,7 +369,7 @@ const handlelogout=()=>{
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
        <img
-          src={prioriqlogo} // replace with your image
+          src="https://storage.googleapis.com/my-react-image-bucket-123/Prion_Logo.gif" // replace with your image
           className="card-img-top p-2 rounded-4"
           alt="priorIQApp"
         />

@@ -32,7 +32,8 @@ const [profileLink,setProfileLink]=useState("")
   ];
   const extendedUsers=[
       "ramkumar.v@datasolve-analytics.com",
-    "dhanush.s@datasolve-analytics.com"
+    "dhanush.s@datasolve-analytics.com",
+    "chinnarasu.m@datasolve-analytics.com"
   ]
 
 
@@ -275,7 +276,7 @@ Logout</button>
    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={trovelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/Trove.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Trove App"
     />
@@ -300,13 +301,13 @@ Logout</button>
    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={insolvologo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/InSolvo.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Insolvo App"
     />
     <div className="card-body text-center d-flex flex-column">
       {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
-      <p className="card-text text-muted text-start"><strong>Insolvo</strong> is a unified automation platform that streamlines and standardizes workflows across projects like Stakeholder Mapping, Personnel Mapping, and Profiling. It integrates powerful tools to enhance efficiency, ensure consistency, and reduce manual effort across operations.
+      <p className="card-text text-muted text-start"><strong>Insolvo</strong> is a unified automation platform that streamlines workflows across projects like Stakeholder Mapping, Personnel Mapping, and Profiling, enhancing efficiency, consistency, and reducing manual effort.
  </p>
      <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Speed Up. Smart Up&apos;</em></p>
 
@@ -343,7 +344,7 @@ Logout</button>
   }} style={{ cursor: "pointer" }}>
     {/* <img src={refsolvelogo} alt="refsolvelogo" className="card-img-top app-logo" /> */}
       <img
-      src={refsolvelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/RefSolve.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Refsolve App"
     />
@@ -363,7 +364,7 @@ Logout</button>
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={dsfilesharelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Dsfileshare App"
     />
@@ -390,7 +391,7 @@ Logout</button>
   <div className="card app-card shadow-sm border-0 position-relative h-100">
     {/* Card Image */}
     <img
-      src={kaizenlogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/Kaizen.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Kaizen App"
     />
@@ -427,7 +428,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={logsylogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="logsy App"
     />
@@ -453,7 +454,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={fynbacklogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Fynback App"
     />
@@ -481,13 +482,13 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={insolvelitelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/InSolvo_Lite.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="personalmapping"
     />
     <div className="card-body text-center d-flex flex-column">
       {/* <h5 className="card-title text-dark">DS FileShare App</h5> */}
-      <p className="card-text text-muted text-start flex-grow-1"> <strong>InSolvo Lite</strong> is a package of process automation tools for Personnel Mapping projects. InSolvo Lite seamlessly prepares mapping reports with individual and overall scores for personnel in all types of orgs, including Advocacy, Patient, Professional and Government Orgs.
+      <p className="card-text text-muted text-start flex-grow-1"> <strong>InSolvo Lite</strong> is a process automation tool for Personnel Mapping that generates mapping reports with individual and overall scores across Advocacy, Patient, Professional, and Government organizations.
 </p>
 
 
@@ -511,7 +512,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={pubdock} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/PubDock.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="pubdock"
     />
@@ -553,7 +554,7 @@ extendedUsers.includes(email) ? (
               alert("Token missing. Please log in again.");
             }
           }} style={{ cursor: "pointer" }}>
-            <img src={refsolvelogo} className="card-img-top p-2 rounded-4" alt="Refsolve App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/RefSolve.gif" className="card-img-top p-2 rounded-4" alt="Refsolve App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Refsolve</strong> is your go-to platform for reference libraries, checklists, and workflows, built to ensure consistency and clarity across tasks and teams.
@@ -569,7 +570,7 @@ extendedUsers.includes(email) ? (
         {/* DS FileShare */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src={dsfilesharelogo} className="card-img-top p-2 rounded-4" alt="DS FileShare" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" className="card-img-top p-2 rounded-4" alt="DS FileShare" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>DS FileShare</strong> enables your teams to exchange files safely, seamlessly, and at speed — ensuring security and accessibility at every step.
@@ -585,7 +586,7 @@ extendedUsers.includes(email) ? (
         {/* Kaizen */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src={kaizenlogo} className="card-img-top p-2 rounded-4" alt="Kaizen App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/Kaizen.gif" className="card-img-top p-2 rounded-4" alt="Kaizen App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Kaizen</strong> is designed to conduct project-related quizzes, streamline
@@ -603,7 +604,7 @@ extendedUsers.includes(email) ? (
         {/* Logsy */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src={logsylogo} className="card-img-top p-2 rounded-4" alt="Logsy App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif" className="card-img-top p-2 rounded-4" alt="Logsy App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Logsy</strong> is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.
@@ -619,7 +620,7 @@ extendedUsers.includes(email) ? (
         {/* Fynback */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src={fynbacklogo} className="card-img-top p-2 rounded-4" alt="Fynback App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" className="card-img-top p-2 rounded-4" alt="Fynback App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Fynback</strong> is a central hub for gathering ideas, suggestions, and feedback from users. It empowers everyone to share their voice and actively shape the direction of our apps and projects
@@ -636,10 +637,10 @@ extendedUsers.includes(email) ? (
         {/* InSolvo Lite */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src={insolvelitelogo} className="card-img-top p-2 rounded-4" alt="InSolvo Lite" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/InSolvo_Lite.gif" className="card-img-top p-2 rounded-4" alt="InSolvo Lite" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
-                <strong>InSolvo Lite</strong> is a package of process automation tools for Personnel Mapping projects. InSolvo Lite seamlessly prepares mapping reports with individual and overall scores for personnel in all types of orgs, including Advocacy, Patient, Professional and Government Orgs.
+                <strong>InSolvo Lite</strong> is a process automation tool for Personnel Mapping that generates mapping reports with individual and overall scores across Advocacy, Patient, Professional, and Government organizations.
               </p>
               <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
                 <em>'Lightweight Powerful'</em>
@@ -670,7 +671,7 @@ extendedUsers.includes(email) ? (
     style={{ cursor: "pointer" }}
   >
      <img
-      src={refsolvelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/RefSolve.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Refsolve App"
     />
@@ -693,7 +694,7 @@ extendedUsers.includes(email) ? (
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={dsfilesharelogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Dsfileshare App"
     />
@@ -719,7 +720,7 @@ extendedUsers.includes(email) ? (
    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
       <img
-      src={kaizenlogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/Kaizen.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Kaizen App"
     />
@@ -745,7 +746,7 @@ extendedUsers.includes(email) ? (
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={logsylogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="logsy App"
     />
@@ -771,7 +772,7 @@ extendedUsers.includes(email) ? (
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src={fynbacklogo} // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Fynback App"
     />
