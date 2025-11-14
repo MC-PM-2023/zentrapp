@@ -28,7 +28,7 @@ useEffect(()=>{
 fetchShowProfiles()
 },[])
 
-const allowedNames=['A Vinithra','S Dhanush','T Revathy','M Micheal Raj','K Bruntha Devi','V Ramkumar','M Chinnarasu','R Nivedha','A Haritha Priyadharshini','S Piriskillal','K Harish']
+const allowedNames=['Vinithra A','Dhanush S','Micheal Raj M','Bruntha Devi K','Ramkumar V','Chinnarasu M','Nivedha R','Haritha Priyadharshini A','Piriskillal S','Harish K']
 
 
 

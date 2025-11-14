@@ -1,11 +1,13 @@
 import express from 'express';
 import { signup ,login, otpverification,validateSSOToken} from '../controllers/authcontroller.js';
-const AuthRouter=express.Router();
+
+ const Authrouter=express.Router();
 
 
-AuthRouter.post('/signup',signup)
-AuthRouter.post('/verifyotp',otpverification)
-AuthRouter.post("/login",login)
-AuthRouter.get("/validatetoken", validateSSOToken);
+Authrouter.post('/signup',signup)
+Authrouter.post('/verifyotp',otpverification)
+Authrouter.post("/login",login)
+Authrouter.get("/validatetoken", validateSSOToken);
 
-export default AuthRouter;
+
+export default Authrouter;

@@ -49,7 +49,7 @@ const handlelogout=()=>{
   <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top" id="home">
   <div className="container-fluid px-3">
     {/* Logo */}
-    <a className="navbar-brand d-flex align-items-center" href="/">
+    <a className="navbar-brand d-flex align-items-center" href="/iplandingpage">
       <img
         src={datasolve}
         alt="Datasolve Analytics"
@@ -78,7 +78,7 @@ const handlelogout=()=>{
         {token && username && profilelink ? (
           <li className="nav-item d-flex align-items-center gap-2">
             <img
-              src={zentra}
+              src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Zentra.gif"
               alt="User Icon"
               height="35"
               className="rounded border"
@@ -224,7 +224,7 @@ const handlelogout=()=>{
   <div className="card app-card shadow-sm border-0 position-relative h-100">
       {/* Card Image */}
         <img
-          src="https://storage.googleapis.com/my-react-image-bucket-123/Analytica.gif"// replace with your image
+          src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Analytica.gif"// replace with your image
           className="card-img-top p-2 rounded-4"
           alt="Analytica App"
         />
@@ -255,7 +255,7 @@ const handlelogout=()=>{
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/DS_Fileshare.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Dsfileshare App"
     />
@@ -369,7 +369,7 @@ const handlelogout=()=>{
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
        <img
-          src="https://storage.googleapis.com/my-react-image-bucket-123/Prion_Logo.gif" // replace with your image
+          src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/PriorIQ.gif" // replace with your image
           className="card-img-top p-2 rounded-4"
           alt="priorIQApp"
         />

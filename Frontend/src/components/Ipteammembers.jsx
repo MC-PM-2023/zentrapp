@@ -16,6 +16,7 @@ const[userProfiles,setUserProfiles]=useState([])
   const fetchUserProfiles=async()=>{
   try{
     const response=await axios.get(`${apiurl}/api/userprofiles/getuserprofiles`)
+    console.log(response.data.data)
    
     // console.log(response.data)
     setUserProfiles(response.data.data)
@@ -31,7 +32,8 @@ useEffect(()=>{
 },[])
 
 
-const allowedNames=['M Megha','L Auxcilia Mary','P Janaki','S Brito Raj','P Sathish Kumar']
+const allowedNames=['Megha M','Auxcilia Mary L','Brito Raj S','Sathish Kumar P']
+
 
   return (
     <div className="container-fluid my-2">
@@ -55,6 +57,9 @@ const allowedNames=['M Megha','L Auxcilia Mary','P Janaki','S Brito Raj','P Sath
                   className="card-img-top img-fluid object-fit-contain w-100 "
                 />
               </div>
+
+
+              
 
               {/* Card body */}
               <div className="card-body text-center">

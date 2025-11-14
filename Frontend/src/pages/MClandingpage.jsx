@@ -5,18 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // import axios from "axios";
 import OurMCTeam from "../components/Mcteammembers"
-import dsfilesharelogo from '../assets/dsfilesharelogo.gif'
+// import dsfilesharelogo from '../assets/dsfilesharelogo.gif'
 import  '../css/mclandingpage.css'
 import zentra from '../assets/Zentra.gif'
-import trovelogo from '../assets/Trovelogo.gif'
-import refsolvelogo from '../assets/refsolve.gif'
+// import trovelogo from '../assets/Trovelogo.gif'
+// import refsolvelogo from '../assets/refsolve.gif'
 import Footer from "../components/Footer";
-import kaizenlogo from '../assets/Kaizen_Logo.gif'
-import logsylogo from '../assets/Logsy.gif'
-import fynbacklogo from '../assets/Fynback.gif'
-import insolvelitelogo from '../assets/insolvolite.gif'
-import insolvologo from '../assets/insolvologo.gif'
-import pubdock from '../assets/publicationapp.gif'
+// import kaizenlogo from '../assets/Kaizen_Logo.gif'
+// import logsylogo from '../assets/Logsy.gif'
+// import fynbacklogo from '../assets/Fynback.gif'
+// import insolvelitelogo from '../assets/insolvolite.gif'
+// import insolvologo from '../assets/insolvologo.gif'
+// import pubdock from '../assets/publicationapp.gif'
 
 function MClandingpage({ title }) {
   // const apiUrl = import.meta.env.VITE_API_URL;
@@ -74,8 +74,9 @@ const [profileLink,setProfileLink]=useState("")
 <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div className="container-fluid px-3">
     {/* Logo */}
-      <a className="navbar-brand d-flex align-items-center" href="/"></a>
+      <a className="navbar-brand d-flex align-items-center" href="/mclandingpage">
     <img src={datasolve} alt="Datasolve Analytics" height="35" className="d-inline-block align-text-top me-2" />
+    </a>
 
     {/* Toggler */}
     <button
@@ -102,7 +103,7 @@ const [profileLink,setProfileLink]=useState("")
       <div className="d-flex align-items-center justify-content-center">
         {email ? (
           <>
-            <img src={zentra} alt="Zentra Logo" height="40" className="rounded border me-2" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Zentra.gif" alt="Zentra Logo" height="40" className="rounded border me-2" />
   
 
 
@@ -301,7 +302,7 @@ Logout</button>
    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/InSolvo.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/InSolvo.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Insolvo App"
     />
@@ -344,7 +345,7 @@ Logout</button>
   }} style={{ cursor: "pointer" }}>
     {/* <img src={refsolvelogo} alt="refsolvelogo" className="card-img-top app-logo" /> */}
       <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/RefSolve.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/RefSolve.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Refsolve App"
     />
@@ -364,7 +365,7 @@ Logout</button>
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/DS_Fileshare.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Dsfileshare App"
     />
@@ -391,7 +392,7 @@ Logout</button>
   <div className="card app-card shadow-sm border-0 position-relative h-100">
     {/* Card Image */}
     <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/Kaizen.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Kaizen.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Kaizen App"
     />
@@ -428,7 +429,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Logsy.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="logsy App"
     />
@@ -454,7 +455,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Fynback.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Fynback App"
     />
@@ -482,7 +483,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/InSolvo_Lite.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/InSolvo_Lite.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="personalmapping"
     />
@@ -512,7 +513,7 @@ Logout</button>
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/PubDock.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/PubDock.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="pubdock"
     />
@@ -535,7 +536,61 @@ Logout</button>
       ></a>
     </div>
   </div>
-</div>       
+</div>    
+
+
+    {/* Elicita 2.0 App */}
+    
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+       <img
+          src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Elicata2.0.gif" // replace with your image
+          className="card-img-top p-2 rounded-4"
+          alt="Elicita App"
+        />
+    <div className="card-body text-center d-flex flex-column">
+      {/* <h5 className="card-title text-dark">Elicita</h5> */}
+      <p className="card-text text-muted text-start flex-grow-1"><strong> Elicita 2.0</strong> centralizes and enriches all your project data in one dynamic workspace, making discovery effortless, insights sharper, and decision-making smarter than ever before.</p>
+  <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;Seek and shall find&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href=" http://34.180.7.64:9000/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
+
+ 
+
+ 
+    {/* PriorIQ App */}
+    
+        <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
+  <div className="card app-card shadow-sm border-0 position-relative h-100">
+       <img
+          src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/PriorIQ.gif" // replace with your image
+          className="card-img-top p-2 rounded-4"
+          alt="priorIQApp"
+        />
+    <div className="card-body text-center d-flex flex-column">
+     
+      <p className="card-text text-muted text-start flex-grow-1"><strong>PriorIQ </strong>empowers innovation by intelligently analyzing datasets and ranking patents through our proprietary Patentrix and Prion algorithms.</p>
+  <p className="text-center fw-bold" style={{color:"#bfbfbf"}}><em>&apos;The Priority of Innovation&apos;</em></p>
+
+      {/* Stretched link */}
+      <a
+        href="http://34.59.65.120/"
+        className="stretched-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      ></a>
+    </div>
+  </div>
+</div>
             </>
             
           ) : (
@@ -554,7 +609,7 @@ extendedUsers.includes(email) ? (
               alert("Token missing. Please log in again.");
             }
           }} style={{ cursor: "pointer" }}>
-            <img src="https://storage.googleapis.com/my-react-image-bucket-123/RefSolve.gif" className="card-img-top p-2 rounded-4" alt="Refsolve App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/RefSolve.gif" className="card-img-top p-2 rounded-4" alt="Refsolve App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Refsolve</strong> is your go-to platform for reference libraries, checklists, and workflows, built to ensure consistency and clarity across tasks and teams.
@@ -570,7 +625,7 @@ extendedUsers.includes(email) ? (
         {/* DS FileShare */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" className="card-img-top p-2 rounded-4" alt="DS FileShare" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/DS_Fileshare.gif" className="card-img-top p-2 rounded-4" alt="DS FileShare" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>DS FileShare</strong> enables your teams to exchange files safely, seamlessly, and at speed — ensuring security and accessibility at every step.
@@ -586,7 +641,7 @@ extendedUsers.includes(email) ? (
         {/* Kaizen */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src="https://storage.googleapis.com/my-react-image-bucket-123/Kaizen.gif" className="card-img-top p-2 rounded-4" alt="Kaizen App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Kaizen.gif" className="card-img-top p-2 rounded-4" alt="Kaizen App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Kaizen</strong> is designed to conduct project-related quizzes, streamline
@@ -604,7 +659,7 @@ extendedUsers.includes(email) ? (
         {/* Logsy */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif" className="card-img-top p-2 rounded-4" alt="Logsy App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Logsy.gif" className="card-img-top p-2 rounded-4" alt="Logsy App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Logsy</strong> is designed to make time tracking effortless. With its clean interface and smart features, it helps you log work hours seamlessly, stay organized, and boost team productivity.
@@ -620,7 +675,7 @@ extendedUsers.includes(email) ? (
         {/* Fynback */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" className="card-img-top p-2 rounded-4" alt="Fynback App" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Fynback.gif" className="card-img-top p-2 rounded-4" alt="Fynback App" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>Fynback</strong> is a central hub for gathering ideas, suggestions, and feedback from users. It empowers everyone to share their voice and actively shape the direction of our apps and projects
@@ -637,7 +692,7 @@ extendedUsers.includes(email) ? (
         {/* InSolvo Lite */}
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/InSolvo_Lite.gif" className="card-img-top p-2 rounded-4" alt="InSolvo Lite" />
+            <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/InSolvo_Lite.gif" className="card-img-top p-2 rounded-4" alt="InSolvo Lite" />
             <div className="card-body text-center d-flex flex-column">
               <p className="card-text text-muted text-start flex-grow-1">
                 <strong>InSolvo Lite</strong> is a process automation tool for Personnel Mapping that generates mapping reports with individual and overall scores across Advocacy, Patient, Professional, and Government organizations.
@@ -671,7 +726,7 @@ extendedUsers.includes(email) ? (
     style={{ cursor: "pointer" }}
   >
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/RefSolve.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/RefSolve.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Refsolve App"
     />
@@ -694,7 +749,7 @@ extendedUsers.includes(email) ? (
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DSFileShare.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/DS_Fileshare.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Dsfileshare App"
     />
@@ -720,7 +775,7 @@ extendedUsers.includes(email) ? (
    <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
       <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/Kaizen.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Kaizen.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Kaizen App"
     />
@@ -746,7 +801,7 @@ extendedUsers.includes(email) ? (
     <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/Logsy.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Logsy.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="logsy App"
     />
@@ -772,7 +827,7 @@ extendedUsers.includes(email) ? (
  <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
   <div className="card app-card shadow-sm border-0 position-relative h-100">
      <img
-      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Fynback.gif" // replace with your image
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Fynback.gif" // replace with your image
       className="card-img-top p-2 rounded-4"
       alt="Fynback App"
     />

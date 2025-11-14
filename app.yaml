@@ -1,0 +1,35 @@
+
+runtime: nodejs20
+env: standard
+entrypoint: node Backend/server.js
+instance_class: F2
+
+env_variables:
+  NODE_ENV: "production"
+  INSTANCE_CONNECTION_NAME: "theta-messenger-459613-p7:asia-south1:appsadmin"
+  DB_USER: "datasolve"
+  DB_PASS: "datasolve@2025"
+  DB_NAME: "mainapp"
+  PORT: "8080"
+
+beta_settings:
+  cloud_sql_instances: "theta-messenger-459613-p7:asia-south1:appsadmin"
+
+vpc_access_connector:
+  name: "projects/theta-messenger-459613-p7/locations/asia-south1/connectors/cpp"
+  egress_setting: "private-ranges-only"
+
+
+
+
+# runtime: nodejs20
+# env: standard
+# service: zentrafrontend   # unique name for frontend
+# entrypoint: serve -s build -l $PORT   # serve the React build folder
+
+# instance_class: F2
+
+# env_variables:
+#   NODE_ENV: "production"
+#   REACT_APP_BACKEND_URL: "https://backend-dot-theta-messenger-459613-p7.el.r.appspot.com"
+#   PORT: "8081"
