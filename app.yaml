@@ -3,6 +3,7 @@ runtime: nodejs20
 env: standard
 entrypoint: node Backend/server.js
 instance_class: F2
+service: zentra
 
 env_variables:
   NODE_ENV: "production"
@@ -15,9 +16,10 @@ env_variables:
 beta_settings:
   cloud_sql_instances: "theta-messenger-459613-p7:asia-south1:appsadmin"
 
-vpc_access_connector:
-  name: "projects/theta-messenger-459613-p7/locations/asia-south1/connectors/cpp"
-  egress_setting: "private-ranges-only"
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1 
+
 
 
 

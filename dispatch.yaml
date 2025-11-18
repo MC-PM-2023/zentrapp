@@ -1,0 +1,9 @@
+dispatch:
+  - url: "zentra.datasolve-analytics.net/*"
+    service: zentra
+
+  - url: "datasolve-analytics.net/*"
+    service: default
+
+  - url: "www.datasolve-analytics.net/*"
+    service: default

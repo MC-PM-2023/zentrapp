@@ -75,7 +75,7 @@ app.use(express.json());
 // app.use(cors());
 app.use(cors({
   origin: [
-    "https://theta-messenger-459613-p7.el.r.appspot.com",
+    "https://zentra.datasolve-analytics.net", 
     "http://localhost:5173",
     
     // optional for local dev

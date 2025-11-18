@@ -266,7 +266,8 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.47.202.92:7090/"
+        // href="http://34.47.202.92:7090/"
+        href=" https://dsfileshare.datasolve-analytics.net/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -294,11 +295,14 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.14.182.209:7060/"
-        className="stretched-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      ></a>
+        // href="http://34.14.182.209:7060/"
+  href="https://logsy.datasolve-analytics.net"
+  className="stretched-link"
+  target="_blank"
+  rel="noopener noreferrer"
+></a>
+"
+     
     </div>
   </div>
 </div>
@@ -352,7 +356,8 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href=" http://34.180.7.64:9000/"
+        // href=" http://34.180.7.64:9000/"
+        href=" https://elicita-2-0.datasolve-analytics.net/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
