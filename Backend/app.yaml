@@ -2,7 +2,7 @@ runtime: nodejs20
 env: standard
 service: zentrabackend
 entrypoint: node server.js
-instance_class: F2
+instance_class: F1
 
 env_variables:
   NODE_ENV: "production"
@@ -14,9 +14,17 @@ env_variables:
 beta_settings:
   cloud_sql_instances: "theta-messenger-459613-p7:asia-south1:appsadmin"
   
+# automatic_scaling:
+#   min_instances: 0
+#   max_instances: 1
+
 automatic_scaling:
-  min_instances: 0
-  max_instances: 1
+  min_instances: 0         # ZERO = no cost when idle
+  max_instances: 1         # 1 instance max
+  min_idle_instances: 0    # keep ZERO idle servers
+  max_idle_instances: 0    # Google never keeps extra
+  target_cpu_utilization: 0.85
+  max_pending_latency: 2000ms
 
 
 # vpc_access_connector:

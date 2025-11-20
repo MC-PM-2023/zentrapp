@@ -2,7 +2,7 @@
 runtime: nodejs20
 env: standard
 entrypoint: node Backend/server.js
-instance_class: F2
+instance_class: F1
 service: zentra
 
 env_variables:
@@ -16,22 +16,14 @@ env_variables:
 beta_settings:
   cloud_sql_instances: "theta-messenger-459613-p7:asia-south1:appsadmin"
 
+# automatic_scaling:
+#   min_instances: 0
+#   max_instances: 1 
 automatic_scaling:
-  min_instances: 0
-  max_instances: 1 
+  min_instances: 0         # ZERO = no cost when idle
+  max_instances: 1         # 1 instance max
+  min_idle_instances: 0    # keep ZERO idle servers
+  max_idle_instances: 0    # Google never keeps extra
+  target_cpu_utilization: 0.85
+  max_pending_latency: 2000ms
 
-
-
-
-
-# runtime: nodejs20
-# env: standard
-# service: zentrafrontend   # unique name for frontend
-# entrypoint: serve -s build -l $PORT   # serve the React build folder
-
-# instance_class: F2
-
-# env_variables:
-#   NODE_ENV: "production"
-#   REACT_APP_BACKEND_URL: "https://backend-dot-theta-messenger-459613-p7.el.r.appspot.com"
-#   PORT: "8081"
