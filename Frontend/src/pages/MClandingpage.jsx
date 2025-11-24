@@ -338,9 +338,7 @@ Logout</button>
       //  window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`; //it doesnt work
   // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
   
-  window.location.href =
-      `https://refsolve.datasolve-analytics.net/?token=${encodeURIComponent(token)}&username=${encodeURIComponent(username)}&profilelink=${encodeURIComponent(profilelink)}`;
-
+  window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}`;
       //apps admin version
       // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
     } else {
@@ -613,9 +611,7 @@ extendedUsers.includes(email) ? (
             const token = localStorage.getItem("token");
             if (token) {
               // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
-               window.location.href =
-      `https://refsolve.datasolve-analytics.net/?token=${encodeURIComponent(token)}&username=${encodeURIComponent(username)}&profilelink=${encodeURIComponent(profilelink)}`;
-
+              window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}`;
             } else {
               alert("Token missing. Please log in again.");
             }
@@ -735,10 +731,7 @@ extendedUsers.includes(email) ? (
       if (token) {
         // JAS version
         // window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
-        // window.location.href=`https://refsolve.datasolve-analytics.net/?token=${token}`
-          window.location.href =
-      `https://refsolve.datasolve-analytics.net/?token=${encodeURIComponent(token)}&username=${encodeURIComponent(username)}&profilelink=${encodeURIComponent(profilelink)}`;
-
+        window.location.href=`https://refsolve.datasolve-analytics.net/?token=${token}`
         // Appsadmin version
         // window.location.href = `http://35.207.199.234:7070/?token=${token}`;   
       } else {
