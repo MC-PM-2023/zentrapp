@@ -77,7 +77,7 @@ app.use(cors({
   origin: [
     "https://zentra.datasolve-analytics.net", 
     "http://localhost:5173",
-    "https://zentra-rho.vercel.app"
+   "https://zentraapp-mocha.vercel.app"
 
     // optional for local dev
   ],
