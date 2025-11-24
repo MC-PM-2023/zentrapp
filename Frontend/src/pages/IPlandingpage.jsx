@@ -40,7 +40,7 @@ const handlelogout=()=>{
   localStorage.removeItem('profilelink')
   alert(`Are you sure you want to Logout ${username} ?`)
   toast.success(`${username} Logged out successfully !`)
-  navigate("/login")
+  navigate("/")
 }
 
   return (

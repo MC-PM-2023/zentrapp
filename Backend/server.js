@@ -77,7 +77,8 @@ app.use(cors({
   origin: [
     "https://zentra.datasolve-analytics.net", 
     "http://localhost:5173",
-    
+    "https://zentra-rho.vercel.app"
+
     // optional for local dev
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],

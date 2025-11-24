@@ -107,7 +107,7 @@ const Login = ({ title }) => {
           <div className="text-center text-light mb-2">Or</div>
           <p className="mt-2 text-light small text-center">
             Don’t have an account?{' '}
-            <NavLink to="/" className="text-decoration-none text-white">
+            <NavLink to="/signup" className="text-decoration-none text-white">
               Sign up
             </NavLink>
           </p>

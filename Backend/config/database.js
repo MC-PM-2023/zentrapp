@@ -7,8 +7,8 @@ dotenv.config();
 
 
 const config={
-    // host:process.env.DB_HOST,
-    socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+    host:process.env.DB_HOST,
+    // socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
     user:process.env.DB_USER,
     password:process.env.DB_PASS,
     database:process.env.DB_NAME,

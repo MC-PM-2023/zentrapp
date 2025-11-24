@@ -19,9 +19,9 @@ function App() {
     <>
       {/* public routes*/}
       <Routes>
-        <Route path="/" element={<Signup title="Registration Information" />} />
+        <Route path="/signup" element={<Signup title="Sign up" />} />
         <Route path="/otpverification" element={<Otpverify title="OTP Verification" />} />
-        <Route path="/login" element={<Login title="Login User Credentials" />} />
+        <Route path="/" element={<Login title="Sign in" />} />
         {/* <Route path="/forgotpassword" element={<Forgotpassword title="Account Recovery"/>}/> */}
         <Route path="/unauthorized" element={<Unauthorized title="Unauthorized Page Access" />} />
         {/* protected routes*/}

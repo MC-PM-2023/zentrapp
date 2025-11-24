@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs'
-import { approveuserafterotp, createuser,getUserByEmail, getUserProfileByEmail, verifyotp } from '../models/authmodel.js';
+import { approveuserafterotp, createuser,getUserByEmail, getUserProfileByEmail, verifyotp ,verifyResetOtp,requestPasswordReset,updatePassword } from '../models/authmodel.js';
 import jwt from 'jsonwebtoken'
 import { generateotp, isvaliddomain, sendotpmail } from '../utils/email.js';
 export const signup=async (req,res)=>{
@@ -114,4 +114,100 @@ export const validateSSOToken = (req, res) => {
   } catch (err) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
+};
+
+
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+    }
+
+    try {
+        const user = await getUserByEmail(email);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const otp = generateotp();
+
+        const emailSent = await sendotpmail(email, otp);
+        if (!emailSent) {
+            return res.status(500).json({ message: "Failed to send OTP email" });
+        }
+
+        await requestPasswordReset(email, otp);
+
+        return res.status(200).json({ 
+            message: "OTP sent to your email for password reset." 
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            message: "Error in forgot password controller", 
+            error: error.message 
+        });
+    }
+};
+
+// =============================
+//       VERIFY RESET OTP
+// =============================
+export const verifyForgotOtp = async (req, res) => {
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+        return res.status(400).json({ message: "Email and OTP are required" });
+    }
+
+    try {
+        const user = await verifyResetOtp(email, otp);
+
+        if (!user) {
+            return res.status(400).json({ message: "Invalid OTP or email" });
+        }
+
+        return res.status(200).json({ 
+            message: "OTP verified. You can reset your password now." 
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error in OTP verification",
+            error: error.message
+        });
+    }
+};
+
+// =============================
+//       RESET PASSWORD
+// =============================
+export const resetPassword = async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+
+    if (!email || !otp || !newPassword) {
+        return res.status(400).json({ message: "All fields are required" });
+    }
+
+    try {
+        const user = await verifyResetOtp(email, otp);
+        if (!user) {
+            return res.status(400).json({ message: "Invalid OTP or email" });
+        }
+
+        const hashed = await bcrypt.hash(newPassword, 10);
+
+        await updatePassword(email, hashed);
+
+        return res.status(200).json({
+            message: "Password reset successful."
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error resetting password",
+            error: error.message
+        });
+    }
 };

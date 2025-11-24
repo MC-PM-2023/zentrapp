@@ -42,7 +42,7 @@ try{
     console.log(response.data)
     toast.success("Your OTP Verification successful!")
    setTimeout(()=>{
-    navigate("/login")
+    navigate("/")
    },3000)
     
 

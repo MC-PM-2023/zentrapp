@@ -63,7 +63,7 @@ const [profileLink,setProfileLink]=useState("")
       localStorage.removeItem("profilelink")
       setEmail(""); // Immediately update UI
       toast.success(`${username} have been logged out successfully!`);
-      navigate("/login");
+      navigate("/");
     }
   };
 
@@ -336,7 +336,8 @@ Logout</button>
     if (token && username && profilelink) {
       //jas version
       //  window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`; //it doesnt work
-  window.location.href = `http://34.180.7.64:7070/?token=${token}`;
+  // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
+  window.location.href = `https://refsolvefrontend-dot-theta-messenger-459613-p7.el.r.appspot.com/?token=${token}`;
       //apps admin version
       // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
     } else {
@@ -608,7 +609,8 @@ extendedUsers.includes(email) ? (
           <div className="card app-card shadow-sm border-0 position-relative h-100" onClick={() => {
             const token = localStorage.getItem("token");
             if (token) {
-              window.location.href = `http://34.180.7.64:7070/?token=${token}`;
+              // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
+              window.location.href = `https://refsolvefrontend-dot-theta-messenger-459613-p7.el.r.appspot.com/?token=${token}`;
             } else {
               alert("Token missing. Please log in again.");
             }
@@ -727,7 +729,8 @@ extendedUsers.includes(email) ? (
       const token = localStorage.getItem("token");
       if (token) {
         // JAS version
-        window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
+        // window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
+        window.location.href=`https://refsolvefrontend-dot-theta-messenger-459613-p7.el.r.appspot.com/?token=${token}`
         // Appsadmin version
         // window.location.href = `http://35.207.199.234:7070/?token=${token}`;   
       } else {

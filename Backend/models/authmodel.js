@@ -117,3 +117,31 @@ export const updateapproveduser=async(id)=>{
     return result;
 
 }
+
+
+
+export const requestPasswordReset = async (email, otp) => {
+    const [result] = await pool.execute(
+        `UPDATE users SET otp=? WHERE email=?`,
+        [otp, email]
+    );
+    return result;
+};
+
+// ---------------------- 2. VERIFY RESET OTP ----------------------
+export const verifyResetOtp = async (email, otp) => {
+    const [result] = await pool.execute(
+        `SELECT * FROM users WHERE email=? AND otp=?`,
+        [email, otp]
+    );
+    return result[0];
+};
+
+// ---------------------- 3. RESET PASSWORD ----------------------
+export const updatePassword = async (email, newPassword) => {
+    const [result] = await pool.execute(
+        `UPDATE users SET password=?, otp=NULL WHERE email=?`,
+        [newPassword, email]
+    );
+    return result;
+};
