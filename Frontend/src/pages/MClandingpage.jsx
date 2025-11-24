@@ -337,6 +337,7 @@ Logout</button>
       //jas version
       //  window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`; //it doesnt work
   // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
+  
   window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}`;
       //apps admin version
       // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
