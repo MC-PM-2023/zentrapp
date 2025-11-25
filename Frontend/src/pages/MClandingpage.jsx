@@ -615,7 +615,7 @@ extendedUsers.includes(email) ? (
             if (token) {
               // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
               // window.location.href = `http://localhost:5174/?token=${token}?username=${username}&profilelink=${profilelink}`; 5174 is  refsolve port
-              window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&profilelink=${profilelink}`;
+              window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profilelink}`;
             } else {
               alert("Token missing. Please log in again.");
             }
@@ -738,7 +738,7 @@ extendedUsers.includes(email) ? (
         // window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
         // window.location.href=`https://refsolve.datasolve-analytics.net/?token=${token}`
         // window.location.href = `http://localhost:5174/?token=${token}&username=${username}&profilelink=${profilelink}`; 5174 is  refsolve port
-window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&profilelink=${profilelink}`;
+window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profilelink}`;
         // Appsadmin version
         // window.location.href = `http://35.207.199.234:7070/?token=${token}`;   
       } else {
