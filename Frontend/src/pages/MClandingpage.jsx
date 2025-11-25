@@ -288,7 +288,8 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.180.6.43:9090/"
+        // href="http://34.180.6.43:9090/"
+        href="https://trove.datasolve-analytics.net/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -731,7 +732,9 @@ extendedUsers.includes(email) ? (
       if (token) {
         // JAS version
         // window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
-        window.location.href=`https://refsolve.datasolve-analytics.net/?token=${token}`
+        // window.location.href=`https://refsolve.datasolve-analytics.net/?token=${token}`
+        window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profileLink}`;
+
         // Appsadmin version
         // window.location.href = `http://35.207.199.234:7070/?token=${token}`;   
       } else {
