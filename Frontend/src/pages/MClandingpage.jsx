@@ -339,7 +339,8 @@ Logout</button>
       //  window.location.href = `http://35.207.215.48:7070/?token=${token}?username=${username}`; //it doesnt work
   // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
   
-  window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profilelink}`;
+  // window.location.href = `http://localhost:5174/?token=${token}&username=${username}&profilelink=${profilelink}`; 5174 is  refsolve port
+   window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profilelink}`;
       //apps admin version
       // window.location.href = `http://35.207.199.234:7070/?token=${token}`;
     } else {
@@ -610,9 +611,11 @@ extendedUsers.includes(email) ? (
         <div className="col-sm-6 col-md-4 col-lg-3 mb-5">
           <div className="card app-card shadow-sm border-0 position-relative h-100" onClick={() => {
             const token = localStorage.getItem("token");
+            const profilelink = localStorage.getItem("profilelink");
             if (token) {
               // window.location.href = `http://34.180.7.64:7070/?token=${token}`;
-              window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profileLink}`;
+              // window.location.href = `http://localhost:5174/?token=${token}?username=${username}&profilelink=${profilelink}`; 5174 is  refsolve port
+              window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&profilelink=${profilelink}`;
             } else {
               alert("Token missing. Please log in again.");
             }
@@ -729,12 +732,13 @@ extendedUsers.includes(email) ? (
     className="card app-card shadow-sm border-0 position-relative h-100"
     onClick={() => {
       const token = localStorage.getItem("token");
+      const profilelink=localStorage.getItem("profilelink")
       if (token) {
         // JAS version
         // window.location.href = `http://34.180.7.64:7070/?token=${token}`;  
         // window.location.href=`https://refsolve.datasolve-analytics.net/?token=${token}`
-        window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&username=${username}&profilelink=${profileLink}`;
-
+        // window.location.href = `http://localhost:5174/?token=${token}&username=${username}&profilelink=${profilelink}`; 5174 is  refsolve port
+window.location.href = `https://refsolve.datasolve-analytics.net/?token=${token}&profilelink=${profilelink}`;
         // Appsadmin version
         // window.location.href = `http://35.207.199.234:7070/?token=${token}`;   
       } else {
