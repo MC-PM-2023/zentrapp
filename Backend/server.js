@@ -248,6 +248,7 @@ app.use("/api/admin", Adminrouter);
 app.use("/api/admin/apps", Approuter);
 app.use("/api/userprofiles", userProfilesRouter);
 
+
 // ===== Serve frontend SPA =====
 const frontendDist = path.join(__dirname, '../Frontend/dist');
 app.use(express.static(frontendDist));

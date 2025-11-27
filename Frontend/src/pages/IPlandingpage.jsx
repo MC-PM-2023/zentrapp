@@ -240,7 +240,8 @@ const handlelogout=()=>{
       {/* Stretched link */}
       <a
         // href="http://34.47.202.92/"
-            href="http://34.93.131.169/"
+            // href="http://34.93.131.169/" //don
+        href="https://analytica.datasolve-analytics.net/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -385,7 +386,8 @@ const handlelogout=()=>{
 
       {/* Stretched link */}
       <a
-        href="http://34.59.65.120/"
+        // href="http://34.59.65.120/"
+        href="https://prioriq.datasolve-analytics.net/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"

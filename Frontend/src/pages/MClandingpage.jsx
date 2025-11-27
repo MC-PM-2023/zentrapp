@@ -505,7 +505,8 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.14.182.209/"
+        // href="http://34.14.182.209/"
+        href="https://insolvolite.datasolve-analytics.net/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
@@ -718,7 +719,10 @@ extendedUsers.includes(email) ? (
               <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
                 <em>'Lightweight Powerful'</em>
               </p>
-              <a href="http://34.14.182.209/" className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
+              <a
+              //  href="http://34.14.182.209/" 
+              href="https://insolvolite.datasolve-analytics.net/"
+              className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
             </div>
           </div>
         </div>
