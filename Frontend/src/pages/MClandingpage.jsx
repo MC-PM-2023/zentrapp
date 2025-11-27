@@ -592,7 +592,8 @@ Logout</button>
 
       {/* Stretched link */}
       <a
-        href="http://34.59.65.120/"
+      href="https://prioriq.datasolve-analytics.net"
+        // href="http://34.59.65.120/"
         className="stretched-link"
         target="_blank"
         rel="noopener noreferrer"
