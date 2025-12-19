@@ -179,8 +179,6 @@ const handlelogout=()=>{
     <h6 className="mt-2  " style={{color:"#C9C1B6"}}>
 <em className="description">Centralize. Simplify. Succeed.</em>
   </h6>
-
- 
 </div>
 </div>
     <hr/>
@@ -420,4 +418,225 @@ export default IPlandingpage;
 
 
 
+// //corrected add ip app from admin ti show iplandingpage
 
+// import React, { useEffect, useState } from "react";
+// import datasolve from '../assets/datasolve.png';
+// import OurIPTeam from "../components/Ipteammembers";
+// import { useNavigate } from "react-router-dom";
+// import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import '../css/iplandingpage.css';
+// import Footer from "../components/Footer";
+// import axios from "axios";
+
+// const apiurl = import.meta.env.VITE_API_URL;
+
+// function IPlandingpage({ title }) {
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     document.title = title;
+//   }, [title]);
+
+//   // User Data
+//   const token = localStorage.getItem("token");
+//   const username = localStorage.getItem("username");
+//   const email = localStorage.getItem("email");
+//   const profilelink = localStorage.getItem("profilelink");
+//   const team = localStorage.getItem("role"); 
+
+//   // App State
+//   const [teamApps, setTeamApps] = useState([]);
+
+//   // Fetch Apps Dynamically
+//   useEffect(() => {
+//     const fetchApps = async () => {
+//       try {
+//         const response = await axios.get(`${apiurl}/api/admin/apps/${encodeURIComponent(team)}`);   
+//         console.log("Apps from backend:", response);
+//         setTeamApps(response.data);
+//       } catch (error) {
+//         console.log("Error fetching apps:", error);
+//       }
+//     };
+//     fetchApps();
+//   }, [team]);
+
+//   const handlelogout = () => {
+//     const confirmLogout = window.confirm(
+//       `Are you sure you want to Logout ${username}?`
+//     );
+//     if (!confirmLogout) return;
+
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("username");
+//     localStorage.removeItem("email");
+//     localStorage.removeItem("role");
+//     localStorage.removeItem("team");
+//     localStorage.removeItem("profilelink");
+
+//     toast.success(`${username} Logged out successfully!`);
+//     navigate("/");
+//   };
+
+//   return (
+//     <>
+//       {/* Navbar */}
+//       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top" id="home">
+//         <div className="container-fluid px-3">
+
+//           {/* Logo */}
+//           <a className="navbar-brand d-flex align-items-center" href="/iplandingpage">
+//             <img
+//               src={datasolve}
+//               alt="Datasolve Analytics"
+//               height="30"
+//               className="d-inline-block align-text-top me-2"
+//             />
+//           </a>
+
+//           {/* Mobile Toggler */}
+//           <button
+//             className="navbar-toggler"
+//             type="button"
+//             data-bs-toggle="collapse"
+//             data-bs-target="#navbarNav"
+//             aria-controls="navbarNav"
+//             aria-expanded="false"
+//             aria-label="Toggle navigation"
+//           >
+//             <span className="navbar-toggler-icon"></span>
+//           </button>
+
+//           {/* Navigation Items */}
+//           <div className="collapse navbar-collapse" id="navbarNav">
+//             <ul className="navbar-nav ms-auto align-items-lg-center gap-3">
+//               {token && username && profilelink ? (
+//                 <li className="nav-item d-flex align-items-center gap-2">
+
+//                   {/* Profile Dropdown */}
+//                   <div className="dropdown">
+//                     <img
+//                       src={profilelink}
+//                       alt="Profile"
+//                       className="rounded-circle border border-2 shadow-sm"
+//                       height={45}
+//                       width={45}
+//                       role="button"
+//                       id="profileDropdown"
+//                       data-bs-toggle="dropdown"
+//                       aria-expanded="false"
+//                       style={{ objectFit: 'cover', cursor: 'pointer' }}
+//                     />
+
+//                     <ul
+//                       className="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3"
+//                       aria-labelledby="profileDropdown"
+//                       style={{ minWidth: '250px', borderRadius: '10px', marginTop: 9 }}
+//                     >
+//                       <li className="d-flex align-items-center mb-2">
+//                         <img
+//                           src={profilelink}
+//                           alt="Profile"
+//                           className="rounded-circle border border-2 me-3"
+//                           height={50}
+//                           width={60}
+//                           style={{ objectFit: 'cover' }}
+//                         />
+//                         <div>
+//                           <strong style={{ fontSize: '14px' }}>{username}</strong>
+//                           <p className="text-muted mb-0" style={{ fontSize: '12px' }}>
+//                             {email}
+//                           </p>
+//                         </div>
+//                       </li>
+
+//                       <hr className="dropdown-divider" />
+
+//                       <li>
+//                         <button
+//                           className="dropdown-item text-dark d-flex align-items-center gap-2"
+//                           onClick={handlelogout}
+//                         >
+//                           <i className="bi bi-box-arrow-right"></i> Logout
+//                         </button>
+//                       </li>
+//                     </ul>
+//                   </div>
+//                 </li>
+//               ) : (
+//                 <li className="nav-item">
+//                   <span className="btn btn-outline-primary btn-sm">Login User</span>
+//                 </li>
+//               )}
+//             </ul>
+//           </div>
+//         </div>
+//       </nav>
+
+//       {/* Hero Section */}
+//       <div className="background">
+//         <div className="welcomesection container my-3 px-5 px-md-5 py-5 text-center">
+//           <h3 className="welcome-text mb-2">
+//             Welcome to <span className="fs-2" style={{ color: "#FAF3AA" }}>Zentra</span>, {username}
+//           </h3>
+//           <h6 className="username" style={{ color: "#C9C1B6" }}>
+//             The center of everything that drives your work.
+//           </h6>
+//           <h6 className="mt-2" style={{ color: "#C9C1B6" }}>
+//             <em className="description">Centralize. Simplify. Succeed.</em>
+//           </h6>
+//         </div>
+//       </div>
+
+//       <hr />
+
+      // {/* Dynamic App Section */}
+      // <div className="container-fluid project-section py-3">
+      //   <h4 className="text-center text-dark mb-5 fw-bold" id="apps">Our Apps</h4>
+
+      //   <div className="row justify-content-center g-4">
+      //     {teamApps.length > 0 ? (
+      //       teamApps.map((item, index) => (
+      //         <div className="col-sm-6 col-md-4 col-lg-3 mb-5" key={index}>
+      //           <div className="card app-card shadow-sm border-0 position-relative h-100">
+      //             <img
+      //               src={item.appprofilelink || "https://via.placeholder.com/300"}
+      //               className="card-img-top p-2 rounded-4"
+      //               alt={item.appname}
+      //             />
+
+      //             <div className="card-body text-center d-flex flex-column">
+      //               <p className="card-text text-muted text-start flex-grow-1">
+      //                 <strong>{item.appname}</strong> — {item.appdescription}
+      //               </p>
+      //               <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+      //                 {/* <em>Click to open</em> */}
+      //                 <em>{item.apptagline}</em>
+      //               </p>
+
+      //               <a
+      //                 href={item.applink}
+      //                 className="stretched-link"
+      //                 target="_blank"
+      //                 rel="noopener noreferrer"
+      //               ></a>
+      //             </div>
+      //           </div>
+      //         </div>
+      //       ))
+      //     ) : (
+      //       <p className="text-center text-muted">No Apps Available</p>
+      //     )}
+      //   </div>
+      // </div>
+
+//       <hr />
+//       <OurIPTeam />
+//       <Footer />
+//     </>
+//   );
+// }
+
+// export default IPlandingpage;

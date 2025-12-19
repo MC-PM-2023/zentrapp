@@ -651,7 +651,7 @@ extendedUsers.includes(email) ? (
                href=" https://dsfileshare.datasolve-analytics.net/"
               className="stretched-link" target="_blank" rel="noopener noreferrer"></a>
 
-            </div>
+            </div> 
           </div>
         </div>
 

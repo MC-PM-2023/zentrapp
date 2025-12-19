@@ -1,0 +1,37 @@
+.card-actions {
+  position: absolute;
+  bottom: -50px; /* Initially hidden */
+  left: 0;
+  padding: 0 1rem;
+  transition: bottom 0.3s ease; /* Smooth transition for hover effect */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  z-index: 1; /* Make sure actions are above other elements */
+}
+
+.app-card:hover .card-actions {
+  bottom: 10px; /* Slide buttons up when hovered */
+  opacity: 1; /* Make buttons visible on hover */
+}
+
+.app-card {
+  position: relative;
+  overflow: hidden; /* Hide actions initially */
+}
+
+.app-card:hover img {
+  transform: scale(1.05); /* Optional zoom effect on hover */
+}
+
+.app-card .hover-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+

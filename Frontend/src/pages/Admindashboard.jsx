@@ -1,554 +1,1687 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import Adminheader from '../components/Adminheader';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
 
-
+import React, { useEffect, useState } from "react";
+import Adminheader from "../components/Adminheader";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Footer from "../components/Footer";
+import HeroSelection from "../components/HeroSelection";
+import '../css/Admindashboard.css'
 const apiurl = import.meta.env.VITE_API_URL;
-// console.log(apiurl)
-
-
 
 const Admindashboard = ({ title }) => {
-
   useEffect(() => {
     document.title = title;
-  }, [title])
+  }, [title]);
 
-  const [getpendingusers, setPendingGetUsers] = useState([]);
-  const [showApprovemodal, setShowApproveModal] = useState(false);
-  const [selecteduser, setSelectedUser] = useState(null);
-  const [roles, setRoles] = useState([])
-  const [selectedrole, SetSelectedRole] = useState("")
-  const [getapprovedusers, setGetApprovedUsers] = useState([])
-  const [activetab, setActiveTab] = useState("")
-  const [showRejectmodal, setShowRejectModal] = useState(false)
-  const [getrejectedusers, setGetRejectedUsers] = useState([]);
-  const [showipprojectmodal, setShowIpProjectModal] = useState(false)
-  const [showmcprojectmodal, setShowMcProjectModal] = useState(false)
-  const [appipcard, setAppIPprojectCard] = useState({
+  const [activeTab, setActiveTab] = useState("allapps");
+
+  // Users
+  const [pendingUsers, setPendingUsers] = useState([]);
+  const [approvedUsers, setApprovedUsers] = useState([]);
+  const [rejectedUsers, setRejectedUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedRole, setSelectedRole] = useState("");
+  
+
+  // Apps
+  const [appCard, setAppCard] = useState({
     appname: "",
     appdescription: "",
+    apptagline: "",
+    appprofilelink: "",
     applink: "",
-    assignedteam: ""
   });
 
-  // Open Approve Modal
+  const [assignEmail, setAssignEmail] = useState("");
+  const [assignAppNames, setAssignAppNames] = useState("");
+  const [allApps, setAllApps] = useState([]);
+const [showEditModal, setShowEditModal] = useState(false);
+const [selectedApp, setSelectedApp] = useState(null);
+const [selectedUsers, setSelectedUsers] = useState([]); 
+const [allUsers, setAllUsers] = useState([]);
+const [activityLogs, setActivityLogs] = useState([]);
+  const [heroLogos, setHeroLogos] = useState([]);
+  const [selectedHero, setSelectedHero] = useState(null); // null = show all
+const [searchText, setSearchText] = useState("");
+const [actionFilter, setActionFilter] = useState("all");
 
-  const handleapprove = (user) => {
-    setSelectedUser(user)
-    setShowApproveModal(true)
-    SetSelectedRole("")
-  }
 
-  const handlereject = (user) => {
-    // console.log("selected user:",user)
-    setSelectedUser(user)
-    setShowRejectModal(true)
-  }
+const filteredLogs = activityLogs.filter((log) => {
+  const search = searchText.toLowerCase();
 
-  const handleshowaddipcard = () => {
-    setShowIpProjectModal(true)
-  }
+  const matchesSearch =
+    log.admin_name?.toLowerCase().includes(search) ||
+    log.action_type?.toLowerCase().includes(search) ||
+    log.target_entity?.toLowerCase().includes(search) ||
+    log.target_name?.toLowerCase().includes(search) ||
+    log.status?.toLowerCase().includes(search);
 
-  const handleshowaddmccard = () => {
-    setShowMcProjectModal(true)
-  }
-  // Get Pending Users
+  const matchesAction =
+    actionFilter === "all" || log.action_type === actionFilter;
 
-  const handlegetpendingusers = async () => {
-    try {
-      const response = await axios.get(`${apiurl}/api/admin/getpendingusers`)
-      // console.log(response.data)
-      setPendingGetUsers(response.data)
-      toast.success("Fetched Pending Users Successfully !", { position: "top-right" })
-    }
-    catch (error) {
-      console.log("Axios Error in Getpendingusers: ", error)
-    }
-  }
+  return matchesSearch && matchesAction;
+});
 
-  // Fetch Available Roles
 
+  // ------------------------ Fetch Roles ------------------------
   useEffect(() => {
-    const fetchroles = async () => {
+    const fetchRoles = async () => {
       try {
-        const response = await axios.get(`${apiurl}/api/admin/getroles`)
-        // console.log("Getroles response is:",response.data)
-        setRoles(response.data)
+        const res = await axios.get(`${apiurl}/api/admin/getroles`);
+        setRoles(res.data);
+      } catch (err) {
+        console.error(err);
       }
-      catch (error) {
-        console.log("Error in fetching roles:", error)
+    };
+    fetchRoles();
+  }, []);
+
+  // ------------------------ Fetch Users ------------------------
+  const fetchUsers = async (type) => {
+    try {
+      let res;
+      if (type === "pending") res = await axios.get(`${apiurl}/api/admin/getpendingusers`);
+      if (type === "approved") res = await axios.get(`${apiurl}/api/admin/getapprovedusers`);
+      if (type === "rejected") res = await axios.get(`${apiurl}/api/admin/getrejectedusers`);
+
+      if (type === "pending") setPendingUsers(res.data || []);
+      if (type === "approved") setApprovedUsers(res.data || []);
+      if (type === "rejected") setRejectedUsers(res.data || []);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+//corrected code
+  // ------------------------ Fetch Apps ------------------------
+  // const fetchApps = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiurl}/api/admin/apps/getallapps`);
+  //     setAllApps(res.data || []);
+  //   } catch (err) {
+  //     console.error(err);
+  //     setAllApps([]);
+  //   }
+  // };
+  const fetchApps = async () => {
+  try {
+const token=localStorage.getItem("token")
+    const res = await axios.get(
+      `${apiurl}/api/admin/apps/getallapps`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    }
-    fetchroles()
-  }, [])
+    );
 
-  // Approve the Signedup User 
+    setAllApps(res.data || []);
+  } catch (err) {
+    console.error(err);
+    setAllApps([]);
+  }
+};
 
-  const approveuser = async (e) => {
-    e.preventDefault()
-    if (!selectedrole) {
-      toast.error("Please Select a Role Before Approving")
-      return;
+
+
+
+
+
+  // ------------------------ Load Data on Tab Change ------------------------
+  useEffect(() => {
+    if (["pending", "approved", "rejected"].includes(activeTab)) {
+      fetchUsers(activeTab);
+    } else if (["allapps", "assignapp"].includes(activeTab)) {
+      fetchApps();
     }
+ 
+  }, [activeTab]);
+
+  // ------------------------ User Actions ------------------------
+  const approveUser = async () => {
+    if (!selectedRole || !selectedUser) return toast.error("Select a user and role");
     try {
-      const response = await axios.post(`${apiurl}/api/admin/approvedusers`, {
-        id: selecteduser.id,
-        role: selectedrole
+      await axios.post(`${apiurl}/api/admin/approvedusers`, { id: selectedUser.id, role: selectedRole });
+      setPendingUsers((prev) => prev.filter((u) => u.id !== selectedUser.id));
+      toast.success("User approved!");
+    } catch (err) {
+      toast.error("Error approving user");
+    }
+  };
+
+  const rejectUser = async () => {
+    if (!selectedUser) return toast.error("Select a user");
+    try {
+      await axios.post(`${apiurl}/api/admin/rejectedusers`, { id: selectedUser.id });
+      setPendingUsers((prev) => prev.filter((u) => u.id !== selectedUser.id));
+      toast.success("User rejected!");
+    } catch (err) {
+      toast.error("Error rejecting user");
+    }
+  };
+
+  const deleteApprovedUser = async (user) => {
+    try {
+      await axios.put(`${apiurl}/api/admin/updateapproveusers`, { id: user.id });
+      setApprovedUsers((prev) => prev.filter((u) => u.id !== user.id));
+      toast.success("User deleted!");
+    } catch (err) {
+      toast.error("Error deleting user");
+    }
+  };
+//corrected code
+  // ------------------------ App Actions ------------------------
+  // const addApp = async () => {
+  //   const { appname, appdescription, apptagline, appprofilelink, applink } = appCard;
+  //   if (!appname || !appdescription || !apptagline || !appprofilelink || !applink)
+  //     return toast.error("All fields are required");
+  //   try {
+     
+  //     await axios.post(`${apiurl}/api/admin/apps/add`, appCard
+  //   );
+  //     toast.success("App added successfully!");
+  //     setAppCard({ appname: "", appdescription: "", apptagline: "", appprofilelink: "", applink: "" });
+  //     fetchApps();
+  //   } catch (err) {
+  //     toast.error("Error adding app");
+  //   }
+  // };
+
+
+  const addApp = async () => {
+  const { appname, appdescription, apptagline, appprofilelink, applink ,appisometriclink} = appCard;
+  if (!appname || !appdescription || !apptagline || !appprofilelink || !applink || !appisometriclink)
+    return toast.error("All fields are required");
+
+  try {
+    const token = localStorage.getItem('token'); // get token from localStorage
+console.log("token is:",token);
+
+    await axios.post(
+      `${apiurl}/api/admin/apps/add`,
+      appCard,
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // include token in header
+        }
       }
-      )
-      console.log("Approve user response is:", response.data)
-      toast.success("User Approved successfully", { position: "top-right" })
-      setPendingGetUsers((prevusers) => prevusers.filter((user) => user.id != selecteduser.id))
-      setShowApproveModal(false)
-    }
-    catch (error) {
-      console.log("Error in Approve Users:", error)
-      toast.error("Error in Approve Users", { position: "top-right" })
-    }
+    );
+
+    toast.success("App added successfully!");
+    setAppCard({ appname: "", appdescription: "", apptagline: "", appprofilelink: "", applink: "" ,appisometriclink:"" });
+    fetchApps();
+  } catch (err) {
+    console.error(err);
+    toast.error("Error adding app");
   }
+};
 
-  // Get the Approved Signup User 
-  const handlegetapproveusers = async () => {
-    try {
-      const response = await axios.get(`${apiurl}/api/admin/getapprovedusers`)
-      // console.log(response.data)
-      toast.success("Fetched Approved Users Successfully !")
-      setGetApprovedUsers(response.data)
-    }
-    catch (error) {
-      console.log("Error in fetching getapproveusers:", error)
-    }
+
+  const handleEditApp = (app) => {
+    // Prefill form for editing (simple example)
+    setAppCard({
+      appname: app.app_name,
+      appdescription: app.app_description,
+      apptagline: app.app_tagline,
+      appprofilelink: app.app_logo,
+      applink: app.app_url,
+      appisometriclink:app.app_isometric_link,
+      id: app.id, // store id for updating
+    });
+    setActiveTab("addapp");
+  };
+
+//corrected code
+
+  // const updateApp = async () => {
+  //   if (!appCard.id) return toast.error("Select app to update");
+  //   try {
+  //     await axios.put(`${apiurl}/api/admin/apps/edit/${appCard.id}`, appCard);
+  //     toast.success("App updated successfully!");
+  //     setAppCard({ appname: "", appdescription: "", apptagline: "", appprofilelink: "", applink: "" });
+  //     fetchApps();
+  //     setActiveTab("allapps");
+  //   } catch (err) {
+  //     toast.error("Error updating app");
+  //   }
+  // };
+
+
+  const updateApp = async () => {
+  if (!appCard.id) return toast.error("Select app to update");
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const payload = {
+      appname: appCard.appname,
+      appdescription: appCard.appdescription,
+      applink: appCard.applink,
+      apptagline: appCard.apptagline,
+      appprofilelink: appCard.appprofilelink,
+      appisometriclink:appCard.appisometriclink
+    };
+
+    await axios.put(
+      `${apiurl}/api/admin/apps/edit/${appCard.id}`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    toast.success("App updated successfully!");
+
+    setAppCard({
+      appname: "",
+      appdescription: "",
+      apptagline: "",
+      appprofilelink: "",
+      applink: "",
+      id: ""
+    });
+
+    fetchApps();
+    setActiveTab("allapps");
+
+  } catch (err) {
+    toast.error("Error updating app");
+    console.log(err);
   }
+};
 
+//corrected code
+  // const handleDeleteApp = async (id) => {
+  //   try {
+  //     await axios.delete(`${apiurl}/api/admin/apps/delete/${id}`);
+  //     toast.success("App deleted successfully!");
+  //     fetchApps();
+  //   } catch (err) {
+  //     toast.error("Error deleting app");
+  //   }
+  // };
 
-  //post the rejected signup user in admin side
+  const handleDeleteApp = async (id) => {
+  try {
+    const token = localStorage.getItem("token"); // get JWT token
 
-  const handlerejectsignupuser = async (e) => {
-    e.preventDefault();
-    if (!selecteduser?.id) {
-      toast.error("Please select a user", { position: "top-right" })
-      return;
-    }
+    await axios.delete(
+      `${apiurl}/api/admin/apps/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // attach token here
+        }
+      }
+    );
 
-    try {
-      const response = await axios.post(`${apiurl}/api/admin/rejectedusers`, {
-        id: selecteduser.id
-      })
-      console.log(response.data)
-      toast.success("User deleted successfully !", { position: "top-right" })
-      setShowRejectModal(false)
-      setPendingGetUsers((prevusers) => prevusers.filter(user => user.id != selecteduser.id))
-    }
-    catch (error) {
-      console.log('Error in Post rejecteduser:', error)
-    }
+    toast.success("App deleted successfully!");
+    fetchApps(); // refresh app list
+
+  } catch (err) {
+    toast.error("Error deleting app");
+    console.error(err);
   }
+};
 
+//corrected code without token
+  // const assignApps = async () => {
+  //   if (!assignEmail || !assignAppNames) return toast.error("Email and App Names required");
+  //   try {
+  //     await axios.post(`${apiurl}/api/admin/apps/assign`, {
+  //       email: assignEmail,
+  //       appname: assignAppNames,
+  //     });
+  //     toast.success("App(s) assigned successfully!");
+  //     setAssignAppNames("");
+  //     setAssignEmail("")
+  //     fetchApps();
+  //   } catch (err) {
+  //     toast.error("Error assigning app(s)");
+  //   }
+  // };
 
-  //get the rejected users
+//corrected code without token
+// const assignApps = async () => {
+//   if (!assignEmail || !assignAppNames) 
+//     return toast.error("Email(s) and App Name(s) are required");
 
+//   // Split comma-separated emails and apps into arrays
+//   const emailList = assignEmail.split(",").map(e => e.trim()).filter(e => e);
+//   const appList = assignAppNames.split(",").map(a => a.trim()).filter(a => a);
 
-  const handlegetrejectedusers = async () => {
-    try {
-      const response = await axios.get(`${apiurl}/api/admin/getrejectedusers`)
-      // console.log(response.data)
-      setGetRejectedUsers(response.data)
-      toast.success("Fetched Rejected Users Successfully ! ", { position: "top-right" })
-    }
-    catch (error) {
-      console.log("Error in fetching rejected users:", error)
-    }
+//   try {
+//     await axios.post(`${apiurl}/api/admin/apps/assign`, {
+//       emails: emailList,
+//       appnames: appList,
+//     });
+
+//     toast.success("App(s) assigned successfully!");
+//     setAssignAppNames("");
+//     setAssignEmail("");
+//     fetchApps();
+//   } catch (err) {
+//     console.error(err);
+//     toast.error("Error assigning app(s)");
+//   }
+// };
+
+//corrected code with token
+const assignApps = async () => {
+  if (!assignEmail || !assignAppNames) 
+    return toast.error("Email(s) and App Name(s) are required");
+
+  // Split comma-separated emails and apps into arrays
+  const emailList = assignEmail.split(",").map(e => e.trim()).filter(e => e);
+  const appList = assignAppNames.split(",").map(a => a.trim()).filter(a => a);
+
+  try {
+    const token = localStorage.getItem("token"); // get JWT token
+
+    await axios.post(
+      `${apiurl}/api/admin/apps/assign`,
+      {
+        emails: emailList,
+        appnames: appList,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // attach token here
+        }
+      }
+    );
+
+    toast.success("App(s) assigned successfully!");
+    setAssignAppNames("");
+    setAssignEmail("");
+    fetchApps();
+
+  } catch (err) {
+    console.error(err);
+    toast.error("Error assigning app(s)");
   }
+};
 
-  const handleupdateapprovedusers = async (user) => {
-    console.log(user)
-    if (!user.id) {
-      toast.error("User id doesn't found")
-      return;
-    }
-    try {
-      const response = await axios.put(`${apiurl}/api/admin/updateapproveusers`, {
-        id: user.id,
-      })
-      console.log(response.data)
-      toast.success("User Updated Successfully !", { position: "top-right" })
-      setGetApprovedUsers((prevusers) => prevusers.filter(u => u.id != user.id))
-    }
-    catch (error) {
-      console.log("Error in updating Approve users:", error)
-      toast.error("Error in Updating Approve users")
-    }
+
+// const handleEditAssignedUsers = (app) => {
+//   setSelectedApp(app);
+//   // setSelectedUsers(app.assignedUsers.map(u => u.email)); // Prefill
+//   const assignedEmails = (app.assignedUsers || []).map(u => u.email || "");
+// console.log("Assigned Emails:", assignedEmails);
+//   setSelectedUsers(assignedEmails);
+
+//   setShowEditModal(true);
+
+//   // Fetch all users for selection
+//   fetch(`${apiurl}/api/admin/getallusers`)
+//     .then(res => res.json())
+//     .then(data => setAllUsers(data))
+//     .catch(err => console.error(err));
+// };
+
+
+const handleEditAssignedUsers = async (app) => {
+  setSelectedApp(app);
+
+  // Preselect already assigned users (by email)
+  const assignedEmails = (app.assignedUsers || []).map(u => u.email);
+  setSelectedUsers(assignedEmails);
+
+  setShowEditModal(true);
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(
+      `${apiurl}/api/admin/getapprovedusers`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setAllUsers(res.data || []);
+  } catch (err) {
+    console.error("Error fetching approved users", err);
   }
-
-  const addIPappcard = async (e) => {
-    e.preventDefault();
-    if (!appipcard.appname || !appipcard.appdescription || !appipcard.applink || !appipcard.assignedteam) {
-      toast.error("All fields are required !")
-      return;
-    }
+};
 
 
-    try {
-      const response = await axios.post(`${apiurl}/api/admin/apps/addapp`, {
-        appname: appipcard.appname,
-        appdescription: appipcard.appdescription,
-        applink: appipcard.applink,
-        assignedteam: appipcard.assignedteam
-      })
-      console.log(response.data)
-      setAppIPprojectCard({ appname: "", appdescription: "", applink: "", assignedteam: "" })
-      toast.success("App added Successfully !", { position: 'top-right' })
-    }
-    catch (error) {
-      console.log("Error in App Adding IP Card:", error)
-      toast.error("Error in App Adding IP Card:", error.message)
-    }
+
+// const updateAssignedUsers = async () => {
+//   try {
+//     // Assume your API can handle a full list of assigned users for an app
+//     await axios.put(`${apiurl}/api/admin/apps/update-assigned/${selectedApp.id}`, {
+//       assignedUsers: selectedUsers, // Array of emails or IDs
+    
+//     });
+//     toast.success("Assignments updated successfully!");
+//     setShowEditModal(false);
+//     fetchApps(); // Refresh the apps list
+//   } catch (err) {
+//     console.error(err);
+//     toast.error("Error updating assignments");
+//   }
+// };
+
+const updateAssignedUsers = async () => {
+  try {
+    const token = localStorage.getItem("token"); // get JWT token
+
+    await axios.put(
+      `${apiurl}/api/admin/apps/update-assigned/${selectedApp.id}`,
+      {
+        assignedUsers: selectedUsers, // Array of emails or IDs
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // attach token
+        }
+      }
+    );
+
+    toast.success("Assignments updated successfully!");
+    setShowEditModal(false);
+    fetchApps(); // Refresh the apps list
+
+  } catch (err) {
+    console.error(err);
+    toast.error("Error updating assignments");
   }
+};
 
+
+const fetchActivityLogs = async () => {
+  try {
+    const response = await axios.get(`${apiurl}/api/log/activity`);
+    // console.log(response)
+    setActivityLogs(response.data.data);
+  } catch (error) {
+    console.error("Error fetching activity logs:", error);
+  }
+};
+
+useEffect(() => {
+  fetchActivityLogs();
+}, []);
+
+const cellStyle = {
+  wordWrap: "break-word",
+  height: "35px",
+  fontSize: 11,
+  maxWidth: "150px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  padding: "5px",
+};
+const highlightText = (text, highlight) => {
+  if (!highlight) return text;
+  const parts = text.toString().split(new RegExp(`(${highlight})`, "gi"));
+  return parts.map((part, i) =>
+    part.toLowerCase() === highlight.toLowerCase() ? (
+      <mark key={i}>{part}</mark>
+    ) : (
+      part
+    )
+  );
+};
+
+
+// Fetch hero logos
+const fetchHeroLogos = async () => {
+  try {
+    const res = await axios.get(`${apiurl}/api/user/usersectionlogos`);
+    console.log("AXIOS RESPONSE:", res.data);
+
+    if (res.data.success) {
+      setHeroLogos(res.data.data);
+    } else {
+      console.warn("API returned success:false", res.data);
+    }
+  } catch (err) {
+    console.error("Error fetching hero logos:", err);
+  }
+};
+
+// Fetch apps
+useEffect(() => {
+  fetchHeroLogos();
+}, []);
+
+
+
+  // ------------------------ Render ------------------------
   return (
+    <>
     <div>
       <Adminheader />
       <div className="container-fluid">
         <div className="row">
           {/* Sidebar */}
-          <nav
-            className="col-md-3 col-lg-2 text-white bg-dark sidebar vh-100 position-fixed d-flex flex-column p-3"
-            style={{ top: "66px", left: "0", zIndex: "1000" }} // Ensures it's fixed below header
-          >
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <h6 className='text-center'>Admin Dashboard</h6>
-                {/* <NavLink to="" className="nav-link active text-white" onClick={handlegetpendingusers}>
-                  <i className="bi bi-person-check me-2" ></i>Pending Users
-                </NavLink> */}
-                <NavLink to="" className={`nav-link active text-white ${activetab === "pending" ? "active" : ""}`} onClick={(e) => {
-                  e.preventDefault();
-                  setActiveTab("pending")
-                  handlegetpendingusers();
-                }}>
-                  <i className="bi bi-person-check me-2"></i>Pending Users
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="" className={`nav-link active text-white ${activetab === "approved" ? "active" : ""}`} onClick={(e) => {
-                  e.preventDefault();
-                  setActiveTab("approved")
-                  handlegetapproveusers()
-                }}>
-                  <i className="bi bi-check-circle me-2"></i>Approved Users
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="" className={`nav-link text-white ${activetab === "rejected" ? "active" : ""}`} onClick={(e) => {
-                  e.preventDefault();
-                  setActiveTab("rejected")
-                  handlegetrejectedusers()
-                }} >
-                  <i className="bi bi-x-circle me-2"></i>Rejected Users
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="" className="nav-link text-white" onClick={handleshowaddipcard}>
-                  <i class="bi bi-window-plus me-2"></i>Add IP App
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="" className="nav-link text-white" onClick={handleshowaddmccard}>
-                  <i class="bi bi-window-plus me-2"></i> Add MC App
-                </NavLink>
-              </li>
-              {/* <li className="nav-item">
-                <NavLink to="" className="nav-link text-white">
-                  <i className="bi bi-box-arrow-right me-2"></i>Logout
-                </NavLink>
-              </li> */}
-            </ul>
+          <nav className="col-md-3 col-lg-2 d-md-block bg-dark sidebar vh-100 p-3"   style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    height: "100vh",
+    overflowY: "auto",
+    width: "inherit", // ensures same width as Bootstrap column
+  }}
+>
+            <div className="position-sticky">
+              <h5 className="text-white text-center mb-5 fw-bold">Admin Dashboard</h5>
+              <ul className="nav flex-column">
+                {["pending", "approved", "rejected", "addapp",  "allapps","activitylogs"].map((tab) => (
+                  <li className="nav-item mb-2" key={tab}>
+                    <button  style={{ fontSize: "13px" }}
+                      className={`btn w-100 text-start rounded-pill px-3 py-2 mb-2 text-white ${
+                        activeTab === tab ? "btn-primary shadow-sm" : "btn-outline-light"
+                      }`
+                    
+                    }
+                      onClick={() => setActiveTab(tab)}
+                    >
+                      {tab.charAt(0).toUpperCase() +
+                        tab.slice(1).replace("app", " App").replace("assign", "Assign ")}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </nav>
 
           {/* Main Content */}
+          <main className="col-md-9 ms-sm-auto col-lg-10  py-2 " style={{ maxHeight: "100vh" }}>
+            <div className="d-flex justify-content-between align-items-center ">
+              <h2 className="fw-bold text-secondary">
+                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+              </h2>
+            </div>
 
-          <main className="col-md-9 ms-auto col-lg-10 px-md-4" >
-            {activetab &&
-              <div className="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h2>{activetab === "pending" ? "Pending User Approvals" : activetab === "approved" ? "Approved Users" : "Rejected Users"}</h2>
-              </div>
-            }
-            {/* Users Table */}
-            {activetab === "pending" && (
-              <table className="table table-bordered text-center">
-                <thead>
-                  <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Approval</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {getpendingusers?.length > 0 && getpendingusers.map((pendinguser, index) => (
-                    <tr key={index}>
-                      <td>{pendinguser.username}</td>
-                      <td>{pendinguser.email}</td>
-                      <td>{pendinguser.status}</td>
-                      <td>
-                        <button className="btn btn-success btn-sm me-2" onClick={() => handleapprove(pendinguser)}>Approve</button>
-                        <button className="btn btn-danger btn-sm" onClick={() => handlereject(pendinguser)}>Reject</button>
-                      </td>
-                    </tr>
-                  ))}
-
-                </tbody>
-              </table>
-            )}
-
-            {activetab === "approved" &&
-              <table className="table table-bordered text-center">
-                <thead>
-                  <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Update</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {getapprovedusers && getapprovedusers.length > 0 && getapprovedusers.map((approveduser, index) => (
-                    <tr key={index}>
-                      <td>{approveduser.username}</td>
-                      <td>{approveduser.email}</td>
-                      <td>{approveduser.role}</td>
-                      <td>
-                        <button className='btn btn-danger' onClick={() => handleupdateapprovedusers(approveduser)}>Delete</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-            }
-
-            {activetab === "rejected" &&
-              <table className='table table-bordered text-center'>
-                <thead>
-                  <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {getrejectedusers && getrejectedusers.length > 0 && getrejectedusers.map((rejecteduser, index) => (
-                    <tr key={index}>
-                      <td>{rejecteduser.username}</td>
-                      <td>{rejecteduser.email}</td>
-                      <td>{rejecteduser.status}</td>
-                    </tr>
-                  ))
-                  }
-                </tbody>
-              </table>
-            }
-
-            {showApprovemodal && (
-              <>
-                <div className="modal fade show d-block" tabIndex="-1" role="dialog">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="approveModalLabel">Approve User</h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          onClick={() => setShowApproveModal(false)}
-                        ></button>
-                      </div>
-                      <div className="modal-body">
-                        <p>Are you sure you want to approve this user <strong>{selecteduser?.username}</strong> ?</p>
-                        <form>
-                          <div className="mb-2">
-                            <label htmlFor="recipient-name" className="col-form-label">Username</label>
-                            <input type="text" className="form-control" id="username" value={selecteduser?.username || ""} disabled />
-                          </div>
-                          <div className="mb-2">
-                            <label htmlFor="recipient-name" className="col-form-label">Email</label>
-                            <input type="text" className="form-control" id="email" value={selecteduser?.email || ""} disabled />
-                          </div>
-                          <div className="mb-3">
-                            <label htmlFor="role-select" className="col-form-label">Role</label>
-                            <select className="form-select" id="role-select" value={selectedrole} onChange={(e) => SetSelectedRole(e.target.value)}>
-                              <option value="" disabled>Select a role</option>
-                              {roles.map((role, index) => (
-                                <option key={index} value={role}>{role}</option>
-                              ))}
-                            </select>
-                          </div>
-                        </form>
-                      </div>
-                      <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={() => setShowApproveModal(false)}>Cancel</button>
-                        <button type="button" className="btn btn-success" onClick={approveuser}>Confirm Approval</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-backdrop fade show"></div>
-              </>
-            )}
-
-
-            {showRejectmodal &&
-              <>
-                <div className='modal show d-block' tabIndex="-1" role='dialog'>
-                  <div className='modal-dialog'>
-                    <div className='modal-content'>
-                      <div className='modal-header'>
-                        <h5 className='modal-title' id="rejectModalLabel">Reject User</h5>
-                        <button type="button" className='btn-close' onClick={() => setShowRejectModal(false)}></button>
-                      </div>
-                      <div className='modal-body'>
-                        <p>Are you sure you want to reject this user <strong>{selecteduser?.username}</strong> ?</p>
-                        <form onSubmit={handlerejectsignupuser}>
-                          <div className='mb-2'>
-                            <label htmlFor='username' className='col-form-label'>Username</label>
-                            <input type="text" className="form-control" value={selecteduser?.username || ""} disabled />
-                          </div>
-                          <div className='mb-2'>
-                            <label htmlFor='email' className='col-form-label'>Email</label>
-                            <input type="text" className="form-control" value={selecteduser?.email || ""} disabled />
-                          </div>
-                        </form>
-                        <div className="modal-footer">
-                          <button className='btn btn-secondary' onClick={() => setShowRejectModal(false)}>Cancel</button>
-                          <button className='btn btn-danger' onClick={handlerejectsignupuser}>Confirm Approval</button>
+            {/* Render Tabs */}
+            {activeTab === "pending" && (
+              <div className="row g-4">
+                {pendingUsers.length === 0 && <p className="text-muted">No pending users.</p>}
+                {pendingUsers.map((u) => (
+                  <div className="col-md-6 col-lg-4" key={u.id}>
+                    <div className="card border-0 shadow-sm rounded-4 h-100">
+                      <div className="card-body d-flex flex-column">
+                        <h5 className="card-title fw-bold">{u.username}</h5>
+                        <p className="card-text text-muted mb-3">{u.email}</p>
+                        <select
+                          className="form-select mb-3"
+                          onChange={(e) => setSelectedRole(e.target.value)}
+                        >
+                          <option value="">Select Role</option>
+                          {roles.map((r) => (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="mt-auto d-flex gap-2">
+                          <button
+                            className="btn btn-success btn-sm flex-fill rounded-pill"
+                            onClick={() => {
+                              setSelectedUser(u);
+                              approveUser();
+                            }}
+                          >
+                            Approve
+                          </button>
+                          <button
+                            className="btn btn-danger btn-sm flex-fill rounded-pill"
+                            onClick={() => {
+                              setSelectedUser(u);
+                              rejectUser();
+                            }}
+                          >
+                            Reject
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="modal-backdrop fade show"></div>
-              </>
-            }
+                ))}
+              </div>
+            )}
 
-
-            {showipprojectmodal &&
-              <>
-                <div className="modal fade show d-block" tabIndex="-1" role='dialog'>
-                  <div className='modal-dialog'>
-                    <div className='modal-content'>
-                      <div className='modal-header'>
-                        <h5 className='modal-title' id="rejectModalLabel">Add IP App</h5>
-                        <button type="button" className='btn-close' onClick={() => setShowIpProjectModal(false)} />
-                      </div>
-                      <div className='modal-body'>
-                        <form >
-                          <label htmlFor='username' className='col-form-label'>App Name</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={appipcard.appname}
-                            placeholder='Enter App Name'
-                            onChange={(e) => setAppIPprojectCard({ ...appipcard, appname: e.target.value })}
-                          />
-                          <label htmlFor='username' className='col-form-label'>App Description</label>
-                          <textarea
-                            className="form-control"
-                            value={appipcard.appdescription}
-                            placeholder='Enter App Description'
-                            onChange={(e) => setAppIPprojectCard({ ...appipcard, appdescription: e.target.value })}
-                          />
-                          <label htmlFor='username' className='col-form-label'>App Link</label>
-                          <input
-                            type="url"
-                            className="form-control"
-                            placeholder='Enter App Link'
-                            value={appipcard.applink}
-                            onChange={(e) => setAppIPprojectCard({ ...appipcard, applink: e.target.value })}
-                          />
-                          <label className="col-form-label">Assigned Team <small className='text-small'>(IP Team)</small></label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={appipcard.assignedteam}
-                            placeholder="Type Bracket name below to confirm"
-                            onChange={(e) => setAppIPprojectCard({ ...appipcard, assignedteam: e.target.value })}
-                          />
-                          <div className="modal-footer mt-3">
-                            <button type="button" className="btn btn-secondary" onClick={() => setShowIpProjectModal(false)}>Cancel</button>
-                            <button type="button" className="btn btn-success" onClick={addIPappcard}>Submit</button>
-                          </div>
-                        </form>
+            {activeTab === "approved" && (
+              <div className="row g-4">
+                {approvedUsers.length === 0 && <p className="text-muted">No approved users.</p>}
+                {approvedUsers.map((u) => (
+                  <div className="col-md-6 col-lg-4" key={u.id}>
+                    <div className="card border-0 shadow-sm rounded-4 h-100">
+                      <div className="card-body d-flex flex-column">
+                        <h5 className="card-title fw-bold">{u.username}</h5>
+                        <p className="card-text text-muted">{u.email}</p>
+                        <p className="text-muted mb-3">{u.role}</p>
+                        <button
+                          className="btn btn-outline-danger btn-sm w-100 rounded-pill mt-auto"
+                          onClick={() => deleteApprovedUser(u)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   </div>
+                ))}
+                  <footer className="text-center py-3 mt-4 border-top">
+      <small className="text-muted">
+         © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+      </small>
+  </footer>
+              </div>
+            )}
 
-                </div>
-                <div className='modal-backdrop fade show' />
-              </>
-            }
-
-            {showmcprojectmodal &&
-              <>
-                <div className='modal fade show d-block ' tabIndex="-1" role='dialog'>
-                  <div className='modal-dialog'>
-                    <div className='modal-content'>
-                      <div className='modal-header'>
-
-                        <h5 className='modal-title' id="rejectModalLabel">Add MC App</h5>
-                        <button type='button' className='btn-close' onClick={() => setShowMcProjectModal(false)} />
-                      </div>
-                      <div className='modal-body'>
-                        <form>
-
-                          <div className="mb-3">
-                            <label className="form-label">App Name</label>
-                            <input type="text" className="form-control" value={appipcard.appname}
-                              onChange={(e) => setAppIPprojectCard({ ...appipcard, appname: e.target.value })}
-                              placeholder='Enter App Name'
-                            />
-                          </div>
-                          <div className="mb-3">
-                            <label className="form-label">App Description</label>
-                            <textarea className="form-control" value={appipcard.appdescription}
-                              onChange={(e) => setAppIPprojectCard({ ...appipcard, appdescription: e.target.value })} placeholder='Enter App Description'></textarea>
-                          </div>
-                          <div className="mb-3">
-                            <label className="form-label">App Link</label>
-                            <input type="url" className="form-control" value={appipcard.applink}
-                              onChange={(e) => setAppIPprojectCard({ ...appipcard, applink: e.target.value })} placeholder='Enter App Link' />
-                          </div>
-                          <div className="mb-3">
-                            <label className="col-form-label">Assigned Team <small className='text-small'>(MC Team)</small></label>
-                            <input type="text" className="form-control" value={appipcard.assignedteam}
-                              onChange={(e) => setAppIPprojectCard({ ...appipcard, assignedteam: e.target.value })} placeholder='Type Bracket name below to confirm' />
-                          </div>
-                          <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={() => setShowMcProjectModal(false)}>Cancel</button>
-                            <button type="button" className="btn btn-success" onClick={addIPappcard}>Submit</button>
-                          </div>
-                        </form>
+            {activeTab === "rejected" && (
+              <div className="row g-4">
+                {rejectedUsers.length === 0 && <p className="text-muted">No rejected users.</p>}
+                {rejectedUsers.map((u) => (
+                  <div className="col-md-6 col-lg-4" key={u.id}>
+                    <div className="card border-0 shadow-sm rounded-4 h-100">
+                      <div className="card-body d-flex flex-column">
+                        <h5 className="card-title fw-bold">{u.username}</h5>
+                        <p className="card-text text-muted">{u.email}</p>
+                        <span className="badge bg-danger mt-auto">{u.status}</span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className='modal-backdrop fade show'></div>
-              </>
+                ))}
+        
+              </div>
+            )}
 
-            }
-            
+            {activeTab === "addapp" && (
+              <div className="card p-4 shadow-sm rounded-4">
+                <h3 className="mb-3 fw-bold">{appCard.id ? "Edit App" : "Add New App"}</h3>
+                <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="App Name"
+                  value={appCard.appname}
+                  onChange={(e) => setAppCard({ ...appCard, appname: e.target.value })}
+                />
+                <textarea
+                  className="form-control rounded-3 mb-3"
+                  placeholder="App Description"
+                  value={appCard.appdescription}
+                  onChange={(e) => setAppCard({ ...appCard, appdescription: e.target.value })}
+                />
+                <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="App Tagline"
+                  value={appCard.apptagline}
+                  onChange={(e) => setAppCard({ ...appCard, apptagline: e.target.value })}
+                />
+                <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="App Logo URL"
+                  value={appCard.appprofilelink}
+                  onChange={(e) => setAppCard({ ...appCard, appprofilelink: e.target.value })}
+                />
+                 <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="App isometric URL"
+                  value={appCard.appisometriclink}
+                  onChange={(e) => setAppCard({ ...appCard, appisometriclink: e.target.value })}
+                />
+                <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="App URL"
+                  value={appCard.applink}
+                  onChange={(e) => setAppCard({ ...appCard, applink: e.target.value })}
+                />
+                <button
+                  className="btn btn-success rounded-pill"
+                  onClick={appCard.id ? updateApp : addApp}
+                >
+                  {appCard.id ? "Update App" : "Add App"}
+                </button>
+                  <footer className="text-center py-3 mt-4 border-top">
+      <small className="text-muted">
+         © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+      </small>
+  </footer>
+              </div>
+            )}
+
+            {activeTab === "assignapp" && (
+              <div className="card p-4 shadow-sm rounded-4">
+                <h3 className="mb-3 fw-bold">Assign App(s) to User</h3>
+                <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="User Email (s) (comma-separated)"
+                  value={assignEmail}
+                  onChange={(e) => setAssignEmail(e.target.value)}
+                />
+                <input
+                  className="form-control rounded-pill mb-3"
+                  placeholder="App Name (s) (comma-separated)"
+                  value={assignAppNames}
+                  onChange={(e) => setAssignAppNames(e.target.value)}
+                />
+                <button className="btn btn-primary rounded-pill" onClick={assignApps}>
+                  Assign App(s)
+                </button>
+                  <footer className="text-center py-3 mt-4 border-top">
+      <small className="text-muted">
+         © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+      </small>
+  </footer>
+              </div>
+            )}
+{/* 
+            {activeTab === "allapps" && (
+              <div className="row g-4">
+                {allApps.length === 0 && <p className="text-muted">No apps available.</p>}
+                {allApps.map((item) => (
+                  <div className="col-sm-6 col-md-4 col-lg-3 mb-5" key={item.id}>
+                    <div className="card app-card shadow-sm border-0 h-100 position-relative">
+                      <img
+                        src={item.app_logo || "https://via.placeholder.com/300"}
+                        className="card-img-top p-2 rounded-4"
+                        alt={item.app_name}
+                      />
+                      <div className="card-body text-center d-flex flex-column">
+                        <p className="card-text text-muted text-start flex-grow-1">
+                          <strong>{item.app_name}</strong> — {item.app_description}
+                        </p>
+                        <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
+                          <em>{item.app_tagline}</em>
+                        </p>
+                        <a
+                          href={item.app_url}
+                          className="stretched-link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        ></a>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-between mt-3">
+                      <button
+                        className="btn btn-sm btn-outline-primary rounded-pill"
+                        onClick={() => handleEditApp(item)}
+                      >
+                        <i className="bi bi-pencil-square me-1"></i>Edit
+                      </button>
+                      <button
+                        className="btn btn-sm btn-outline-danger rounded-pill"
+                        onClick={() => handleDeleteApp(item.id)}
+                      >
+                        <i className="bi bi-trash me-1"></i>Delete
+                      </button>
+                    </div>
+            <h6 className="text-secondary mt-2">Assigned Users:</h6>
+{item.assignedUsers && item.assignedUsers.length > 0 ? (
+  <div >
+    {item.assignedUsers.map((user) => (
+      <span key={user.id} className="badge bg-primary me-1 mb-1">
+        {user.username} 
+      </span>
+    ))}
+  
+    <button
+  className="btn btn-sm btn-outline-success rounded-pill"
+  onClick={() => handleEditAssignedUsers(item)}
+>
+  <i className="bi bi-pencil-square me-1"></i>
+</button>
+
+  </div>
+) : (
+  <p className="text-muted mb-0">No users assigned</p>
+)}
+
+        
+                  </div>
+                ))}
+                
+              </div>
+              
+              
+            )} */}
+            {activeTab === "allapps" && (     
+  <div className="row g-4">
+    {allApps.length === 0 && <p className="text-muted">No apps available.</p>}
+   <HeroSelection/>
+
+{/* Hero Logos Section */}
+{/* <div className="row gx-4 gy-4 p-4 mb-4">
+  {heroLogos?.map((item, index) => (
+    <div key={index} className="col-6 col-sm-4 col-md-3 col-lg-2">
+      <div
+        className={`bg-white shadow rounded p-3 d-flex flex-column align-items-center justify-content-center hover-shadow transition ${
+          selectedHero === item.app_name ? "border border-primary" : ""
+        }`}
+        style={{ cursor: "pointer" }}
+        onClick={() => setSelectedHero(item.app_name)}
+      >
+        <img
+          src={item.image_link}
+          alt={item.app_name}
+          className="mb-3"
+          style={{ width: "80px", height: "80px", objectFit: "contain" }}
+        />
+        <p className="text-center small fw-semibold text-secondary">
+          {item.app_name}
+        </p>
+      </div>
+    </div>
+  ))}
+</div> */}
+
+{/* Apps Section */}
+
+
+
+
+
+{/* //last corrected code */}
+   {/* <div className="row gx-4 gy-4 p-4 mb-4">
+  {allApps.map((item) => (
+    <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-2">
+      <div
+        className={`bg-white shadow rounded p-3 d-flex flex-column align-items-center justify-content-center hover-shadow transition position-relative ${
+          selectedApp === item.id ? "border border-primary" : ""
+        }`}
+        style={{ cursor: "pointer", minHeight: "250px" }}
+        onClick={() => setSelectedApp(item.id)}
+      >
+       
+        <img
+          src={item.app_isometric_link || "https://via.placeholder.com/80"}
+          alt={item.app_name}
+          className="mb-3"
+          style={{ width: "80px", height: "80px", objectFit: "contain", borderRadius: "8px" }}
+        />
+
+     
+        <p className="text-center small fw-semibold text-secondary mb-1">
+          {item.app_name}
+        </p>
+       
+
+       
+        {item.assignedUsers && item.assignedUsers.length > 0 ? (
+          <div className="d-flex align-items-center mt-2">
+            {item.assignedUsers.map((user, i) => (
+              <img
+                key={user.id}
+                src={user.profilelink || "https://via.placeholder.com/40"}
+                alt={user.username}
+                title={user.username}
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: "50%",
+                  objectFit: "contain",
+                  border: "2px solid white",
+                  marginLeft: i === 0 ? 0 : -8,
+                  boxShadow: "0 0 3px rgba(0,0,0,0.3)"
+                }}
+              />
+            ))}
+
+            <button
+              className="btn btn-sm btn-outline-success rounded-pill ms-2"
+              onClick={(e) => {
+                e.stopPropagation(); 
+                handleEditAssignedUsers(item);
+              }}
+            >
+              <i className="bi bi-pencil-square"></i>
+            </button>
+          </div>
+        ) : (
+          <p className="text-muted text-center mb-0 mt-1" style={{ fontSize: 12 }}>
+            No users assigned
+          </p>
+        )}
+
+       
+        <div className="d-flex justify-content-between w-100 mt-3">
+          <button
+            className="btn btn-sm btn-outline-primary rounded-pill"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditApp(item);
+            }}
+          >
+            <i className="bi bi-pencil-square me-1"></i>Edit
+          </button>
+
+          <button
+            className="btn btn-sm btn-outline-danger rounded-pill"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteApp(item.id);
+            }}
+          >
+            <i className="bi bi-trash me-1"></i>Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div> */}
+
+
+<div className="row gx-4 gy-4 p-4 mb-4 ">
+  {allApps.map((item) => (
+    <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-3 ">
+      <div
+        className={`bg-white shadow-lg rounded-xl p-4 d-flex flex-column align-items-center justify-content-between position-relative transform-hover ${
+          selectedApp === item.id ? "border-2 border-primary" : ""
+        }`}
+        style={{
+          cursor: "pointer",
+          minHeight: "300px",
+          transition: "all 0.3s ease, transform 0.3s ease",
+          borderRadius: "20px",
+        }}
+        onClick={() => setSelectedApp(item.id)}
+      >
+        {/* App Image */}
+        < a href={item.app_url}>
+        <img
+          src={item.app_isometric_link || "https://via.placeholder.com/80"}
+          alt={item.app_name}
+          className="mb-3"
+          style={{
+            width: "120px",
+            height: "120px",
+            objectFit: "contain",
+            borderRadius: "12px",
+            transition: "transform 0.3s ease",
+          }}
+        />
+        </a>
+        
+        {/* App Name */}
+        <p
+          className="text-center fw-semibold text-dark mb-2"
+          style={{
+            fontSize: "16px",
+            fontWeight: "600",
+            lineHeight: "1.2",
+          }}
+        >
+          {item.app_name}
+        </p>
+
+        {/* Assigned Users */}
+        {/* {item.assignedUsers && item.assignedUsers.length > 0 ? (
+          <div className="d-flex align-items-center mt-2">
+       {item.assignedUsers.map((user, i) => (
+  <button 
+    key={user.id} // It's important to set a key on the button as well
+    className="btn-unstyled" // Optional: you can add custom styling to remove button border and default padding if needed
+    onClick={(e) => { 
+      e.stopPropagation(); 
+      handleEditAssignedUsers(item);
+    }} 
+    title="Edit Assigned users"
+    style={{ padding: 0, border: "none", background: "transparent" }} // Ensure no extra padding or border
+  >
+    <img
+      src={user.profilelink || "https://via.placeholder.com/40"}
+      alt={user.username}
+      title={user.username}
+      style={{
+        width: "40px",
+        height: "40px",
+        borderRadius: "50%",
+        objectFit: "contain",
+        border: "2px solid white",
+        marginLeft: i === 0 ? 0 : "-8px",
+        boxShadow: "0 0 4px rgba(0,0,0,0.2)",
+      }}
+    />
+  </button>
+))}
+          </div>
+        ) : (
+          <p
+            className="text-muted text-center mb-0 mt-1"
+            style={{ fontSize: "12px" }}
+          >
+            No users assigned
+          </p>
+        )} */}
+
+        {item.assignedUsers && item.assignedUsers.length > 0 ? (
+  <div className="d-flex align-items-center mt-2">
+    {item.assignedUsers.map((user, i) => (
+      <button
+        key={user.id}
+        className="btn-unstyled"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleEditAssignedUsers(item);
+        }}
+        title="Edit Assigned Users"
+        style={{ padding: 0, border: "none", background: "transparent" }}
+      >
+        <img
+          src={user.profilelink || "https://via.placeholder.com/40"}
+          alt={user.username}
+          title={user.username}
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            objectFit: "contain",
+            border: "2px solid white",
+            marginLeft: i === 0 ? 0 : "-8px",
+            boxShadow: "0 0 4px rgba(0,0,0,0.2)",
+          }}
+        />
+      </button>
+    ))}
+  </div>
+) : (
+  <button
+    className="btn btn-sm btn-success rounded-pill mt-2"
+    onClick={(e) => {
+      e.stopPropagation();
+      handleEditAssignedUsers(item);
+    }}
+    title="Assign Users"
+  >
+    <i class="bi bi-person-add"></i>
+
+  </button>
+)}
+
+
+        {/* Action Buttons */}
+        <div className="d-flex justify-content-end w-100 mt-3 gap-1">
+          <button
+            className="btn btn-sm rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditApp(item);
+            }}
+             title="Edit App"
+          >
+            <i className="bi bi-pencil-square me-1"></i>
+          </button>
+
+          <button
+            className="btn  rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteApp(item.id);
+            }}
+            title="Delete App"
+           
+          >
+            <i className="bi bi-trash "></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+
+
+
+
+  <div className="mt-5 pt-3">
+     <footer className="text-center py-3 border-top bg-light">
+       <small className="text-muted">
+         © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+       </small>
+     </footer>
+   </div>
+
+  </div>
+  
+)}
+  
+{/* {activeTab === "activitylogs" && (
+    <div className="container mt-3">
+
+     
+
+        {activityLogs.length === 0 ? (
+            <p className="text-muted">No login activity found.</p>
+        ) : (
+            <div className="table-responsive">
+                <table className="table table-striped table-bordered shadow-sm rounded">
+
+                    <thead className="table-dark">
+                        <tr>
+                          
+                          
+                      <th>ID</th>
+                        <th>Admin Name</th>
+                        <th>Timestamp</th>
+                        <th>Action Type</th>
+                        <th>Target Entity</th>
+                        <th>Target Name</th>
+                        <th>Old Value</th>
+                        <th>New Value</th>
+                        <th>Action Details</th>
+                        <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {activityLogs.map((log) => (
+                            <tr key={log.id}>
+                           
+                                <td>{log.admin_name || "—"}</td>
+
+                                {/* formatted timestamp *
+                                <td>{new Date(log.timestamp).toLocaleString()}</td>
+
+                                <td>{log.action_type}</td>
+                                <td>{log.target_entity}</td>
+                                <td>{log.target_name}</td>
+
+                                {/* old_value object *
+                                <td>{log.old_value ? JSON.stringify(log.old_value) : "—"}</td>
+
+                                {/* new_value object *
+                                <td>{log.new_value ? JSON.stringify(log.new_value) : "—"}</td>
+
+                                <td>{log.action_details}</td>
+                                <td>{log.status}</td>
+                            <td>
+{new Date(log.timestamp).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata"
+})}
+
+</td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+
+                </table>
+            </div>
+        )}
+
+        <footer className="text-center py-3 mt-4 border-top">
+            <small className="text-muted">
+                © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+            </small>
+        </footer>
+
+    </div>
+)} */}
+
+{/* last corrected code */}
+{/* {activeTab === "activitylogs" && (
+  <div className="container mt-3">
+    {activityLogs.length === 0 ? (
+      <p className="text-muted">No login activity found.</p>
+    ) : (
+      <div 
+        className="table-responsive shadow-sm rounded"
+        style={{ maxHeight: '650px', overflowY: 'auto', fontSize: 9 }} // Scrollable container with fixed height
+      >
+        <table className="table table-striped table-bordered" style={{ width: '100%', tableLayout: 'fixed' }}>
+          <thead className="table-dark" style={{ position: 'sticky', top: 0, zIndex: 10, fontSize: '10px' }}>
+            <tr>
+              <th style={{ width: '11%', fontSize: 14 }}>Admin Name</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Timestamp</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Action Type</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Target Entity</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Target Name</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Old Value</th>
+              <th style={{ width: '11%', fontSize: 14 }}>New Value</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Action Details</th>
+              <th style={{ width: '11%', fontSize: 14 }}>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {activityLogs.map((log) => (
+              <tr key={log.id}>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10, // Reduced font size for compactness
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px', // Reduced padding for compactness
+                  }}
+                >
+                  {log.admin_name || "—"}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                >
+                  {new Date(log.timestamp).toLocaleString()}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                >
+                  {log.action_type}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                >
+                  {log.target_entity}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                >
+                  {log.target_name}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                  title={log.old_value ? JSON.stringify(log.old_value) : "—"}
+                >
+                  {log.old_value ? JSON.stringify(log.old_value) : "—"}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                  title={log.new_value ? JSON.stringify(log.new_value) : "—"}
+                >
+                  {log.new_value ? JSON.stringify(log.new_value) : "—"}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                  title={log.action_details}
+                >
+                  {log.action_details}
+                </td>
+                <td
+                  style={{
+                    wordWrap: 'break-word',
+                    height: '35px', // Reduced height
+                    fontSize: 10,
+                    maxWidth: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '5px',
+                  }}
+                  title={log.status}
+                >
+                  {log.status}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+
+    <footer className="text-center py-3 mt-4 border-top">
+      <small className="text-muted">
+        © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+      </small>
+    </footer>
+  </div>
+)} */}
+
+{activeTab === "activitylogs" && (
+  <div className="mt-1">
+    {/* Search Box */}
+ <div className="d-flex justify-content-end mb-2">
+  <input
+    type="text"
+    className="form-control form-control-sm"
+    placeholder="Search..."
+    value={searchText}
+    onChange={(e) => setSearchText(e.target.value)}
+    style={{ width: "200px" }} // adjust width as needed
+  />
+</div>
+
+ 
+
+    {/* Table */}
+    {activityLogs.length === 0 ? (
+      <p className="text-muted">No login activity found.</p>
+    ) : (
+      <div
+        className="table-responsive shadow-sm rounded"
+        style={{ maxHeight: "750px", overflowY: "auto", fontSize: 9 }}
+      >
+        <table
+          className="table table-striped table-bordered"
+          style={{ width: "100%", tableLayout: "fixed" }}
+        >
+          <thead
+            className="table-dark"
+            style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 10,
+              fontSize: "10px",
+            }}
+          >
+            <tr>
+              <th style={{ width: "11%", fontSize: 14 }}>Admin Name</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Timestamp</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Action Type</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Target Entity</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Target Name</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Old Value</th>
+              <th style={{ width: "11%", fontSize: 14 }}>New Value</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Action Details</th>
+              <th style={{ width: "11%", fontSize: 14 }}>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {activityLogs
+              .filter((log) =>
+                searchText
+                  ? log.admin_name
+                      ?.toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
+                    log.action_type
+                      ?.toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
+                    log.target_entity
+                      ?.toLowerCase()
+                      .includes(searchText.toLowerCase()) ||
+                    log.target_name
+                      ?.toLowerCase()
+                      .includes(searchText.toLowerCase())
+                  : true
+              )
+              .map((log) => (
+                <tr key={log.id}>
+                  <td style={cellStyle}>
+                    {highlightText(log.admin_name || "—", searchText)}
+                  </td>
+                  <td style={cellStyle}>
+                    {highlightText(
+                      new Date(log.timestamp).toLocaleString(),
+                      searchText
+                    )}
+                  </td>
+                  <td style={cellStyle}>
+                    {highlightText(log.action_type, searchText)}
+                  </td>
+                  <td style={cellStyle}>
+                    {highlightText(log.target_entity, searchText)}
+                  </td>
+                  <td style={cellStyle}>
+                    {highlightText(log.target_name, searchText)}
+                  </td>
+                  <td style={cellStyle} title={log.old_value ? JSON.stringify(log.old_value) : "—"}>
+                    {highlightText(log.old_value ? JSON.stringify(log.old_value) : "—", searchText)}
+                  </td>
+                  <td style={cellStyle} title={log.new_value ? JSON.stringify(log.new_value) : "—"}>
+                    {highlightText(log.new_value ? JSON.stringify(log.new_value) : "—", searchText)}
+                  </td>
+                  <td style={cellStyle} title={log.action_details}>
+                    {highlightText(log.action_details, searchText)}
+                  </td>
+                  <td style={cellStyle} title={log.status}>
+                    {highlightText(log.status, searchText)}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+          
+        </table>
+            <footer className="text-center py-3 mt-4 border-top">
+      <small className="text-muted">
+        © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+      </small>
+    </footer>
+      </div>
+    )}
+
+
+  </div>
+)}
+
+
+
+
+
+
+
+
+
+
+
+
 
           </main>
+ {/* {showEditModal && (
+  <>
+    <div className="modal-backdrop fade show"></div>
+
+    <div className="modal d-block" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content p-4">
+
+          <h5 className="mb-3">
+            Update Assigned Users for <strong>{selectedApp?.app_name}</strong>
+          </h5>
+
+          <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+            {allUsers.length === 0 && selectedUsers.length === 0 && (
+              <p className="text-muted">No users available.</p>
+            )}
+
+            {[
+              // Merge assigned users with all users, avoid duplicates
+              ...allUsers,
+              ...selectedUsers
+                .filter(email => !allUsers.some(u => u.email.toLowerCase() === email.toLowerCase()))
+                .map(email => ({ id: email, username: email, email }))
+            ]
+              .sort((a, b) => a.username.localeCompare(b.username))
+              .map(user => (
+                <div key={user.id} className="form-check mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`user-${user.id}`}
+                    checked={selectedUsers
+                      .map(e => e.toLowerCase())
+                      .includes(user.email.toLowerCase())}
+                    onChange={(e) => {
+                      const email = user.email;
+                      if (e.target.checked) {
+                        setSelectedUsers([...selectedUsers, email]);
+                      } else {
+                        setSelectedUsers(
+                          selectedUsers.filter(em => em.toLowerCase() !== email.toLowerCase())
+                        );
+                      }
+                    }}
+                  />
+                  <label className="form-check-label" htmlFor={`user-${user.id}`}>
+                    {user.username} 
+                  </label>
+                </div>
+              ))}
+          </div>
+
+          <div className="mt-3 d-flex justify-content-end">
+            <button className="btn btn-secondary me-2" onClick={() => setShowEditModal(false)}>
+              Cancel
+            </button>
+            <button className="btn btn-primary" onClick={updateAssignedUsers}>
+              Save
+            </button>
+          </div>
 
         </div>
       </div>
-       
-       
-      <ToastContainer />
     </div>
+    
+  </>
+)} */}
+
+{showEditModal && (
+  <>
+    <div className="modal-backdrop fade show"></div>
+
+    <div className="modal d-block">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content p-4">
+
+          <h6 className="mb-3">
+            Assign Users – <strong> {selectedApp?.app_name}</strong>
+          </h6>
+
+          <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+            {allUsers.map((user) => (
+              <div key={user.email} className="form-check mb-2">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id={user.email}
+                  checked={selectedUsers.includes(user.email)}
+                  // onChange={(e) => {
+                  //   if (e.target.checked) {
+                  //     setSelectedUsers([...selectedUsers, user.email]);
+                  //   } else {
+                  //     setSelectedUsers(
+                  //       selectedUsers.filter(email => email !== user.email)
+                  //     );
+                  //   }
+                  // }}
+                  onChange={(e) => {
+  const email = user.email.toLowerCase();
+
+  setSelectedUsers((prev) => {
+    const exists = prev.some(e => e.toLowerCase() === email);
+
+    if (e.target.checked && !exists) {
+      return [...prev, email];            // ADD user
+    }
+
+    if (!e.target.checked && exists) {
+      return prev.filter(e => e.toLowerCase() !== email); // REMOVE user
+    }
+
+    return prev;
+  });
+}}
+
+                />
+
+                <label className="form-check-label" htmlFor={user.email}>
+                 <small className=""> {user.username} </small> 
+                 <small className="text-muted">({user.email})</small>
+                </label>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-3 d-flex justify-content-end">
+            <button
+              className="btn btn-secondary me-2"
+              onClick={() => setShowEditModal(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              className="btn btn-primary"
+              onClick={updateAssignedUsers}
+            >
+              Save
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </>
+)}
+
+
+   
+        </div>
+
+
+
+      </div>
+    
+      <ToastContainer />
+     
+    </div>
+ 
+
+   
+    </>
   );
-}
+};
 
 export default Admindashboard;

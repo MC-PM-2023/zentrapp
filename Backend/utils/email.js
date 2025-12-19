@@ -56,6 +56,7 @@ export const sendotpmail=async (email,otp)=>{
 
     export const sendapprovemail=async(username,email,role)=>{
 try{
+    console.log("📨 Sending approval mail to:", email); 
   const transporter=nodemailer.createTransport({
     host:"smtp.datasolve-analytics.com",
     auth:{

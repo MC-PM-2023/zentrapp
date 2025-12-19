@@ -16,7 +16,7 @@ const[userProfiles,setUserProfiles]=useState([])
   const fetchUserProfiles=async()=>{
   try{
     const response=await axios.get(`${apiurl}/api/userprofiles/getuserprofiles`)
-    console.log(response.data.data)
+    // console.log(response.data.data)
    
     // console.log(response.data)
     setUserProfiles(response.data.data)

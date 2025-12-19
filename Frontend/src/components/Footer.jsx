@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import datasolvelogo from '../assets/datasolve-icon.png'
 
 const Footer = () => {
@@ -7,6 +8,7 @@ const Footer = () => {
         
         
         {/* Logo */}
+        <NavLink to="/home">
         <div className="mb-3">
           <img
             src={datasolvelogo}
@@ -14,6 +16,7 @@ const Footer = () => {
             style={{ height: "50px", borderRadius:9 }}
           />
         </div>
+        </NavLink>
 
         {/* Social Icons */}
         <div className="mb-3">

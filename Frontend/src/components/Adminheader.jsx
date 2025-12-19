@@ -10,7 +10,8 @@ const Adminheader = () => {
 
   const token = localStorage.getItem("token")
   const username = localStorage.getItem("username")
-
+  const email=localStorage.getItem("email")
+  const profilelink=localStorage.getItem("profilelink")
 
   const handlelogout = () => {
     localStorage.removeItem("token")
@@ -19,80 +20,127 @@ const Adminheader = () => {
     localStorage.removeItem("role")
     alert(`Are you Sure you want to logout ${username} ?`)
     toast.success(`${username} have been Logged out successfully !`)
-    navigate("/login")
+    navigate("/")
   }
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-light sticky-top shadow">
-      <div className="container-fluid">
-        {/* Brand Name */}
+  <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
 
-        <img
-          src={datasolve}
-          alt="Datasolve Analytics"
-          height="50"
-          className="d-inline-block align-text-top me-2"
-        />
-         <img src={zentra} alt="Datasolve Analytics" height="60" className="me-2" />
-        {/* Toggle Button for Mobile */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+  <div className="container-fluid px-3">
 
-       
-        
-             
-        {/* Navbar Links */}
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            {/* <li className="nav-item">
-              <a className="nav-link active" href="#">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">About</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Services</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Contact</a>
-            </li> */}
-            <div className="ms-3">
-
-              <div className="d-flex align-items-center">
-                <button className="btn btn-primary me-2">
-                  <i className="bi bi-person-circle me-2"></i>
-                  {token && username ?
-                    username
-                    : (
-                      <span className="btn btn-primary">Login user</span>
-                    )
-                  }
-
-                </button>
-                <button className="btn btn-danger me-2" onClick={handlelogout}>
-                  Logout
-                </button>
-
-              </div>
+    {/* Logo */}
+    <a className="navbar-brand d-flex align-items-center" href="/admindashboard">
+      <img
+        src="https://storage.googleapis.com/my-react-image-bucket-123/DataSolveLogo.jpg"
+        alt="Datasolve Analytics"
+        height="40"
+        className="d-inline-block align-text-top me-2"
+      />
+    </a>
 
 
+    {/* Mobile Toggle */}
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav2"
+      aria-controls="navbarNav2"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon"></span>
+    </button>
+
+
+    {/* Menu Items */}
+    <div className="collapse navbar-collapse" id="navbarNav2">
+
+      <ul className="navbar-nav ms-auto align-items-lg-center gap-3">
+
+        {token && username && profilelink ? (
+
+          <li className="nav-item d-flex align-items-center gap-2">
+
+            {/* User Logo */}
+            <a className='navbar-brand d-flex align-items-center' href='/admindashboard'>
+              <img
+                src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Gif/Zentra.gif"
+                alt="User Icon"
+                height="40"
+                className="rounded border"
+              />
+            </a>
+
+            {/* Profile Dropdown */}
+            <div className="dropdown">
+
+              <img
+                src={profilelink}
+                alt="Profile"
+                className="rounded-circle border border-2 shadow-sm"
+                height={45}
+                width={45}
+                role="button"
+                data-bs-toggle="dropdown"
+                style={{ objectFit:'cover', cursor:'pointer' }}
+              />
+
+              <ul
+                className="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3"
+                style={{ minWidth:'250px', borderRadius:'10px', marginTop:9 }}
+              >
+
+                {/* User Info */}
+                <li className="d-flex align-items-center mb-2">
+
+                  <img
+                    src={profilelink}
+                    className="rounded-circle border border-2 me-3"
+                    height={50}
+                    width={50}
+                    style={{ objectFit:'cover' }}
+                  />
+
+                  <div>
+                    <strong style={{ fontSize:'14px' }}>{username}</strong>
+                    <p className="text-muted mb-0" style={{ fontSize:'12px' }}>
+                      {email}
+                    </p>
+                  </div>
+
+                </li>
+
+                <hr className="dropdown-divider" />
+
+                <li>
+                  <button
+                    className="dropdown-item text-dark d-flex align-items-center gap-2"
+                    onClick={handlelogout}
+                  >
+                    <i className="bi bi-box-arrow-right"></i>
+                    Logout
+                  </button>
+                </li>
+
+              </ul>
             </div>
-          </ul>
-         
 
-        </div>
-      </div>
+          </li>
 
-    </nav>
+        ) : (
+
+          <li className="nav-item">
+            <span className="btn btn-outline-primary btn-sm">Login User</span>
+          </li>
+
+        )}
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
   );
 };
 

@@ -200,7 +200,8 @@ import Authrouter from './routes/Authroutes.js';
 import Adminrouter from './routes/Adminroutes.js';
 import Approuter from './routes/Approutes.js';
 import { userProfilesRouter } from './routes/Userprofilesroutes.js';
-
+import logrouter from './routes/logactivityroutes.js';
+import { Herorouter } from './routes/Heroroutes.js';
 dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -247,7 +248,8 @@ app.use("/api/auth", Authrouter);
 app.use("/api/admin", Adminrouter);
 app.use("/api/admin/apps", Approuter);
 app.use("/api/userprofiles", userProfilesRouter);
-
+app.use("/api/log",logrouter)
+app.use("/api/user",Herorouter)
 
 // ===== Serve frontend SPA =====
 const frontendDist = path.join(__dirname, '../Frontend/dist');

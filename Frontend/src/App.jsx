@@ -1,42 +1,36 @@
 
-import './App.css'
-import Signup from './pages/Signup'
-import Login from './pages/Login'
-import { Routes, Route } from 'react-router-dom'
-import Otpverify from './pages/Otpverify'
-import Admindashboard from './pages/Admindashboard'
-import Unauthorized from './pages/Unauthorized'
-import IPlandingpage from './pages/IPlandingpage'
-import MClandingpage from './pages/MClandingpage'
-import ProtectedRoute from './pages/ProtectedRoute'
-import Forgotpassword from './pages/Forgotpassword'
-import './App.css'
+
+import './App.css';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import { Routes, Route } from 'react-router-dom';
+import Admindashboard from './pages/Admindashboard';
+import LandingPage from './pages/Landingpage';
+import ProtectedRoute from './pages/ProtectedRoute';
+import Unauthorized from './pages/Unauthorized';
+import Forgotpassword from './pages/Forgotpassword';
+import Otpverify from './pages/Otpverify';
 
 function App() {
-
-
   return (
-    <>
-      {/* public routes*/}
-      <Routes>
-        <Route path="/signup" element={<Signup title="Sign up" />} />
-        <Route path="/otpverification" element={<Otpverify title="OTP Verification" />} />
-        <Route path="/" element={<Login title="Sign in" />} />
-        {/* <Route path="/forgotpassword" element={<Forgotpassword title="Account Recovery"/>}/> */}
-        <Route path="/unauthorized" element={<Unauthorized title="Unauthorized Page Access" />} />
-        {/* protected routes*/}
-        <Route element={<ProtectedRoute allowedroles={['Admin']} />}>
-          <Route path="/admindashboard" element={<Admindashboard title="Admin Dashboard" />} />
-        </Route>
-        <Route element={<ProtectedRoute allowedroles={["IP Team"]} />}>
-          <Route path="/iplandingpage" element={<IPlandingpage title="IP LandingPage"/>} />
-        </Route>
-        <Route element={<ProtectedRoute allowedroles={["MC Team"]} />}>
-          <Route path="/mclandingpage" element={<MClandingpage title="MC LandingPage" />} />
-        </Route>
-      </Routes>
-    </>
-  )
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/signup" element={<Signup title="Sign up" />} />
+      <Route path="/otpverification" element={<Otpverify title="OTP Verification" />} />
+      <Route path="/" element={<Login title="Sign in" />} />
+      <Route path="/unauthorized" element={<Unauthorized title="Unauthorized Page Access" />} />
+      <Route path="/forgot-password" element={<Forgotpassword title="Forgot Password" />} />
+
+      {/* Protected Routes */}
+      <Route element={<ProtectedRoute allowedroles={['Admin']} />}>
+        <Route path="/admindashboard" element={<Admindashboard title="Admin Dashboard" />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedroles={['User']} />}>
+        <Route path="/home" element={<LandingPage title="Zentra" />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;
