@@ -970,8 +970,9 @@ useEffect(() => {
 
 
 <div className="row gx-4 gy-4 p-4 mb-4 ">
+<div className="row gx-4 gy-4 p-4 mb-4">
   {allApps.map((item) => (
-    <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-3 ">
+    <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-3">
       <div
         className={`bg-white shadow-lg rounded-xl p-4 d-flex flex-column align-items-center justify-content-between position-relative transform-hover ${
           selectedApp === item.id ? "border-2 border-primary" : ""
@@ -985,21 +986,21 @@ useEffect(() => {
         onClick={() => setSelectedApp(item.id)}
       >
         {/* App Image */}
-        < a href={item.app_url}>
-        <img
-          src={item.app_isometric_link || "https://via.placeholder.com/80"}
-          alt={item.app_name}
-          className="mb-3"
-          style={{
-            width: "120px",
-            height: "120px",
-            objectFit: "contain",
-            borderRadius: "12px",
-            transition: "transform 0.3s ease",
-          }}
-        />
+        <a href={item.app_url} target="_blank" rel="noopener noreferrer">
+          <img
+            src={item.app_isometric_link || "https://via.placeholder.com/80"}
+            alt={item.app_name}
+            className="mb-3"
+            style={{
+              width: "120px",
+              height: "120px",
+              objectFit: "contain",
+              borderRadius: "12px",
+              transition: "transform 0.3s ease",
+            }}
+          />
         </a>
-        
+
         {/* App Name */}
         <p
           className="text-center fw-semibold text-dark mb-2"
@@ -1013,89 +1014,90 @@ useEffect(() => {
         </p>
 
         {/* Assigned Users */}
-        {/* {item.assignedUsers && item.assignedUsers.length > 0 ? (
-          <div className="d-flex align-items-center mt-2">
-       {item.assignedUsers.map((user, i) => (
-  <button 
-    key={user.id} // It's important to set a key on the button as well
-    className="btn-unstyled" // Optional: you can add custom styling to remove button border and default padding if needed
-    onClick={(e) => { 
-      e.stopPropagation(); 
-      handleEditAssignedUsers(item);
-    }} 
-    title="Edit Assigned users"
-    style={{ padding: 0, border: "none", background: "transparent" }} // Ensure no extra padding or border
-  >
-    <img
-      src={user.profilelink || "https://via.placeholder.com/40"}
-      alt={user.username}
-      title={user.username}
-      style={{
-        width: "40px",
-        height: "40px",
-        borderRadius: "50%",
-        objectFit: "contain",
-        border: "2px solid white",
-        marginLeft: i === 0 ? 0 : "-8px",
-        boxShadow: "0 0 4px rgba(0,0,0,0.2)",
-      }}
-    />
-  </button>
-))}
+        {item.assignedUsers && item.assignedUsers.length > 0 ? (
+          <div
+            className="d-flex align-items-center mt-2"
+            style={{
+              position: "relative",
+              maxWidth: "100%",
+              overflow: "hidden",
+            }}
+          >
+            {item.assignedUsers.slice(0, 3).map((user, i) => (
+              <button
+                key={user.id}
+                className="btn-unstyled"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditAssignedUsers(item);
+                }}
+                title={user.username}
+                style={{
+                  padding: 0,
+                  border: "none",
+                  background: "transparent",
+                  position: "relative",
+                  zIndex: 3 - i,
+                }}
+              >
+                <img
+                  src={user.profilelink || "https://via.placeholder.com/40"}
+                  alt={user.username}
+                  title={user.username}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    objectFit: "contain",
+                    border: "2px solid white",
+                    marginLeft: i === 0 ? 0 : "-12px",
+                    boxShadow: "0 0 4px rgba(0,0,0,0.2)",
+                    cursor: "pointer",
+                  }}
+                />
+              </button>
+            ))}
+
+            {/* +N more indicator if users > 3 */}
+            {item.assignedUsers.length > 3 && (
+              <div
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  backgroundColor: "#6c757d",
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginLeft: "-12px",
+                  boxShadow: "0 0 4px rgba(0,0,0,0.2)",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditAssignedUsers(item); // open modal/popover
+                }}
+                title="View more users"
+              >
+                +{item.assignedUsers.length - 3}
+              </div>
+            )}
           </div>
         ) : (
-          <p
-            className="text-muted text-center mb-0 mt-1"
-            style={{ fontSize: "12px" }}
+          <button
+            className="btn btn-sm btn-success rounded-pill mt-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditAssignedUsers(item);
+            }}
+            title="Assign Users"
           >
-            No users assigned
-          </p>
-        )} */}
-
-        {item.assignedUsers && item.assignedUsers.length > 0 ? (
-  <div className="d-flex align-items-center mt-2">
-    {item.assignedUsers.map((user, i) => (
-      <button
-        key={user.id}
-        className="btn-unstyled"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleEditAssignedUsers(item);
-        }}
-        title="Edit Assigned Users"
-        style={{ padding: 0, border: "none", background: "transparent" }}
-      >
-        <img
-          src={user.profilelink || "https://via.placeholder.com/40"}
-          alt={user.username}
-          title={user.username}
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            objectFit: "contain",
-            border: "2px solid white",
-            marginLeft: i === 0 ? 0 : "-8px",
-            boxShadow: "0 0 4px rgba(0,0,0,0.2)",
-          }}
-        />
-      </button>
-    ))}
-  </div>
-) : (
-  <button
-    className="btn btn-sm btn-success rounded-pill mt-2"
-    onClick={(e) => {
-      e.stopPropagation();
-      handleEditAssignedUsers(item);
-    }}
-    title="Assign Users"
-  >
-    <i class="bi bi-person-add"></i>
-
-  </button>
-)}
-
+            <i className="bi bi-person-add"></i>
+          </button>
+        )}
 
         {/* Action Buttons */}
         <div className="d-flex justify-content-end w-100 mt-3 gap-1">
@@ -1105,26 +1107,27 @@ useEffect(() => {
               e.stopPropagation();
               handleEditApp(item);
             }}
-             title="Edit App"
+            title="Edit App"
           >
             <i className="bi bi-pencil-square me-1"></i>
           </button>
 
           <button
-            className="btn  rounded-full"
+            className="btn rounded-full"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteApp(item.id);
             }}
             title="Delete App"
-           
           >
-            <i className="bi bi-trash "></i>
+            <i className="bi bi-trash"></i>
           </button>
         </div>
       </div>
     </div>
   ))}
+</div>
+
 </div>
 
 
@@ -1596,52 +1599,65 @@ useEffect(() => {
         <div className="modal-content p-4">
 
           <h6 className="mb-3">
-            Assign Users – <strong> {selectedApp?.app_name}</strong>
+            Assign Users – <strong>{selectedApp?.app_name}</strong>
           </h6>
 
           <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+
+            {/* Select All Checkbox */}
+            <div className="form-check mb-3">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="selectAllUsers"
+                checked={selectedUsers.length === allUsers.length}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    // Select all users
+                    setSelectedUsers(allUsers.map(user => user.email.toLowerCase()));
+                  } else {
+                    // Deselect all
+                    setSelectedUsers([]);
+                  }
+                }}
+              />
+              <label className="form-check-label" htmlFor="selectAllUsers">
+                <small>Select All</small>
+              </label>
+            </div>
+
+            {/* Individual Users */}
             {allUsers.map((user) => (
               <div key={user.email} className="form-check mb-2">
                 <input
                   type="checkbox"
                   className="form-check-input"
                   id={user.email}
-                  checked={selectedUsers.includes(user.email)}
-                  // onChange={(e) => {
-                  //   if (e.target.checked) {
-                  //     setSelectedUsers([...selectedUsers, user.email]);
-                  //   } else {
-                  //     setSelectedUsers(
-                  //       selectedUsers.filter(email => email !== user.email)
-                  //     );
-                  //   }
-                  // }}
+                  checked={selectedUsers.includes(user.email.toLowerCase())}
                   onChange={(e) => {
-  const email = user.email.toLowerCase();
+                    const email = user.email.toLowerCase();
+                    setSelectedUsers((prev) => {
+                      const exists = prev.some(e => e.toLowerCase() === email);
 
-  setSelectedUsers((prev) => {
-    const exists = prev.some(e => e.toLowerCase() === email);
+                      if (e.target.checked && !exists) {
+                        return [...prev, email]; // ADD user
+                      }
 
-    if (e.target.checked && !exists) {
-      return [...prev, email];            // ADD user
-    }
+                      if (!e.target.checked && exists) {
+                        return prev.filter(e => e.toLowerCase() !== email); // REMOVE user
+                      }
 
-    if (!e.target.checked && exists) {
-      return prev.filter(e => e.toLowerCase() !== email); // REMOVE user
-    }
-
-    return prev;
-  });
-}}
-
+                      return prev;
+                    });
+                  }}
                 />
-
                 <label className="form-check-label" htmlFor={user.email}>
-                 <small className=""> {user.username} </small> 
-                 <small className="text-muted">({user.email})</small>
+                  <small>{user.username}</small>
+                  <small className="text-muted"> ({user.email})</small>
                 </label>
               </div>
             ))}
+
           </div>
 
           <div className="mt-3 d-flex justify-content-end">

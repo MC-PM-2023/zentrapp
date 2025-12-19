@@ -88,6 +88,36 @@
   
 }
 
+.user-popup-card {
+  position: absolute;
+  top: -80px; /* adjust above the profile image */
+  right: 0;
+  width: 120px;
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideRightToLeft 0.5s ease forwards;
+  z-index: 10;
+}
+
+/* Keyframes for animation */
+@keyframes slideRightToLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
 
 .project-section h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

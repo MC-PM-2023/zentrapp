@@ -241,11 +241,22 @@ const HeroSelection = () => {
       {/* Hero Box */}
       <div className="position-relative  shadow-sm border bg-white mb-4 "
            style={{ height: "450px", overflow: "hidden", borderRadius:"20px" }}>
-        <img
-          src="https://storage.googleapis.com/my-react-image-bucket-123/Background%20Images/Background74.jpg"
+   
+        {/* <img
+          src="https://storage.googleapis.com/my-react-image-bucket-123/Background%20Images/Background%20Video/Backgroundvideo8.mp4"
           className="position-absolute top-0 start-0 w-100 h-100"
           style={{ objectFit:"cover" }}
-        />
+        /> */}
+                       <video
+  src="https://storage.googleapis.com/my-react-image-bucket-123/Background%20Images/Background%20Video/Backgroundvideo8.mp4"
+  className="position-absolute top-0 start-0 w-100 h-100"
+  style={{ objectFit: "cover", zIndex: -0 }}
+  autoPlay 
+  loop
+  muted
+  playsInline
+/>
+
 
         {/* Floating logos */}
         <div className="position-absolute top-0 start-0 w-100 h-100">
