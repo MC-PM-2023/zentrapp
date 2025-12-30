@@ -1099,9 +1099,9 @@ useEffect(() => {
   ))}
 </div> */}
 
+<h3 className="text-center fw-bold">Datasolve Apps Suite</h3>
+<div className="row gx-4 gy-4 p-4 mb-3 ">
 
-<div className="row gx-4 gy-4 p-4 mb-4 ">
-<div className="row gx-4 gy-4 p-4 mb-4">
   {allApps.map((item) => (
     <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-3">
       <div
@@ -1257,7 +1257,6 @@ useEffect(() => {
       </div>
     </div>
   ))}
-</div>
 
 </div>
 

@@ -522,31 +522,42 @@ const LandingPage = ({ title }) => {
       <hr />
 
       {/* Projects Section */}
-     
-{/* <div className="container-fluid project-section py-3">
-  <div className="d-flex justify-content-between align-items-center mb-5">
-    <div className="container-fluid d-flex justify-content-center">
-      <h4 className="text-dark fw-bold" id="apps" >
-        Our Apps Suite
+
+<div className="container-fluid project-section py-3">
+
+  {/* Header Row */}
+  <div className="row align-items-center mb-5">
+    
+    {/* Empty column (left spacer) */}
+    <div className="col-12 col-md-4 d-none d-md-block"></div>
+
+    {/* Center Title */}
+    <div className="col-12 col-md-4 text-center">
+      <h4 className="text-dark fw-bold" id="apps">
+        Datasolve Apps Suite
       </h4>
     </div>
 
-   
-    <div className="search-container">
-      <input
-        type="text"
-        className=" form-control "
-        placeholder="Search for an app..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
+    {/* Search (Right aligned) */}
+    <div className="col-12 col-md-4 d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+      <div className="search-container" style={{ maxWidth: 260, width: "100%" }}>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search for an app..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
     </div>
+
   </div>
 
-  <div className="row justify-content-center g-4">
+  {/* Cards */}
+  <div className="row justify-content-center g-3">
     {filteredApps.length > 0 ? (
       filteredApps.map((app, index) => (
-        <div className="col-sm-6 col-md-4 col-lg-3 mb-5" key={index}>
+        <div className="col-sm-6 col-md-3 col-lg-3 mb-5" key={index}>
           <div className="card app-card shadow-sm border-0 position-relative h-100">
             <img
               src={app.app_logo || "https://via.placeholder.com/150"}
@@ -558,46 +569,17 @@ const LandingPage = ({ title }) => {
                 <strong style={{ fontSize: 14 }}>{app.app_name}</strong>
                 <span style={{ fontSize: 14 }}> - {app.app_description}</span>
               </p>
+
               <p className="text-center fw-bold" style={{ color: "#bfbfbf", fontSize: 14 }}>
-                <em style={{ fontSize: 14 }}>&apos;{app.app_tagline || "Explore and enjoy"}&apos;</em>
+                <em>&apos;{app.app_tagline || "Explore and enjoy"}&apos;</em>
               </p>
+
               <a
                 href={app.app_url}
                 className="stretched-link"
                 target="_blank"
                 rel="noopener noreferrer"
               ></a>
-
-             
-              {app.assignedUsers?.length > 0 && isAllowedUser && (
-                <div className="assigned-users-container position-relative mt-2">
-            
-                  {app.assignedUsers.length > 3 && (
-                    <div className="plus-n-indicator">
-                    
-                      <div className="expanded-users">
-                        {app.assignedUsers.map((u) => (
-                          <img
-                            key={u.id}
-                            src={u.profilelink || "https://via.placeholder.com/40"}
-                            title={u.username}
-                            style={{
-                              width: 40,
-                              height: 40,
-                              borderRadius: "30%",
-                              border: "2px solid #fff",
-                              objectFit: "contain",
-                              marginRight: 5,
-                            
-                              boxShadow: "0 0 3px rgba(0,0,0,0.3)",
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -607,84 +589,8 @@ const LandingPage = ({ title }) => {
     )}
   </div>
 
- 
-
-</div> */}
-
- <div className="container-fluid project-section py-3">
-  <div className="d-flex justify-content-between align-items-center mb-5">
-    <div className="container-fluid d-flex justify-content-center">
-      <h4 className="text-dark fw-bold" id="apps" >
-      Our Apps Suite
-      </h4>
-    </div>
-
-   
-    <div className="search-container">
-      <input
-        type="text"
-        className=" form-control "
-        placeholder="Search for an app..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
-    </div>
-  </div>
-<div className="row justify-content-center g-3">
-  {filteredApps.length > 0 ? (
-    filteredApps.map((app, index) => (
-      <div className="col-sm-6 col-md-3 col-lg-3 mb-5" key={index}>
-        <div className="card app-card shadow-sm border-0 position-relative h-100">
-          <img
-            src={app.app_logo || "https://via.placeholder.com/150"}
-            className="card-img-top p-2 rounded-4"
-            alt={app.app_name}
-          />
-          <div className="card-body text-center d-flex flex-column">
-            <p className="card-text text-muted text-start flex-grow-1">
-              <strong style={{ fontSize: 14 }}>{app.app_name}</strong>
-              <span style={{ fontSize: 14 }}> - {app.app_description}</span>
-            </p>
-            <p className="text-center fw-bold" style={{ color: "#bfbfbf", fontSize: 14 }}>
-              <em style={{ fontSize: 14 }}>&apos;{app.app_tagline || "Explore and enjoy"}&apos;</em>
-            </p>
-            <a
-              href={app.app_url}
-              className="stretched-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            ></a>
-
-            {/* Assigned Users with +N and hover expanded view */}
-            {app.assignedUsers?.length > 0 && isAllowedUser && (
-              <div className="assigned-users-container position-relative mt-2">
-               
-              
-
-                {/* Hover expansion for additional profiles */}
-                {app.assignedUsers.length > 3 && (
-                  <div className="expanded-users">
-                    {app.assignedUsers.map((u) => (
-                      <img
-                        key={u.id}
-                        src={u.profilelink || "https://via.placeholder.com/40"}
-                        title={u.username}
-                        className="assigned-user-avatar expanded-avatar"
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    ))
-  ) : (
-    <p className="text-center text-muted">No apps found matching your search.</p>
-  )}
 </div>
-</div>
+
 
 
 
