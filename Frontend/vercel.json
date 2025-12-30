@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/Mainapp/index.html"
+      "destination": "/index.html"
     }
   ]
 }
