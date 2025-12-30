@@ -341,6 +341,7 @@ import OurTeam from '../components/OurTeam';
 import { NavLink, useNavigate } from 'react-router-dom';
 import HeroSelection from '../components/HeroSelection';
 
+
 const apiurl = import.meta.env.VITE_API_URL;
 
 const allowedNames = [
@@ -522,6 +523,7 @@ const LandingPage = ({ title }) => {
       <hr />
 
       {/* Projects Section */}
+     
 
 <div className="container-fluid project-section py-3">
 
@@ -533,14 +535,39 @@ const LandingPage = ({ title }) => {
 
     {/* Center Title */}
     <div className="col-12 col-md-4 text-center">
-      <h4 className="text-dark fw-bold" id="apps">
-        Datasolve Apps Suite
-      </h4>
+   
+  <div className="d-flex justify-content-center" >
+  <div className="d-flex align-items-start" id="apps">
+    <img 
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Favicon/DataSolve_Favicon.png"
+      alt="datasolve" 
+      height="60" 
+      width="90" 
+      className="rounded me-1"
+      
+    />
+    <div>
+      <h2 className="text-dark fw-bold m-1" style={{
+     
+       
+         fontFamily:"Noto Serif,serif"
+        
+      }}>Suite</h2>
+      <div className="small text-muted text-center" style={{
+         
+       
+         fontFamily:"Noto Serif,serif"
+      }}>Products</div>
+    </div>
+  </div>
+</div>
+
+
     </div>
 
     {/* Search (Right aligned) */}
     <div className="col-12 col-md-4 d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-      <div className="search-container" style={{ maxWidth: 260, width: "100%" }}>
+      <div className="search-container" style={{ maxWidth: 200, marginRight:"10px", width: "100%" }}>
         <input
           type="text"
           className="form-control"
@@ -550,44 +577,63 @@ const LandingPage = ({ title }) => {
         />
       </div>
     </div>
+<div className="row justify-content-center g-3">
+  {filteredApps.length > 0 ? (
+    filteredApps.map((app, index) => (
+      <div className="col-sm-6 col-md-3 col-lg-3 mb-5" key={index}>
+        <div className="card app-card shadow-sm border-0 position-relative h-100">
+          <img
+            src={app.app_logo || "https://via.placeholder.com/150"}
+            className="card-img-top p-2 rounded-4"
+            alt={app.app_name}
+          />
+          <div className="card-body text-center d-flex flex-column">
+            <p className="card-text text-muted text-start flex-grow-1">
+              <strong style={{ fontSize: 14 }}>{app.app_name}</strong>
+              <span style={{ fontSize: 14 }}> - {app.app_description}</span>
+            </p>
+            <p className="text-center fw-bold" style={{ color: "#bfbfbf", fontSize: 14 }}>
+              <em style={{ fontSize: 14 }}>&apos;{app.app_tagline || "Explore and enjoy"}&apos;</em>
+            </p>
+            <a
+              href={app.app_url}
+              className="stretched-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            ></a>
 
-  </div>
+            
+            {app.assignedUsers?.length > 0 && isAllowedUser && (
+              <div className="assigned-users-container position-relative mt-2">
+               
+              
 
-  {/* Cards */}
-  <div className="row justify-content-center g-3">
-    {filteredApps.length > 0 ? (
-      filteredApps.map((app, index) => (
-        <div className="col-sm-6 col-md-3 col-lg-3 mb-5" key={index}>
-          <div className="card app-card shadow-sm border-0 position-relative h-100">
-            <img
-              src={app.app_logo || "https://via.placeholder.com/150"}
-              className="card-img-top p-2 rounded-4"
-              alt={app.app_name}
-            />
-            <div className="card-body text-center d-flex flex-column">
-              <p className="card-text text-muted text-start flex-grow-1">
-                <strong style={{ fontSize: 14 }}>{app.app_name}</strong>
-                <span style={{ fontSize: 14 }}> - {app.app_description}</span>
-              </p>
-
-              <p className="text-center fw-bold" style={{ color: "#bfbfbf", fontSize: 14 }}>
-                <em>&apos;{app.app_tagline || "Explore and enjoy"}&apos;</em>
-              </p>
-
-              <a
-                href={app.app_url}
-                className="stretched-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              ></a>
-            </div>
+            
+                {app.assignedUsers.length > 3 && (
+                  <div className="expanded-users">
+                    {app.assignedUsers.map((u) => (
+                      <img
+                        key={u.id}
+                        src={u.profilelink || "https://via.placeholder.com/40"}
+                        title={u.username}
+                        className="assigned-user-avatar expanded-avatar"
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
-      ))
-    ) : (
-      <p className="text-center text-muted">No apps found matching your search.</p>
-    )}
+      </div>
+    ))
+  ) : (
+    <p className="text-center text-muted">No Apps Available.</p>
+  )}
+</div>
   </div>
+
+ 
 
 </div>
 

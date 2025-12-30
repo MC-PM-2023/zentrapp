@@ -24,6 +24,8 @@ const Admindashboard = ({ title }) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedRole, setSelectedRole] = useState("");
   
+const [searchTerm, setSearchTerm] = useState("");
+
 
   // Apps
   const [appCard, setAppCard] = useState({
@@ -603,6 +605,10 @@ useEffect(() => {
 }, []);
 
 
+const filteredApps = allApps.filter((item) =>
+  item.app_name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
 
   // ------------------------ Render ------------------------
   return (
@@ -645,11 +651,14 @@ useEffect(() => {
 
           {/* Main Content */}
           <main className="col-md-9 ms-sm-auto col-lg-10  py-2 " style={{ maxHeight: "100vh" }}>
-            <div className="d-flex justify-content-between align-items-center ">
+            {activeTab !=="allapps" &&(
+ <div className="d-flex justify-content-between align-items-center ">
               <h2 className="fw-bold text-secondary">
                 {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
               </h2>
             </div>
+            )}
+           
 
             {/* Render Tabs */}
             {activeTab === "pending" && (
@@ -1099,10 +1108,53 @@ useEffect(() => {
   ))}
 </div> */}
 
-<h3 className="text-center fw-bold">Datasolve Apps Suite</h3>
-<div className="row gx-4 gy-4 p-4 mb-3 ">
+{/* <h3 className="text-center fw-bold">Datasolve Apps Suite</h3> */}
+<div className="d-flex align-items-center justify-content-between mb-4">
+  
+  {/* Left spacer (keeps center truly centered) */}
+  <div style={{ width: "250px" }}></div>
 
-  {allApps.map((item) => (
+  {/* Center: Logo + Suite + Products */}
+  <div className="d-flex align-items-start" id="apps">
+    <img
+      src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Favicon/DataSolve_Favicon.png"
+      alt="datasolve"
+      height="60"
+      width="90"
+      className="rounded me-1"
+    />
+    <div>
+      <h2
+        className="text-dark fw-bold m-1 text-center"
+        style={{ fontFamily: "Noto Serif, serif" }}
+      >
+        Suite
+      </h2>
+      <div
+        className="small text-muted text-center"
+        style={{ fontFamily: "Noto Serif, serif" }}
+      >
+        Products
+      </div>
+    </div>
+  </div>
+
+  {/* Right: Search Input */}
+  <div style={{ width: "200px" ,marginRight:"40px" }}>
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Search for an app..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  </div>
+
+</div>
+
+<div className="row gx-4 gy-3 p-4 mb-2 ">
+
+  {filteredApps.map((item) => (
     <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-3">
       <div
         className={`bg-white shadow-lg rounded-xl p-4 d-flex flex-column align-items-center justify-content-between position-relative transform-hover ${
