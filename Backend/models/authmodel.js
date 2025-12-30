@@ -227,6 +227,18 @@ export const getapproveusers = async () => {
     return result;
 };
 
+export const updateapproveduserstatus = async (id, username, email, role) => {
+  const [result] = await pool.execute(
+    `UPDATE zentraappusers 
+     SET username = ?, email = ?, role = ? 
+     WHERE id = ? AND status = "approved"`,
+    [username, email, role, id]
+  );
+  return result;
+};
+
+
+
 // ---------------------- 9. GET PENDING USERS ----------------------
 export const getpendinguser = async () => {
     const [result] = await pool.execute(

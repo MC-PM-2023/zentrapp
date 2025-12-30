@@ -132,6 +132,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, NavLink } from 'react-router-dom';
 import login from '../assets/Login2.png';
+import { Spinner } from 'react-bootstrap';
 
 const apiurl = import.meta.env.VITE_API_URL;
 
@@ -142,7 +143,7 @@ const Login = ({ title }) => {
 
   const navigate = useNavigate();
   const [formdata, setFormdata] = useState({ email: '', password: '' });
-
+  const [loading,setLoading]=useState(false)
 
  
   const handleChange = (e) => {
@@ -155,6 +156,7 @@ const Login = ({ title }) => {
       toast.error('All fields are required', { position: 'top-right' });
       return;
     }
+    setLoading(true)
 
     try {
       const { data } = await axios.post(`${apiurl}/api/auth/login`, formdata);
@@ -180,11 +182,15 @@ const Login = ({ title }) => {
       console.error('Login error:', error);
       toast.error(error.response?.data?.message || 'Login error', { position: 'top-right' });
     }
+    finally{
+      setLoading(false)
+    }
   };
 
   return (
     <div className="login-container">
       <div className="login-left d-flex flex-column justify-content-center p-5 align-items-center">
+    <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Favicon/Zentra_Favicon.png" height="50"/>
         <h1 className="fw-bold mb-4 text-white">Login to your account</h1>
         <p className="text-light mb-4">Enter your email below to login to your account</p>
         <form onSubmit={handleLogin} style={{ maxWidth: '400px', width: '100%' }}>
@@ -197,6 +203,7 @@ const Login = ({ title }) => {
               placeholder="name@datasolve-analytics.com"
               value={formdata.email}
               onChange={handleChange}
+              disabled={loading}
             />
           </div>
           <div className="mb-3">
@@ -207,6 +214,7 @@ const Login = ({ title }) => {
               placeholder="Password"
               value={formdata.password}
               onChange={handleChange}
+                disabled={loading}
             />
             <div className="mt-2">
               <NavLink to="/forgot-password" className="text-decoration-none small text-light d-flex justify-content-end">
@@ -215,7 +223,14 @@ const Login = ({ title }) => {
             </div>
           </div>
           <div className='d-flex align-items-center justify-content-center'>
-            <button type="submit" className="btn btn-light btn-xs mb-2">Login</button>
+            {loading ?(
+              <button type="submit" className="btn btn-light btn-xs mb-2">
+<Spinner animation="border" size='sm'/> Signing in..
+</button>
+            ):(
+              <button type="submit" className="btn btn-light btn-xs mb-2">Login</button>
+            )}
+          
           </div>
           <div className="text-center text-light mb-2">Or</div>
           <p className="mt-2 text-light small text-center">

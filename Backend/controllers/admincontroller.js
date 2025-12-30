@@ -135,7 +135,8 @@ import {
   getRoles as getZentraRoles,
  getuserbyId as getZentraUserById,
   rejectuser as rejectZentraUser,
-  updateapproveduser as updateApprovedZentraUserStatus
+  updateapproveduser as updateApprovedZentraUserStatus,
+  updateapproveduserstatus as updateapproveduserstatus
 } from "../models/authmodel.js";
 
 import { sendapprovemail } from "../utils/email.js";
@@ -194,6 +195,35 @@ export const getapproveduseraccounts = async (req, res) => {
     });
   }
 };
+
+
+// Update approved user's details (username, email, role)
+export const updateapproveusersliststatus = async (req, res) => {
+  const { id, username, email, role } = req.body;
+
+  if (!id || !username || !email || !role) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+
+  try {
+    // Update the user in the database
+    const result = await updateapproveduserstatus(id, username, email, role);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found or already rejected" });
+    }
+
+    return res.status(200).json({ message: "User updated successfully!" });
+  } catch (error) {
+    console.error("Error in updateapproveuserslist:", error);
+    return res.status(500).json({
+      message: "Error updating user details",
+      error: error.message,
+    });
+  }
+};
+
+
 
 
 // ===============================

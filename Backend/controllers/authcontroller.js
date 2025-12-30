@@ -246,9 +246,16 @@ export const signup = async (req, res) => {
         return res.status(400).json({ message: "All fields are required" });
     }
 
+      if (username === email) {
+        return res.status(400).json({ message: "Username cannot be the same as email" });
+    }
+    
     if (!isvaliddomain(email)) {
         return res.status(400).json({ message: "Only Datasolve Analytics email domain allowed" });
     }
+
+   
+
 
     try {
         const existinguser = await getUserByEmail(email);

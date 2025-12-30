@@ -124,6 +124,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../css/signup.css'
 import login from '../assets/Login2.png'
+import {Spinner} from 'react-bootstrap';
+
 const Signup = ({ title }) => {
   useEffect(() => {
     document.title = title;
@@ -136,6 +138,7 @@ const Signup = ({ title }) => {
     email: '',
     password: '',
   });
+  const [loading,setLoading]=useState(false);
 
   const apiURL = import.meta.env.VITE_API_URL;
 
@@ -157,6 +160,7 @@ const Signup = ({ title }) => {
       toast.error('Password must be at least 6 characters long.', { position: 'top-right' });
       return;
     }
+    setLoading(true)
 
     try {
       await axios.post(`${apiURL}/api/auth/signup`, formdata);
@@ -170,6 +174,9 @@ const Signup = ({ title }) => {
         position: 'top-right',
       });
     }
+    finally{
+      setLoading(false)
+    }
   };
 
   const handleChange = (e) => {
@@ -181,7 +188,7 @@ const Signup = ({ title }) => {
      <div className="login-left d-flex flex-column justify-content-center align-items-center p-5">
         
         {/* Left black panel */}
-      
+       <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Favicon/Zentra_Favicon.png" height="50"/>
           <h1 className="fw-bold mb-4 text-white">Create your account</h1>
           <p className="text-light mb-4">Enter your details below to sign up for an account</p>
 
@@ -195,6 +202,7 @@ const Signup = ({ title }) => {
                 value={formdata.username}
                 onChange={handleChange}
                 autoComplete="off"
+                disabled={loading}
               />
             </div>
 
@@ -207,7 +215,10 @@ const Signup = ({ title }) => {
                 value={formdata.email}
                 onChange={handleChange}
                 autoComplete="off"
+                disabled={loading}
+
               />
+
             </div>
 
             <div className="mb-3">
@@ -219,12 +230,21 @@ const Signup = ({ title }) => {
                 value={formdata.password}
                 onChange={handleChange}
                 autoComplete="off"
+                disabled={loading}
               />
             </div>
 <div className='d-flex align-items-start justify-content-center'>
-            <button type="submit" className="btn btn-light w-20 btn-xs text-black">
+
+  {loading ? (
+<button className='btn btn-light w-20 btn-xs text-black' disabled>
+  <Spinner animation='border' size='sm' /> Signing up ..
+</button>
+  ):(
+   <button type="submit" className="btn btn-light w-20 btn-xs text-black">
               Sign Up
             </button>
+  )}
+         
             </div>
           </form>
 

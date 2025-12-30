@@ -46,6 +46,16 @@ const [activityLogs, setActivityLogs] = useState([]);
   const [selectedHero, setSelectedHero] = useState(null); // null = show all
 const [searchText, setSearchText] = useState("");
 const [actionFilter, setActionFilter] = useState("all");
+const [showUpdateModal, setShowUpdateModal] = useState(false);
+
+const [editUser, setEditUser] = useState({
+  id: "",
+  username: "",
+  email: "",
+  role: ""
+});
+
+
 
 
 const filteredLogs = activityLogs.filter((log) => {
@@ -93,6 +103,46 @@ const filteredLogs = activityLogs.filter((log) => {
       console.error(err);
     }
   };
+
+
+const handleUpdateApprovedUser = async () => {
+  try {
+    if (!editUser.id || !editUser.username || !editUser.email || !editUser.role) {
+      return toast.error("All fields are required");
+    }
+
+    const token = localStorage.getItem("token");
+
+    await axios.put(
+      `${apiurl}/api/admin/updategetapprovedusersstatus`,
+      {
+        id: editUser.id,
+        username: editUser.username,
+        email: editUser.email,
+        role: editUser.role
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    toast.success("Approved user updated successfully!");
+
+    // close modal
+    setShowUpdateModal(false);
+
+    // refresh approved users list
+    fetchUsers("approved");
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to update approved user");
+  }
+};
+
+
 //corrected code
   // ------------------------ Fetch Apps ------------------------
   // const fetchApps = async () => {
@@ -535,7 +585,7 @@ const highlightText = (text, highlight) => {
 const fetchHeroLogos = async () => {
   try {
     const res = await axios.get(`${apiurl}/api/user/usersectionlogos`);
-    console.log("AXIOS RESPONSE:", res.data);
+    // console.log("AXIOS RESPONSE:", res.data);
 
     if (res.data.success) {
       setHeroLogos(res.data.data);
@@ -603,7 +653,7 @@ useEffect(() => {
 
             {/* Render Tabs */}
             {activeTab === "pending" && (
-              <div className="row g-4">
+              <div className="row g-4 ">
                 {pendingUsers.length === 0 && <p className="text-muted">No pending users.</p>}
                 {pendingUsers.map((u) => (
                   <div className="col-md-6 col-lg-4" key={u.id}>
@@ -655,10 +705,26 @@ useEffect(() => {
                 {approvedUsers.map((u) => (
                   <div className="col-md-6 col-lg-4" key={u.id}>
                     <div className="card border-0 shadow-sm rounded-4 h-100">
-                      <div className="card-body d-flex flex-column">
+                      <div className="card-body d-flex flex-column justify-content-center">
                         <h5 className="card-title fw-bold">{u.username}</h5>
                         <p className="card-text text-muted">{u.email}</p>
                         <p className="text-muted mb-3">{u.role}</p>
+
+                      
+                         <button
+                          className="btn btn-outline-success btn-sm w-100 rounded-pill mt-auto mb-2"
+                          onClick={()=>{
+                            setEditUser({
+                              id:u.id,
+                              username:u.username,
+                              email:u.email,
+                              role:u.role
+                            })
+                            setShowUpdateModal(true)
+                          }}
+                        >
+                          Update
+                        </button>
                         <button
                           className="btn btn-outline-danger btn-sm w-100 rounded-pill mt-auto"
                           onClick={() => deleteApprovedUser(u)}
@@ -676,6 +742,71 @@ useEffect(() => {
   </footer>
               </div>
             )}
+            {showUpdateModal && (
+  <div className="modal fade show d-block" style={{ background: "rgba(0,0,0,0.5)" }}>
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content rounded-4">
+
+        <div className="modal-header">
+          <h5 className="modal-title">Update Approved User</h5>
+          <button
+            className="btn-close"
+            onClick={() => setShowUpdateModal(false)}
+          />
+        </div>
+
+        <div className="modal-body">
+          <input
+            className="form-control mb-3"
+            placeholder="Username"
+            value={editUser.username}
+            onChange={(e) =>
+              setEditUser({ ...editUser, username: e.target.value })
+            }
+          />
+
+          <input
+            className="form-control mb-3"
+            placeholder="Email"
+            value={editUser.email}
+            onChange={(e) =>
+              setEditUser({ ...editUser, email: e.target.value })
+            }
+          />
+
+          <select
+            className="form-select"
+            value={editUser.role}
+            onChange={(e) =>
+              setEditUser({ ...editUser, role: e.target.value })
+            }
+          >
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+
+        <div className="modal-footer">
+          <button
+            className="btn btn-secondary rounded-pill"
+            onClick={() => setShowUpdateModal(false)}
+          >
+            Cancel
+          </button>
+
+          <button
+            className="btn btn-success rounded-pill"
+            onClick={handleUpdateApprovedUser}
+          >
+            Update
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
+
 
             {activeTab === "rejected" && (
               <div className="row g-4">
@@ -844,7 +975,7 @@ useEffect(() => {
               
             )} */}
             {activeTab === "allapps" && (     
-  <div className="row g-4">
+  <div className="row g-4 mt-1">
     {allApps.length === 0 && <p className="text-muted">No apps available.</p>}
    <HeroSelection/>
 

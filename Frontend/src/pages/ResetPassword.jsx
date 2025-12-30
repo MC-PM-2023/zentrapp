@@ -48,6 +48,7 @@ const ResetPassword = ({ title }) => {
   return (
     <div className="login-container">
       <div className="login-left d-flex flex-column justify-content-center p-5 align-items-center">
+         <img src="https://storage.googleapis.com/my-react-image-bucket-123/DS_Logos/Logo_Favicon/Zentra_Favicon.png" height="50"/>
         <h1 className="fw-bold mb-4 text-white">Reset Password</h1>
         <p className="text-light mb-4">Enter your new password.</p>
 

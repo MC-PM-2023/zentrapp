@@ -1,5 +1,5 @@
 import express from 'express'
-import {  approvedusersaccount,getapproveduseraccounts, getpendinguserslist, getrejecteduserslist, rejectedusersaccount,getrolesdropdown, updateapproveuserslist } from '../controllers/admincontroller.js';
+import {  approvedusersaccount,getapproveduseraccounts, getpendinguserslist, getrejecteduserslist, rejectedusersaccount,getrolesdropdown, updateapproveuserslist ,updateapproveusersliststatus } from '../controllers/admincontroller.js';
 
 const Adminrouter=express.Router();
 
@@ -12,5 +12,6 @@ Adminrouter.post("/rejectedusers",rejectedusersaccount) //worked but it doesnt d
 Adminrouter.get("/getrejectedusers",getrejecteduserslist) //worked rejected users
 Adminrouter.get("/getroles",getrolesdropdown) //getting roles in admin side
 Adminrouter.put("/updateapproveusers",updateapproveuserslist) //update the approved list reject by admin
+Adminrouter.put("/updategetapprovedusersstatus",updateapproveusersliststatus)
 
 export default Adminrouter;
