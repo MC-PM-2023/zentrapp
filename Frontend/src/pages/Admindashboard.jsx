@@ -59,6 +59,16 @@ const [editUser, setEditUser] = useState({
 
 
 
+const dashboardTabs = [
+  { key: "allapps", label: "Datasolve Suite" },
+  { key: "approved", label: "Active Users" },
+  { key: "addapp", label: "Add New Product" },
+  { key: "pending", label: "Pending Users" },
+  { key: "rejected", label: "Rejected Users" },
+  { key: "activitylogs", label: "Activity Logs" },
+  {key:"assigneduserschart", label:"Assigned Users Chart"}
+];
+
 
 const filteredLogs = activityLogs.filter((log) => {
   const search = searchText.toLowerCase();
@@ -145,17 +155,6 @@ const handleUpdateApprovedUser = async () => {
 };
 
 
-//corrected code
-  // ------------------------ Fetch Apps ------------------------
-  // const fetchApps = async () => {
-  //   try {
-  //     const res = await axios.get(`${apiurl}/api/admin/apps/getallapps`);
-  //     setAllApps(res.data || []);
-  //   } catch (err) {
-  //     console.error(err);
-  //     setAllApps([]);
-  //   }
-  // };
   const fetchApps = async () => {
   try {
 const token=localStorage.getItem("token")
@@ -174,10 +173,6 @@ const token=localStorage.getItem("token")
     setAllApps([]);
   }
 };
-
-
-
-
 
 
   // ------------------------ Load Data on Tab Change ------------------------
@@ -222,24 +217,6 @@ const token=localStorage.getItem("token")
       toast.error("Error deleting user");
     }
   };
-//corrected code
-  // ------------------------ App Actions ------------------------
-  // const addApp = async () => {
-  //   const { appname, appdescription, apptagline, appprofilelink, applink } = appCard;
-  //   if (!appname || !appdescription || !apptagline || !appprofilelink || !applink)
-  //     return toast.error("All fields are required");
-  //   try {
-     
-  //     await axios.post(`${apiurl}/api/admin/apps/add`, appCard
-  //   );
-  //     toast.success("App added successfully!");
-  //     setAppCard({ appname: "", appdescription: "", apptagline: "", appprofilelink: "", applink: "" });
-  //     fetchApps();
-  //   } catch (err) {
-  //     toast.error("Error adding app");
-  //   }
-  // };
-
 
   const addApp = async () => {
   const { appname, appdescription, apptagline, appprofilelink, applink ,appisometriclink} = appCard;
@@ -283,22 +260,6 @@ console.log("token is:",token);
     });
     setActiveTab("addapp");
   };
-
-//corrected code
-
-  // const updateApp = async () => {
-  //   if (!appCard.id) return toast.error("Select app to update");
-  //   try {
-  //     await axios.put(`${apiurl}/api/admin/apps/edit/${appCard.id}`, appCard);
-  //     toast.success("App updated successfully!");
-  //     setAppCard({ appname: "", appdescription: "", apptagline: "", appprofilelink: "", applink: "" });
-  //     fetchApps();
-  //     setActiveTab("allapps");
-  //   } catch (err) {
-  //     toast.error("Error updating app");
-  //   }
-  // };
-
 
   const updateApp = async () => {
   if (!appCard.id) return toast.error("Select app to update");
@@ -345,17 +306,6 @@ console.log("token is:",token);
   }
 };
 
-//corrected code
-  // const handleDeleteApp = async (id) => {
-  //   try {
-  //     await axios.delete(`${apiurl}/api/admin/apps/delete/${id}`);
-  //     toast.success("App deleted successfully!");
-  //     fetchApps();
-  //   } catch (err) {
-  //     toast.error("Error deleting app");
-  //   }
-  // };
-
   const handleDeleteApp = async (id) => {
   try {
     const token = localStorage.getItem("token"); // get JWT token
@@ -378,47 +328,6 @@ console.log("token is:",token);
   }
 };
 
-//corrected code without token
-  // const assignApps = async () => {
-  //   if (!assignEmail || !assignAppNames) return toast.error("Email and App Names required");
-  //   try {
-  //     await axios.post(`${apiurl}/api/admin/apps/assign`, {
-  //       email: assignEmail,
-  //       appname: assignAppNames,
-  //     });
-  //     toast.success("App(s) assigned successfully!");
-  //     setAssignAppNames("");
-  //     setAssignEmail("")
-  //     fetchApps();
-  //   } catch (err) {
-  //     toast.error("Error assigning app(s)");
-  //   }
-  // };
-
-//corrected code without token
-// const assignApps = async () => {
-//   if (!assignEmail || !assignAppNames) 
-//     return toast.error("Email(s) and App Name(s) are required");
-
-//   // Split comma-separated emails and apps into arrays
-//   const emailList = assignEmail.split(",").map(e => e.trim()).filter(e => e);
-//   const appList = assignAppNames.split(",").map(a => a.trim()).filter(a => a);
-
-//   try {
-//     await axios.post(`${apiurl}/api/admin/apps/assign`, {
-//       emails: emailList,
-//       appnames: appList,
-//     });
-
-//     toast.success("App(s) assigned successfully!");
-//     setAssignAppNames("");
-//     setAssignEmail("");
-//     fetchApps();
-//   } catch (err) {
-//     console.error(err);
-//     toast.error("Error assigning app(s)");
-//   }
-// };
 
 //corrected code with token
 const assignApps = async () => {
@@ -457,23 +366,6 @@ const assignApps = async () => {
 };
 
 
-// const handleEditAssignedUsers = (app) => {
-//   setSelectedApp(app);
-//   // setSelectedUsers(app.assignedUsers.map(u => u.email)); // Prefill
-//   const assignedEmails = (app.assignedUsers || []).map(u => u.email || "");
-// console.log("Assigned Emails:", assignedEmails);
-//   setSelectedUsers(assignedEmails);
-
-//   setShowEditModal(true);
-
-//   // Fetch all users for selection
-//   fetch(`${apiurl}/api/admin/getallusers`)
-//     .then(res => res.json())
-//     .then(data => setAllUsers(data))
-//     .catch(err => console.error(err));
-// };
-
-
 const handleEditAssignedUsers = async (app) => {
   setSelectedApp(app);
 
@@ -500,24 +392,6 @@ const handleEditAssignedUsers = async (app) => {
     console.error("Error fetching approved users", err);
   }
 };
-
-
-
-// const updateAssignedUsers = async () => {
-//   try {
-//     // Assume your API can handle a full list of assigned users for an app
-//     await axios.put(`${apiurl}/api/admin/apps/update-assigned/${selectedApp.id}`, {
-//       assignedUsers: selectedUsers, // Array of emails or IDs
-    
-//     });
-//     toast.success("Assignments updated successfully!");
-//     setShowEditModal(false);
-//     fetchApps(); // Refresh the apps list
-//   } catch (err) {
-//     console.error(err);
-//     toast.error("Error updating assignments");
-//   }
-// };
 
 const updateAssignedUsers = async () => {
   try {
@@ -610,6 +484,26 @@ const filteredApps = allApps.filter((item) =>
 );
 
 
+
+const buildUserAppMatrix = (apps) => {
+  const usersMap = {};
+
+  apps.forEach((app) => {
+    app.assignedUsers.forEach((user) => {
+      if (!usersMap[user.id]) {
+        usersMap[user.id] = {
+          user,
+          apps: {},
+        };
+      }
+      usersMap[user.id].apps[app.id] = true;
+    });
+  });
+
+  return Object.values(usersMap);
+};
+
+
   // ------------------------ Render ------------------------
   return (
     <>
@@ -630,7 +524,7 @@ const filteredApps = allApps.filter((item) =>
             <div className="position-sticky">
               <h5 className="text-white text-center mb-5 fw-bold">Admin Dashboard</h5>
               <ul className="nav flex-column">
-                {["pending", "approved", "rejected", "addapp",  "allapps","activitylogs"].map((tab) => (
+                {dashboardTabs.map((tab) => (
                   <li className="nav-item mb-2" key={tab}>
                     <button  style={{ fontSize: "13px" }}
                       className={`btn w-100 text-start rounded-pill px-3 py-2 mb-2 text-white ${
@@ -638,10 +532,12 @@ const filteredApps = allApps.filter((item) =>
                       }`
                     
                     }
-                      onClick={() => setActiveTab(tab)}
+                      onClick={() => setActiveTab(tab.key)}
                     >
-                      {tab.charAt(0).toUpperCase() +
-                        tab.slice(1).replace("app", " App").replace("assign", "Assign ")}
+                      {/* {tab.charAt(0).toUpperCase() +
+                        tab.slice(1).replace("app", " App").replace("assign", "Assign ")} */}
+                       
+{tab.label}
                     </button>
                   </li>
                 ))}
@@ -653,9 +549,13 @@ const filteredApps = allApps.filter((item) =>
           <main className="col-md-9 ms-sm-auto col-lg-10  py-2 " style={{ maxHeight: "100vh" }}>
             {activeTab !=="allapps" &&(
  <div className="d-flex justify-content-between align-items-center ">
-              <h2 className="fw-bold text-secondary">
+              {/* <h2 className="fw-bold text-secondary">
                 {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
-              </h2>
+              </h2> */}
+              <h2 className="fw-bold text-secondary">
+  {dashboardTabs.find(t => t.key === activeTab)?.label}
+</h2>
+
             </div>
             )}
            
@@ -837,7 +737,7 @@ const filteredApps = allApps.filter((item) =>
 
             {activeTab === "addapp" && (
               <div className="card p-4 shadow-sm rounded-4">
-                <h3 className="mb-3 fw-bold">{appCard.id ? "Edit App" : "Add New App"}</h3>
+                {/* <h3 className="mb-3 fw-bold">{appCard.id ? "Edit App" : "Add New App"}</h3> */}
                 <input
                   className="form-control rounded-pill mb-3"
                   placeholder="App Name"
@@ -913,203 +813,17 @@ const filteredApps = allApps.filter((item) =>
   </footer>
               </div>
             )}
-{/* 
-            {activeTab === "allapps" && (
-              <div className="row g-4">
-                {allApps.length === 0 && <p className="text-muted">No apps available.</p>}
-                {allApps.map((item) => (
-                  <div className="col-sm-6 col-md-4 col-lg-3 mb-5" key={item.id}>
-                    <div className="card app-card shadow-sm border-0 h-100 position-relative">
-                      <img
-                        src={item.app_logo || "https://via.placeholder.com/300"}
-                        className="card-img-top p-2 rounded-4"
-                        alt={item.app_name}
-                      />
-                      <div className="card-body text-center d-flex flex-column">
-                        <p className="card-text text-muted text-start flex-grow-1">
-                          <strong>{item.app_name}</strong> — {item.app_description}
-                        </p>
-                        <p className="text-center fw-bold" style={{ color: "#bfbfbf" }}>
-                          <em>{item.app_tagline}</em>
-                        </p>
-                        <a
-                          href={item.app_url}
-                          className="stretched-link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        ></a>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-between mt-3">
-                      <button
-                        className="btn btn-sm btn-outline-primary rounded-pill"
-                        onClick={() => handleEditApp(item)}
-                      >
-                        <i className="bi bi-pencil-square me-1"></i>Edit
-                      </button>
-                      <button
-                        className="btn btn-sm btn-outline-danger rounded-pill"
-                        onClick={() => handleDeleteApp(item.id)}
-                      >
-                        <i className="bi bi-trash me-1"></i>Delete
-                      </button>
-                    </div>
-            <h6 className="text-secondary mt-2">Assigned Users:</h6>
-{item.assignedUsers && item.assignedUsers.length > 0 ? (
-  <div >
-    {item.assignedUsers.map((user) => (
-      <span key={user.id} className="badge bg-primary me-1 mb-1">
-        {user.username} 
-      </span>
-    ))}
-  
-    <button
-  className="btn btn-sm btn-outline-success rounded-pill"
-  onClick={() => handleEditAssignedUsers(item)}
->
-  <i className="bi bi-pencil-square me-1"></i>
-</button>
-
-  </div>
-) : (
-  <p className="text-muted mb-0">No users assigned</p>
-)}
-
-        
-                  </div>
-                ))}
-                
-              </div>
-              
-              
-            )} */}
             {activeTab === "allapps" && (     
   <div className="row g-4 mt-1">
     {allApps.length === 0 && <p className="text-muted">No apps available.</p>}
-   <HeroSelection/>
+
 
 {/* Hero Logos Section */}
-{/* <div className="row gx-4 gy-4 p-4 mb-4">
-  {heroLogos?.map((item, index) => (
-    <div key={index} className="col-6 col-sm-4 col-md-3 col-lg-2">
-      <div
-        className={`bg-white shadow rounded p-3 d-flex flex-column align-items-center justify-content-center hover-shadow transition ${
-          selectedHero === item.app_name ? "border border-primary" : ""
-        }`}
-        style={{ cursor: "pointer" }}
-        onClick={() => setSelectedHero(item.app_name)}
-      >
-        <img
-          src={item.image_link}
-          alt={item.app_name}
-          className="mb-3"
-          style={{ width: "80px", height: "80px", objectFit: "contain" }}
-        />
-        <p className="text-center small fw-semibold text-secondary">
-          {item.app_name}
-        </p>
-      </div>
-    </div>
-  ))}
-</div> */}
 
-{/* Apps Section */}
-
-
-
-
-
-{/* //last corrected code */}
-   {/* <div className="row gx-4 gy-4 p-4 mb-4">
-  {allApps.map((item) => (
-    <div key={item.id} className="col-6 col-sm-4 col-md-3 col-lg-2">
-      <div
-        className={`bg-white shadow rounded p-3 d-flex flex-column align-items-center justify-content-center hover-shadow transition position-relative ${
-          selectedApp === item.id ? "border border-primary" : ""
-        }`}
-        style={{ cursor: "pointer", minHeight: "250px" }}
-        onClick={() => setSelectedApp(item.id)}
-      >
-       
-        <img
-          src={item.app_isometric_link || "https://via.placeholder.com/80"}
-          alt={item.app_name}
-          className="mb-3"
-          style={{ width: "80px", height: "80px", objectFit: "contain", borderRadius: "8px" }}
-        />
-
-     
-        <p className="text-center small fw-semibold text-secondary mb-1">
-          {item.app_name}
-        </p>
-       
-
-       
-        {item.assignedUsers && item.assignedUsers.length > 0 ? (
-          <div className="d-flex align-items-center mt-2">
-            {item.assignedUsers.map((user, i) => (
-              <img
-                key={user.id}
-                src={user.profilelink || "https://via.placeholder.com/40"}
-                alt={user.username}
-                title={user.username}
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: "50%",
-                  objectFit: "contain",
-                  border: "2px solid white",
-                  marginLeft: i === 0 ? 0 : -8,
-                  boxShadow: "0 0 3px rgba(0,0,0,0.3)"
-                }}
-              />
-            ))}
-
-            <button
-              className="btn btn-sm btn-outline-success rounded-pill ms-2"
-              onClick={(e) => {
-                e.stopPropagation(); 
-                handleEditAssignedUsers(item);
-              }}
-            >
-              <i className="bi bi-pencil-square"></i>
-            </button>
-          </div>
-        ) : (
-          <p className="text-muted text-center mb-0 mt-1" style={{ fontSize: 12 }}>
-            No users assigned
-          </p>
-        )}
-
-       
-        <div className="d-flex justify-content-between w-100 mt-3">
-          <button
-            className="btn btn-sm btn-outline-primary rounded-pill"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEditApp(item);
-            }}
-          >
-            <i className="bi bi-pencil-square me-1"></i>Edit
-          </button>
-
-          <button
-            className="btn btn-sm btn-outline-danger rounded-pill"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDeleteApp(item.id);
-            }}
-          >
-            <i className="bi bi-trash me-1"></i>Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  ))}
-</div> */}
+   <HeroSelection/>
 
 {/* <h3 className="text-center fw-bold">Datasolve Apps Suite</h3> */}
-<div className="d-flex align-items-center justify-content-between mb-4">
+<div className="d-flex align-items-center justify-content-between ">
   
   {/* Left spacer (keeps center truly centered) */}
   <div style={{ width: "250px" }}></div>
@@ -1128,19 +842,19 @@ const filteredApps = allApps.filter((item) =>
         className="text-dark fw-bold m-1 text-center"
         style={{ fontFamily: "Noto Serif, serif" }}
       >
-        Suite
+        Suite of Products
       </h2>
-      <div
+      {/* <div
         className="small text-muted text-center"
         style={{ fontFamily: "Noto Serif, serif" }}
       >
         Products
-      </div>
+      </div> */}
     </div>
   </div>
 
   {/* Right: Search Input */}
-  <div style={{ width: "200px" ,marginRight:"40px" }}>
+  <div style={{ width: "200px" }}>
     <input
       type="text"
       className="form-control"
@@ -1148,8 +862,9 @@ const filteredApps = allApps.filter((item) =>
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
     />
+    
   </div>
-
+ 
 </div>
 
 <div className="row gx-4 gy-3 p-4 mb-2 ">
@@ -1328,251 +1043,6 @@ const filteredApps = allApps.filter((item) =>
   
 )}
   
-{/* {activeTab === "activitylogs" && (
-    <div className="container mt-3">
-
-     
-
-        {activityLogs.length === 0 ? (
-            <p className="text-muted">No login activity found.</p>
-        ) : (
-            <div className="table-responsive">
-                <table className="table table-striped table-bordered shadow-sm rounded">
-
-                    <thead className="table-dark">
-                        <tr>
-                          
-                          
-                      <th>ID</th>
-                        <th>Admin Name</th>
-                        <th>Timestamp</th>
-                        <th>Action Type</th>
-                        <th>Target Entity</th>
-                        <th>Target Name</th>
-                        <th>Old Value</th>
-                        <th>New Value</th>
-                        <th>Action Details</th>
-                        <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {activityLogs.map((log) => (
-                            <tr key={log.id}>
-                           
-                                <td>{log.admin_name || "—"}</td>
-
-                                {/* formatted timestamp *
-                                <td>{new Date(log.timestamp).toLocaleString()}</td>
-
-                                <td>{log.action_type}</td>
-                                <td>{log.target_entity}</td>
-                                <td>{log.target_name}</td>
-
-                                {/* old_value object *
-                                <td>{log.old_value ? JSON.stringify(log.old_value) : "—"}</td>
-
-                                {/* new_value object *
-                                <td>{log.new_value ? JSON.stringify(log.new_value) : "—"}</td>
-
-                                <td>{log.action_details}</td>
-                                <td>{log.status}</td>
-                            <td>
-{new Date(log.timestamp).toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata"
-})}
-
-</td>
-
-                            </tr>
-                        ))}
-                    </tbody>
-
-                </table>
-            </div>
-        )}
-
-        <footer className="text-center py-3 mt-4 border-top">
-            <small className="text-muted">
-                © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
-            </small>
-        </footer>
-
-    </div>
-)} */}
-
-{/* last corrected code */}
-{/* {activeTab === "activitylogs" && (
-  <div className="container mt-3">
-    {activityLogs.length === 0 ? (
-      <p className="text-muted">No login activity found.</p>
-    ) : (
-      <div 
-        className="table-responsive shadow-sm rounded"
-        style={{ maxHeight: '650px', overflowY: 'auto', fontSize: 9 }} // Scrollable container with fixed height
-      >
-        <table className="table table-striped table-bordered" style={{ width: '100%', tableLayout: 'fixed' }}>
-          <thead className="table-dark" style={{ position: 'sticky', top: 0, zIndex: 10, fontSize: '10px' }}>
-            <tr>
-              <th style={{ width: '11%', fontSize: 14 }}>Admin Name</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Timestamp</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Action Type</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Target Entity</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Target Name</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Old Value</th>
-              <th style={{ width: '11%', fontSize: 14 }}>New Value</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Action Details</th>
-              <th style={{ width: '11%', fontSize: 14 }}>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {activityLogs.map((log) => (
-              <tr key={log.id}>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10, // Reduced font size for compactness
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px', // Reduced padding for compactness
-                  }}
-                >
-                  {log.admin_name || "—"}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                >
-                  {new Date(log.timestamp).toLocaleString()}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                >
-                  {log.action_type}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                >
-                  {log.target_entity}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                >
-                  {log.target_name}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                  title={log.old_value ? JSON.stringify(log.old_value) : "—"}
-                >
-                  {log.old_value ? JSON.stringify(log.old_value) : "—"}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                  title={log.new_value ? JSON.stringify(log.new_value) : "—"}
-                >
-                  {log.new_value ? JSON.stringify(log.new_value) : "—"}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                  title={log.action_details}
-                >
-                  {log.action_details}
-                </td>
-                <td
-                  style={{
-                    wordWrap: 'break-word',
-                    height: '35px', // Reduced height
-                    fontSize: 10,
-                    maxWidth: '150px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    padding: '5px',
-                  }}
-                  title={log.status}
-                >
-                  {log.status}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    )}
-
-    <footer className="text-center py-3 mt-4 border-top">
-      <small className="text-muted">
-        © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
-      </small>
-    </footer>
-  </div>
-)} */}
 
 {activeTab === "activitylogs" && (
   <div className="mt-1">
@@ -1692,85 +1162,78 @@ const filteredApps = allApps.filter((item) =>
 )}
 
 
+{activeTab === "assigneduserschart" && (
+  <div className="container py-4">
+    <div className="table-responsive shadow-sm rounded-4">
+      <table className="table align-middle text-center mb-0">
+        
+        {/* HEADER */}
+        <thead className="table-light">
+          <tr>
+            <th
+              style={{ textAlign: "left", minWidth: "220px" }}
+              className="sticky-top bg-light"
+            >
+              
+            </th>
 
+            {allApps.map((app) => (
+              <th key={app.id} style={{ minWidth: "120px" }}>
+                {app.app_name}
+              </th>
+            ))}
+          </tr>
+        </thead>
 
+        {/* BODY */}
+        <tbody>
+          {buildUserAppMatrix(allApps).length === 0 ? (
+            <tr>
+              <td colSpan={allApps.length + 1} className="py-4 text-muted">
+                No assigned users found
+              </td>
+            </tr>
+          ) : (
+            buildUserAppMatrix(allApps).map(({ user, apps }) => (
+              <tr key={user.id}>
+                {/* User Cell */}
+                <td className="d-flex align-items-center gap-1 text-start">
+                  <img
+                    src={user.profilelink}
+                    className="rounded-circle"
+                    style={{objectFit:"contain"}}
+                    width="35"
+                    height="35"
+                    alt={user.username}
+                  />
+                  {/* <span className="fw-medium">{user.username}</span> */}
+                </td>
 
+                {/* App Assignment Cells */}
+                {allApps.map((app) => (
+                  <td key={app.id}>
+                    {apps[app.id] ? (
+                      <span title="Assigned">👤</span>
+                    ) : (
+                      <span title="Not Assigned" className="text-muted">❌</span>
+                    )}
+                  </td>
+                ))}
+  
 
+              </tr>
+            ))
+          )}
+        </tbody>
 
-
-
-
+      </table>
+    </div>
+  </div>
+)}
 
 
 
           </main>
- {/* {showEditModal && (
-  <>
-    <div className="modal-backdrop fade show"></div>
-
-    <div className="modal d-block" tabIndex="-1">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content p-4">
-
-          <h5 className="mb-3">
-            Update Assigned Users for <strong>{selectedApp?.app_name}</strong>
-          </h5>
-
-          <div style={{ maxHeight: "300px", overflowY: "auto" }}>
-            {allUsers.length === 0 && selectedUsers.length === 0 && (
-              <p className="text-muted">No users available.</p>
-            )}
-
-            {[
-              // Merge assigned users with all users, avoid duplicates
-              ...allUsers,
-              ...selectedUsers
-                .filter(email => !allUsers.some(u => u.email.toLowerCase() === email.toLowerCase()))
-                .map(email => ({ id: email, username: email, email }))
-            ]
-              .sort((a, b) => a.username.localeCompare(b.username))
-              .map(user => (
-                <div key={user.id} className="form-check mb-2">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id={`user-${user.id}`}
-                    checked={selectedUsers
-                      .map(e => e.toLowerCase())
-                      .includes(user.email.toLowerCase())}
-                    onChange={(e) => {
-                      const email = user.email;
-                      if (e.target.checked) {
-                        setSelectedUsers([...selectedUsers, email]);
-                      } else {
-                        setSelectedUsers(
-                          selectedUsers.filter(em => em.toLowerCase() !== email.toLowerCase())
-                        );
-                      }
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor={`user-${user.id}`}>
-                    {user.username} 
-                  </label>
-                </div>
-              ))}
-          </div>
-
-          <div className="mt-3 d-flex justify-content-end">
-            <button className="btn btn-secondary me-2" onClick={() => setShowEditModal(false)}>
-              Cancel
-            </button>
-            <button className="btn btn-primary" onClick={updateAssignedUsers}>
-              Save
-            </button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    
-  </>
-)} */}
 
 {showEditModal && (
   <>

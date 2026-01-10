@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import datasolvelogo from '../assets/datasolve-icon.png'
-
+import '../css/footer.css'
 const Footer = () => {
   return (
-    <footer className=" text-dark py-4 mt-auto bg-body-tertiary">
-      <div className="container text-center">
+    <footer className=" text-dark py-4 mt-auto  " id="footerbg" >
+      <div className="container text-center ">
         
         
         {/* Logo */}

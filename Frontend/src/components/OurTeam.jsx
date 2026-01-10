@@ -39,9 +39,9 @@ data = data.filter(
 
   return (
     <div className="container-fluid my-5">
-      <hr className="mb-5" />
+ 
       <div className="row justify-content-center g-4 teammembers">
-        <h4 className="text-center text-dark fw-bold" id="teams">Our Team</h4>
+        <h4 className="text-center text-white fw-bold" id="teams">Our Team</h4>
         {error && <p className="text-danger text-center">{error}</p>}
         {/* {profiles.map((member, index) => (
           <div className="col-lg-2 col-md-3 col-sm-6 col-10" key={index}>

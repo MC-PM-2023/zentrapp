@@ -2,8 +2,9 @@
 
    
    .teammembers{
-    background: url("../assets/Zentra6.jpg");
-    background-repeat: no-repeat;
+    /* background: url("../assets/Zentra6.jpg"); */
+     background: url("https://storage.googleapis.com/my-react-image-bucket-123/Celebrations/Pongal/Pongal_bg_03.jpg") no-repeat ;
+     background-position: center;
     padding: 2%;
    }
 .team-card {

@@ -83,7 +83,7 @@ const Adminheader = () => {
                 width={45}
                 role="button"
                 data-bs-toggle="dropdown"
-                style={{ objectFit:'cover', cursor:'pointer' }}
+                style={{ objectFit:'contain', cursor:'pointer' }}
               />
 
               <ul
