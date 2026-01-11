@@ -1,11 +1,7 @@
-
-
-
-/* #footerbg {
-    background: url("https://storage.googleapis.com/my-react-image-bucket-123/Celebrations/Pongal/Pongal_bg_05.png")
-                no-repeat center center;
-    background-size: cover;
-    min-height: 200px; 
-    
-  
-} */
+#footerbg {
+  background-image: url("https://storage.googleapis.com/my-react-image-bucket-123/Celebrations/Pongal/Pongal_bg_05.png");
+  /* background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;  */
+  min-height: 200px;
+}
