@@ -1211,6 +1211,10 @@ const getBadgeColor = (role) => {
     <small>Superadmin</small>
   </div>
 
+ <div className="d-flex align-items-center gap-2">
+    <span className="">  ❌</span>
+    <small>Unassigned</small>
+  </div>
 
 </div>
 
