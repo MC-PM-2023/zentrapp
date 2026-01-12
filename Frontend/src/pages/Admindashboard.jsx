@@ -1232,7 +1232,7 @@ const getBadgeColor = (role) => {
     <div
       className="table-responsive shadow-sm rounded-4"
       style={{
-        maxHeight: "800px",
+        maxHeight: "670px",
         overflowY: "auto",
         border: "1px solid #e0e0e0",
       }}
