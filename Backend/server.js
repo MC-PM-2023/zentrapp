@@ -202,6 +202,8 @@ import Approuter from './routes/Approutes.js';
 import { userProfilesRouter } from './routes/Userprofilesroutes.js';
 import logrouter from './routes/logactivityroutes.js';
 import { Herorouter } from './routes/Heroroutes.js';
+import { getAssignedChart } from './controllers/userchartcontroller.js';
+import userchartrouter from './routes/userchartroutes.js';
 dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -250,6 +252,7 @@ app.use("/api/admin/apps", Approuter);
 app.use("/api/userprofiles", userProfilesRouter);
 app.use("/api/log",logrouter)
 app.use("/api/user",Herorouter)
+app.use("/api/assignedchart",userchartrouter)
 
 // ===== Serve frontend SPA =====
 const frontendDist = path.join(__dirname, '../Frontend/dist');

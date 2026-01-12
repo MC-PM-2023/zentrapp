@@ -23,7 +23,7 @@ const Admindashboard = ({ title }) => {
   const [roles, setRoles] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedRole, setSelectedRole] = useState("");
-  
+  const [assignedUserChart,setAssignedUserChart] = useState([]);
 const [searchTerm, setSearchTerm] = useState("");
 
 
@@ -485,24 +485,33 @@ const filteredApps = allApps.filter((item) =>
 
 
 
-const buildUserAppMatrix = (apps) => {
-  const usersMap = {};
 
-  apps.forEach((app) => {
-    app.assignedUsers.forEach((user) => {
-      if (!usersMap[user.id]) {
-        usersMap[user.id] = {
-          user,
-          apps: {},
-        };
-      }
-      usersMap[user.id].apps[app.id] = true;
-    });
-  });
 
-  return Object.values(usersMap);
+
+const fetchUserAssignedChartApps = async () => {
+    try {
+      const response = await axios.get(`${apiurl}/api/assignedchart/userassignedchart`);
+      setAssignedUserChart(response.data.data); // store data in state
+    } catch (error) {
+      console.error('Error fetching user chart apps:', error);
+      setAssignedUserChart([]); // fallback to empty array
+    }
+  };
+
+  useEffect(() => {
+    fetchUserAssignedChartApps(); // fetch on component mount
+  }, []); // empty dependency array ensures it runs once
+
+
+
+const getBadgeColor = (role) => {
+  if (!role) return "secondary"; // default gray
+  if (role.includes("Admin")) return "danger"; // red
+  if (role.includes("User")) return "primary"; // blue
+  if (role.includes("Manager")) return "success"; // green
+  if (role.includes("Lead Developer")) return "purple"; 
+  return "secondary"; // gray for other roles
 };
-
 
   // ------------------------ Render ------------------------
   return (
@@ -1161,76 +1170,357 @@ const buildUserAppMatrix = (apps) => {
   </div>
 )}
 
+ 
+  <>
 
 {activeTab === "assigneduserschart" && (
-  <div className="container py-4">
-    <div className="table-responsive shadow-sm rounded-4">
-      <table className="table align-middle text-center mb-0">
-        
-        {/* HEADER */}
-        <thead className="table-light">
-          <tr>
-            <th
-              style={{ textAlign: "left", minWidth: "220px" }}
-              className="sticky-top bg-light"
-            >
-              
-            </th>
+  <>
+  <div className="d-flex flex-wrap gap-3 p-2  rounded ">
+  {/* Bubble Roles */}
+  <div className="d-flex align-items-center gap-2 ">
+     <span className="badge bg-warning">&nbsp;</span>
+    <small>User Champion</small>
 
-            {allApps.map((app) => (
-              <th key={app.id} style={{ minWidth: "120px" }}>
-                {app.app_name}
-              </th>
-            ))}
-          </tr>
-        </thead>
+
+    
+  </div>
+
+  <div className="d-flex align-items-center gap-2 ">
+    <span className="badge " 
+          style={{width: "20px", height: "20px", backgroundColor: "#6f42c1"}}> </span>
+    <small>Lead Developer</small>
+  </div>
+
+  {/* Bottom Badges */}
+  <div className="d-flex align-items-center gap-2">
+    <span className="badge bg-danger">&nbsp;</span>
+    <small>Admin</small>
+  </div>
+
+  <div className="d-flex align-items-center gap-2">
+    <span className="badge bg-primary">&nbsp;</span>
+    <small>User</small>
+  </div>
+
+  <div className="d-flex align-items-center gap-2">
+    <span className="badge bg-success">&nbsp;</span>
+    <small>Manager</small>
+  </div>
+   <div className="d-flex align-items-center gap-2">
+    <span className="badge bg-secondary">&nbsp;</span>
+    <small>Superadmin</small>
+  </div>
+
+
+</div>
+
+    <div
+    className="w-100 h-100 p-0 mt-2"
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh", // Full viewport height
+      width: "100%",
+      padding: "16px",
+      boxSizing: "border-box",
+    }}
+  >
+    <div
+      className="table-responsive shadow-sm rounded-4"
+      style={{
+        maxHeight: "670px",
+        overflowY: "auto",
+        border: "1px solid #e0e0e0",
+      }}
+    >
+      <table className="table table-hover align-middle text-center mb-0 ">
+        {/* HEADER */}
+    <thead
+  className="table-light"
+  style={{
+    position: "sticky",
+    top: 0,
+   
+    zIndex: 10,
+    boxShadow: "0 2px 2px -1px rgba(0,0,0,0.1)",
+    borderBottom: "2px solid #dee2e6",
+  }}
+>
+  <tr>
+    {/* User column */}
+    <th
+      style={{
+        textAlign: "left",
+        minWidth: "220px",
+        backgroundColor: "#ffffff",
+        padding: "12px 16px",
+        fontSize: "0.9rem",
+        fontWeight: 600,
+        color: "#495057",
+        fontWeight:"bold"
+      }}
+    >
+      User
+    </th>
+
+    {/* Dynamic app columns */}
+    {Object.keys(assignedUserChart[0] || {})
+      .filter(
+        (key) =>
+          !["id", "username", "Email_ID", "Image_URL"].includes(key)
+      )
+      .map((appKey) => (
+        <th
+          key={appKey}
+          style={{
+            minWidth: "100%",
+            backgroundColor: "#ffffff",
+           
+            fontSize: "0.85rem",
+            textAlign: "center",
+            padding: "12px 8px",
+            color: "#495057",
+               fontWeight:"bold",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {appKey}
+        </th>
+
+       
+      ))}
+  </tr>
+</thead>
+
 
         {/* BODY */}
-        <tbody>
-          {buildUserAppMatrix(allApps).length === 0 ? (
-            <tr>
-              <td colSpan={allApps.length + 1} className="py-4 text-muted">
-                No assigned users found
-              </td>
-            </tr>
-          ) : (
-            buildUserAppMatrix(allApps).map(({ user, apps }) => (
-              <tr key={user.id}>
-                {/* User Cell */}
-                <td className="d-flex align-items-center gap-1 text-start">
+   <tbody>
+  {assignedUserChart.length === 0 ? (
+    <tr>
+      <td
+        colSpan={Object.keys(assignedUserChart[0] || {}).length + 1}
+        className="py-4 text-muted text-center"
+      >
+        No assigned users found
+      </td>
+    </tr>
+  ) : (
+    assignedUserChart.map((user) => (
+      <tr key={user.id} className="align-middle">
+        {/* User Cell */}
+        <td className="d-flex align-items-center gap-2 text-start p-2">
+          <img
+            src={user.Image_URL}
+            className="rounded-circle border"
+            style={{
+              width: "60px",
+              height: "60px",
+              objectFit: "contain",
+              border: "1px solid #dee2e6",
+            }}
+            alt={user.username}
+          />
+          <div className="text-start">
+            <small className="fw-semibold">{user.username}</small>
+            {/* Optional email */}
+            {/* <br /><small className="text-muted">{user.Email_ID}</small> */}
+          </div>
+        </td>
+
+        {/* App Cells */}
+        {Object.keys(user)
+          .filter(
+            (key) =>
+              !["id", "username", "Email_ID", "Image_URL"].includes(key)
+          )
+          .map((appKey) => {
+            const role = user[appKey];
+
+            if (!role || role === "Not Applicable") {
+              return (
+                <td key={appKey} className="p-2 text-center">
+                  <span
+                    title="Not Assigned"
+                    className="text-muted"
+                    style={{ fontSize: "0.85rem" }}
+                  >
+                    ❌
+                  </span>
+                </td>
+              );
+            }
+
+            // Split roles if pipe exists
+            // const parts = role.split("|").map((r) => r.trim());
+            // let bubbleRole = null;
+            // let badgeRole = null;
+
+            // Show "User Champion" in bubble if present
+            // if (parts.includes("User Champion") ) {
+            //   bubbleRole = "UC";
+            //   badgeRole = parts.filter((r) => r !== "User Champion").join(" | ") || null;
+            // } else if (parts.length > 1) {
+            //   bubbleRole = parts[0];
+            //   badgeRole = parts[1];
+            // } else {
+            //   bubbleRole = null;
+            //   badgeRole = parts[0];
+            // }
+
+
+            const parts = role.split("|").map(r => r.trim());
+
+let bubbleRole = null;
+let badgeRole = null;
+
+// Determine bubble role
+if (parts.includes("User Champion")) {
+  bubbleRole = "UC";
+} else if (parts.includes("Lead Developer")) {
+  bubbleRole = "LD";
+}
+
+// Bottom badge: all roles except bubble
+badgeRole = parts
+  .filter(p => p !== "User Champion" && p !== "Lead Developer")
+  .join(" | ") || null;
+
+
+
+            return (
+              <td
+                key={appKey}
+                className="p-2 text-center position-relative"
+                style={{
+                  verticalAlign: "middle",
+                  minWidth: "80px",
+                  transition: "all 0.2s",
+                }}
+              >
+                <div
+                  className="d-flex flex-column align-items-center justify-content-center position-relative"
+                  style={{ minHeight: "60px" }}
+                >
+                  {/* Avatar */}
                   <img
-                    src={user.profilelink}
-                    className="rounded-circle"
-                    style={{objectFit:"contain"}}
-                    width="35"
-                    height="35"
+                    src={user.Image_URL}
+                    className="rounded-circle border"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      objectFit: "contain",
+                      border: "1px solid #dee2e6",
+                    }}
                     alt={user.username}
                   />
-                  {/* <span className="fw-medium">{user.username}</span> */}
-                </td>
 
-                {/* App Assignment Cells */}
-                {allApps.map((app) => (
-                  <td key={app.id}>
-                    {apps[app.id] ? (
-                      <span title="Assigned">👤</span>
-                    ) : (
-                      <span title="Not Assigned" className="text-muted">❌</span>
-                    )}
-                  </td>
-                ))}
-  
+                  {/* Bubble Role */}
+                  {/* {bubbleRole && (
+                    <span
+                      className="position-absolute  translate-middle badge rounded-pill bg-warning text-dark"
+                      style={{
+                        fontSize: "0.7rem",
+                        padding: "2px 6px",
+                        transform: "translate(-50%, -50%)",
+                        boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                        top:"10px",
+                        right:"10px"
+                        
+                      }}
+                      title={bubbleRole}
+                    >
+                      {bubbleRole}
+                    </span>
+                  )} */}
 
-              </tr>
-            ))
-          )}
-        </tbody>
+                  {bubbleRole && (
+  <span
+    className="position-absolute translate-middle badge rounded-pill text-white"
+    style={{
+      fontSize: "0.7rem",
+      padding: "2px 6px",
+      transform: "translate(-50%, -50%)",
+      boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
+      top: "0px",
+      right: "15px",
+      backgroundColor: (() => {
+        switch (bubbleRole) {
+          case "UC": // User Champion
+            return "#ffc107"; // yellow
+          case "LD": // Lead Developer
+            return "#6f42c1"; // purple
+          case "Admin":
+            return "#dc3545"; // red
+          case "User":
+            return "#0d6efd"; // blue
+          case "Manager":
+            return "#198754"; // green
+              case "SuperAdmin":
+            return "#d7d7d7"; // green
+          default:
+            return "#6c757d"; // gray
+        }
+      })(),
+      color: bubbleRole === "UC" ? "#000" : "#fff", // black text for yellow
+    }}
+    title={bubbleRole}
+  >
+    {bubbleRole}
+  </span>
+)}
+
+
+                  {/* Badge Role */}
+                  {/* {badgeRole && (
+                    <span
+                      // className="badge bg-primary text-white mt-1"
+                      
+                      style={{
+                        fontSize: "0.7rem",
+                        padding: "2px 5px",
+                      }}
+                      title={badgeRole}
+                    >
+                      {badgeRole}
+                    </span>
+                  )} */}
+                  {badgeRole && (
+  <span
+    className={`badge bg-${getBadgeColor(badgeRole)} text-white mt-1`}
+    style={{
+      fontSize: "0.7rem",
+      padding: "2px 5px",
+    }}
+    title={badgeRole}
+  >
+    {badgeRole}
+  </span>
+)}
+
+                </div>
+              </td>
+            );
+          })}
+      </tr>
+    ))
+  )}
+</tbody>
 
       </table>
     </div>
+      <footer className="text-center mt-1 border-top">
+      <small className="text-muted">
+        © {new Date().getFullYear()} Datasolve Analytics · All Rights Reserved
+      </small>
+    </footer>
   </div>
+  
+  </>
 )}
 
+  
+
+</>
 
 
           </main>
