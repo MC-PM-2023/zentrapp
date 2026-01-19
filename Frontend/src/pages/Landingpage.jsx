@@ -210,7 +210,7 @@ const LandingPage = ({ title }) => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top" id="home">
   <div className="container-fluid px-3 d-flex align-items-center justify-content-between">
 
-    {/* Left: Brand Logo */}
+ 
     <NavLink className="navbar-brand d-flex align-items-center" to="/home">
       <img
         src="https://storage.googleapis.com/my-react-image-bucket-123/DataSolveLogo.jpg"
@@ -220,7 +220,7 @@ const LandingPage = ({ title }) => {
       />
     </NavLink>
 
-    {/* Center: Welcome Message */}
+{/*   
     <div className="text-center">
       <div
         style={{
@@ -247,9 +247,9 @@ const LandingPage = ({ title }) => {
         
       </div>
       
-    </div>
+    </div> */}
 
-    {/* Right: App Logo + Profile */}
+    
     <div className="d-flex align-items-center ">
       <NavLink className='navbar-brand d-flex align-items-center' to='/home'>
         <img

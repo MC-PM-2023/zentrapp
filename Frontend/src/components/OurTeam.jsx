@@ -41,48 +41,9 @@ data = data.filter(
     <div className="container-fluid my-5">
  
       <div className="row justify-content-center g-4 teammembers">
-        <h4 className="text-center text-white fw-bold" id="teams">Our Team</h4>
+        <h4 className="text-center text-dark fw-bold" id="teams">Our Team</h4>
         {error && <p className="text-danger text-center">{error}</p>}
-        {/* {profiles.map((member, index) => (
-          <div className="col-lg-2 col-md-3 col-sm-6 col-10" key={index}>
-            <div className="card h-100 border-0 shadow-sm">
-              {/* Image *
-              <div className="ratio ratio-1x1 overflow-hidden">
-                <img
-                  src={member.Image_URL}
-                  alt={member.Name}
-                  className="card-img-top object-fit-contain rounded-circle"
-                />
-              </div>
 
-              {/* Body *
-              <div className="card-body text-center">
-                <h6 className="card-title fw-semibold mb-1">{member.Name}</h6>
-                <small className="text-muted d-block mb-3">{member.Designation}</small>
-
-                {/* Social Icons *
-                <div className="d-flex justify-content-center gap-3">
-                  {member.LinkedIn_URL && (
-                    <a href={member.LinkedIn_URL} target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                      <i className="bi bi-linkedin text-dark fs-5"></i>
-                    </a>
-                  )}
-                  {member.Email_ID && (
-                    <a href={`mailto:${member.Email_ID}`} title={member.Email_ID}>
-                      <i className="bi bi-envelope text-dark fs-5"></i>
-                    </a>
-                  )}
-                  {member.Slack_URL && (
-                    <a href={member.Slack_URL} target="_blank" rel="noopener noreferrer" title="Slack">
-                      <i className="bi bi-slack text-dark fs-5"></i>
-                    </a>
-                  )}
-                </div>
-              </div>
-
-            </div>
-          </div>
-        ))} */}
 
         {profiles.map((member, index) => (
   <div className="col-lg-2 col-md-3 col-sm-6 col-10" key={index}>

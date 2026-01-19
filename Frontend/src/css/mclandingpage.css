@@ -81,19 +81,19 @@
 
 
 .project-section {
-  /* background: url('../assets/Zentrabackground.jpg') no-repeat center center; */
-  background: url('https://storage.googleapis.com/my-react-image-bucket-123/Celebrations/Pongal/Pongal_bg_01.jpg') no-repeat center center;
+  background: url('../assets/Zentrabackground.jpg') no-repeat center center;
+  /* background: url('https://storage.googleapis.com/my-react-image-bucket-123/Celebrations/Pongal/Pongal_bg_01.jpg') no-repeat center center; */
   background-size: cover;
   width: 100%;
   padding: 20px;
   
 }
-#apps{
+/* #apps{
   background-color:white;
   border-radius: 10px;
   padding: 5px;
   
-}
+} */
 
 .user-popup-card {
   position: absolute;
